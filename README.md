@@ -78,7 +78,7 @@ npm run dev
 | :--- | :--- | :--- |
 | `npm run dev` | **Next.js Dev Server** | Launches App Router dev server on http://localhost:3000 |
 | `npm run dev:open` | **Dev Server + Browser** | Launches dev server and automatically opens http://localhost:3000 in browser |
-| `npm run dev:all` | **Full Dev Environment** | Launches Next.js dev server & Vitest UI, auto-opening browser tabs for both |
+| `npm run dev:all` | **Full Dev Environment** | Launches Next.js dev server & CLI terminal test watcher, auto-opening http://localhost:3000 |
 | `npm run verify` | **Master 7-Gateway Gatekeeper** | Secrets, Types, Tests (≥ 85% cov), Living Docs, ADRs, Lint, Knip, Build |
 | `npm test` | **Vitest Test Suite** | Runs all unit and integration tests with v8 code coverage reporting |
 | `npm run test:ui` | **Vitest Graphical UI** | Interactive test explorer & execution visualizer |

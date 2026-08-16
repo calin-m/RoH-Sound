@@ -35,11 +35,12 @@ All ADRs in `docs/DECISIONS.md` must adhere to standard schema (Status, Date, Co
 - **Artifact Cleansing:** Temporary scratch files, unformatted test artifacts, and build caches (`.next/`, `coverage/`) must remain strictly excluded from git.
 - **Continuous Scan:** Pass 0.5 executes pattern-matching secret scanning against all repository files prior to build.
 
-### Rule 9: Conventional Commit Formatting & Pre-Commit Inspection Protocol
-Before creating any git commit:
-1. Always inspect staged changes via `git status --short` and `git diff --staged`.
-2. Format commit messages using standard Conventional Commits with distinct multi-part `-m` flags for clear provenance:
+### Rule 9: Conventional Commit Formatting & User-Driven Commit Execution Protocol
+- **Agent Role:** The AI agent is strictly prohibited from executing `git commit` or `git push` directly.
+- **Diff Inspection & Command Formulation:** The agent must inspect staged changes via `git status --short` and `git diff` to formulate standard Conventional Commit commands with distinct multi-part `-m` flags for clear provenance.
+- **User Execution:** The agent presents the fully-formulated commit command in markdown code blocks for the human developer to review and execute in their terminal:
 \`\`\`bash
+git add .
 git commit \
   -m "feat(scope): concise imperative summary" \
   -m "[PHASE]: Implementation phase or milestone" \

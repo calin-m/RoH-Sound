@@ -2,16 +2,19 @@
   "$schema": "https://unpkg.com/knip@5/overview/schema.json",
   "entry": [
     "src/app/**/*.{ts,tsx}",
+    "src/components/ui/*.tsx",
     "src/mocks/browser.ts",
     "src/mocks/server.ts",
-    "scripts/**/*.js",
-    "vitest.config.mts"
+    "src/mocks/handlers.ts",
+    "scripts/**/*.js"
   ],
   "project": ["src/**/*.{ts,tsx}", "scripts/**/*.js"],
   "ignoreDependencies": [
-    "@tailwindcss/postcss",
-    "@vitest/coverage-v8",
-    "@vitest/ui",
-    "postcss"
-  ]
+    "@oxc-parser/binding-wasm32-wasi",
+    "husky",
+    "tailwindcss"
+  ],
+  "rules": {
+    "exports": "warn"
+  }
 }

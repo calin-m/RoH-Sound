@@ -2,7 +2,7 @@
 
 > [!NOTE]
 > This audit report is **100% auto-generated** by the Closed-Loop Quality Engine (`scripts/generate-quality-report.js`).
-> **Audit Timestamp:** `2026-08-16T10:50:41.554Z`
+> **Audit Timestamp:** `2026-08-16T12:43:35.356Z`
 > **Overall Quality Gate Status:** **`PASSED`**
 
 ---
@@ -24,16 +24,16 @@
 
 | Test Suite File | Execution Status | Tests Run | Duration |
 | :--- | :--- | :--- | :--- |
-| ✅ `src/app/page.test.tsx` | `PASSED` | 7 tests | 929.55517578125ms |
-| ✅ `src/lib/utils.test.ts` | `PASSED` | 3 tests | 8.3232421875ms |
-| ✅ `src/stores/useAppStore.test.ts` | `PASSED` | 8 tests | 5.311279296875ms |
-| ✅ `src/components/ui/Badge.test.tsx` | `PASSED` | 2 tests | 57.392333984375ms |
-| ✅ `src/components/ui/Button.test.tsx` | `PASSED` | 5 tests | 203.843505859375ms |
-| ✅ `src/components/ui/Card.test.tsx` | `PASSED` | 1 tests | 160.135009765625ms |
-| ✅ `src/components/ui/Input.test.tsx` | `PASSED` | 3 tests | 167.2978515625ms |
-| ✅ `src/components/ui/Modal.test.tsx` | `PASSED` | 5 tests | 179.99658203125ms |
-| ✅ `src/hooks/queries/useAppConfig.test.tsx` | `PASSED` | 2 tests | 105.6494140625ms |
-| ✅ `src/hooks/queries/useAppStatus.test.tsx` | `PASSED` | 3 tests | 183.22119140625ms |
+| ✅ `src/app/page.test.tsx` | `PASSED` | 7 tests | 885.695068359375ms |
+| ✅ `src/lib/utils.test.ts` | `PASSED` | 3 tests | 11.606689453125ms |
+| ✅ `src/stores/useAppStore.test.ts` | `PASSED` | 8 tests | 5.378173828125ms |
+| ✅ `src/hooks/queries/useAppConfig.test.tsx` | `PASSED` | 2 tests | 111.40478515625ms |
+| ✅ `src/hooks/queries/useAppStatus.test.tsx` | `PASSED` | 3 tests | 180.4921875ms |
+| ✅ `src/components/ui/Badge.test.tsx` | `PASSED` | 2 tests | 55.2216796875ms |
+| ✅ `src/components/ui/Button.test.tsx` | `PASSED` | 5 tests | 214.776611328125ms |
+| ✅ `src/components/ui/Card.test.tsx` | `PASSED` | 1 tests | 175.1298828125ms |
+| ✅ `src/components/ui/Input.test.tsx` | `PASSED` | 3 tests | 179.0634765625ms |
+| ✅ `src/components/ui/Modal.test.tsx` | `PASSED` | 5 tests | 192.568359375ms |
 
 ---
 
