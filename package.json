@@ -1,0 +1,53 @@
+{
+  "name": "enterprise-app-foundation",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --coverage",
+    "test:ui": "vitest --ui",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "knip": "knip",
+    "verify": "node scripts/verify-build.js",
+    "report": "node scripts/generate-quality-report.js",
+    "docs:sync": "node scripts/generate-architecture-matrix.js && node scripts/generate-quality-report.js && node scripts/generate-changelog.js",
+    "adr:new": "node scripts/new-adr.js"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.101.4",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.31.0",
+    "next": "16.3.1",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "tailwind-merge": "^3.6.0",
+    "zustand": "^5.0.15"
+  },
+  "devDependencies": {
+    "@oxc-parser/binding-wasm32-wasi": "^0.144.0",
+    "@tailwindcss/postcss": "^4",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^4.3.4",
+    "@vitest/coverage-v8": "^4.1.10",
+    "@vitest/ui": "^4.1.10",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.1",
+    "husky": "^9.1.7",
+    "jsdom": "^30.0.1",
+    "knip": "^6.32.2",
+    "msw": "^2.15.0",
+    "tailwindcss": "^4",
+    "typescript": "^5",
+    "vitest": "^4.1.10"
+  }
+}
