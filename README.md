@@ -76,6 +76,8 @@ npm run dev
 
 | Command | Purpose | Verification Scope |
 | :--- | :--- | :--- |
+| `npm run dev` | **Next.js Dev Server** | Launches App Router dev server on http://localhost:3000 |
+| `npm run dev:all` | **Full Dev Environment** | Runs Next.js dev server and Vitest test watcher concurrently |
 | `npm run verify` | **Master 7-Gateway Gatekeeper** | Secrets, Types, Tests (≥ 85% cov), Living Docs, ADRs, Lint, Knip, Build |
 | `npm test` | **Vitest Test Suite** | Runs all unit and integration tests with v8 code coverage reporting |
 | `npm run test:ui` | **Vitest Graphical UI** | Interactive test explorer & execution visualizer |

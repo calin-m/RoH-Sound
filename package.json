@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:all": "concurrently -n next,test -c blue,magenta \"next dev\" \"vitest\"",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
@@ -40,6 +41,7 @@
     "@vitejs/plugin-react": "^4.3.4",
     "@vitest/coverage-v8": "^4.1.10",
     "@vitest/ui": "^4.1.10",
+    "concurrently": "^9.1.2",
     "eslint": "^9",
     "eslint-config-next": "16.3.1",
     "husky": "^9.1.7",
