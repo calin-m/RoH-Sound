@@ -1,38 +1,14 @@
 'use client';
 
 import React from 'react';
-import { useProductStore, ANCMode } from '@/stores/useProductStore';
+import { useProductStore } from '@/stores/useProductStore';
 import { SectionHeader } from './SectionHeader';
 import { AcousticWaveform } from './AcousticWaveform';
 import { SpatialRadar } from './SpatialRadar';
+import { AncModeSelector, ancModesList } from './AncModeSelector';
+import { SpatialAudioController } from './SpatialAudioController';
 import { MotionReveal } from '../motion/MotionReveal';
 import { Sliders, Compass, Radio } from 'lucide-react';
-
-const ancModes: {
-  id: ANCMode;
-  name: string;
-  reduction: string;
-  desc: string;
-}[] = [
-  {
-    id: 'transparency',
-    name: 'Natural Transparency',
-    reduction: '0dB (Binaural Pass-Through)',
-    desc: 'Microphones feed ambient speech and acoustics naturally into the soundstage.',
-  },
-  {
-    id: 'balanced',
-    name: 'Balanced Studio',
-    reduction: '-25dB Attenuation',
-    desc: 'Ideal for creative studio environments, filtering HVAC and low-frequency drone.',
-  },
-  {
-    id: 'ultra',
-    name: 'Ultra Hybrid ANC',
-    reduction: '-48dB Neural Cancellation',
-    desc: 'Quad-feedforward microphones completely isolate engine and transit rumble.',
-  },
-];
 
 export const SoundExperience: React.FC = () => {
   const {
@@ -43,6 +19,8 @@ export const SoundExperience: React.FC = () => {
     isSpatialActive,
     toggleSpatial,
   } = useProductStore();
+
+  const activeAnc = ancModesList.find((m) => m.id === ancMode);
 
   return (
     <section id="experience" className="py-24 px-4 sm:px-8 bg-white border-y border-black/[0.06]">
@@ -75,41 +53,15 @@ export const SoundExperience: React.FC = () => {
                     <span>Active Noise Cancellation Matrix</span>
                   </div>
                   <span className="font-mono text-xs text-zinc-500">
-                    {ancModes.find((m) => m.id === ancMode)?.reduction}
+                    {activeAnc?.reduction}
                   </span>
                 </div>
 
                 {/* Dynamic Waveform Sub-Component */}
                 <AcousticWaveform mode={ancMode} className="mb-6" />
 
-                {/* Mode Selectors */}
-                <div className="flex flex-col gap-2.5">
-                  {ancModes.map((mode) => (
-                    <button
-                      key={mode.id}
-                      onClick={() => setAncMode(mode.id)}
-                      className={`w-full text-left p-3.5 rounded-2xl border transition-all duration-200 flex items-start justify-between cursor-pointer ${
-                        ancMode === mode.id
-                          ? 'bg-white border-zinc-950 shadow-sm ring-1 ring-zinc-950/10'
-                          : 'bg-white/50 border-black/[0.04] hover:bg-white hover:border-black/[0.08]'
-                      }`}
-                    >
-                      <div>
-                        <div className="text-xs font-semibold text-zinc-900">{mode.name}</div>
-                        <div className="text-xs text-zinc-500 font-light mt-0.5">{mode.desc}</div>
-                      </div>
-                      <span
-                        className={`text-[11px] font-mono font-medium px-2 py-0.5 rounded-full ${
-                          ancMode === mode.id
-                            ? 'bg-zinc-950 text-white'
-                            : 'bg-zinc-100 text-zinc-600'
-                        }`}
-                      >
-                        {mode.id === 'ultra' ? '-48dB' : mode.id === 'balanced' ? '-25dB' : '0dB'}
-                      </span>
-                    </button>
-                  ))}
-                </div>
+                {/* Modular ANC Mode Selector */}
+                <AncModeSelector currentMode={ancMode} onSelectMode={setAncMode} />
               </div>
             </div>
           </MotionReveal>
@@ -124,18 +76,8 @@ export const SoundExperience: React.FC = () => {
                     <span>360° Spatial Audio Orbit</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <button
-                      onClick={toggleSpatial}
-                      className={`px-3 py-1 rounded-full text-[10px] font-mono font-medium transition-all cursor-pointer ${
-                        isSpatialActive
-                          ? 'bg-zinc-950 text-white'
-                          : 'bg-zinc-100 text-zinc-600'
-                      }`}
-                    >
-                      {isSpatialActive ? 'Spatial ON' : 'Spatial OFF'}
-                    </button>
                     <span className="font-mono text-xs text-zinc-500 font-semibold">
-                      {spatialAngle}°
+                      {spatialAngle}° Azimuth
                     </span>
                   </div>
                 </div>
@@ -147,28 +89,13 @@ export const SoundExperience: React.FC = () => {
                   className="mb-6"
                 />
 
-                {/* Interactive Angle Slider */}
-                <div className="bg-white p-4 rounded-2xl border border-black/[0.06]">
-                  <div className="flex justify-between text-xs font-mono text-zinc-500 mb-2">
-                    <span>Rotate Position</span>
-                    <span>{spatialAngle}° / 360°</span>
-                  </div>
-                  <input
-                    type="range"
-                    min="0"
-                    max="360"
-                    value={spatialAngle}
-                    onChange={(e) => setSpatialAngle(Number(e.target.value))}
-                    className="w-full h-2 bg-zinc-100 rounded-lg appearance-none cursor-pointer accent-zinc-950"
-                    aria-label="Spatial audio angle slider"
-                  />
-                  <div className="flex justify-between text-[10px] text-zinc-400 font-mono mt-2">
-                    <span>0° Front</span>
-                    <span>90° Right</span>
-                    <span>180° Rear</span>
-                    <span>270° Left</span>
-                  </div>
-                </div>
+                {/* Modular Spatial Audio Controller */}
+                <SpatialAudioController
+                  isActive={isSpatialActive}
+                  angle={spatialAngle}
+                  onToggle={toggleSpatial}
+                  onAngleChange={setSpatialAngle}
+                />
               </div>
             </div>
           </MotionReveal>

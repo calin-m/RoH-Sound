@@ -2,7 +2,7 @@
 
 > [!NOTE]
 > This document is **100% auto-generated** via AST code introspection (`scripts/generate-architecture-matrix.js`). Any manual edits will be overwritten during verification (`npm run verify`) or synchronization (`npm run docs:sync`).
-> **Last Synchronized:** `2026-08-16T15:17:44.228Z`
+> **Last Synchronized:** `2026-08-16T16:07:29.551Z`
 
 ---
 
@@ -103,16 +103,22 @@ flowchart LR
     end
 
     subgraph UIComponents ["Atomic UI Primitives"]
-        UI_0["Badge
+        UI_0["Accordion
+(AccordionItem, Accordion)"]
+        UI_1["Badge
 (Badge)"]
-        UI_1["Button
+        UI_2["Button
 (Button)"]
-        UI_2["Card
+        UI_3["Card
 (Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter)"]
-        UI_3["Input
+        UI_4["Input
 (Input)"]
-        UI_4["Modal
+        UI_5["Modal
 (Modal)"]
+        UI_6["StarRating
+(StarRating)"]
+        UI_7["TrustBadgeBar
+(TrustBadgeBar)"]
     end
 
     subgraph Mocks ["MSW Mock Handlers"]
@@ -132,11 +138,11 @@ flowchart LR
 ## 4. AST-Extracted Component & Module Inventory
 
 Summary of auto-discovered source modules:
-- **Total Source Files Analyzed:** `71`
+- **Total Source Files Analyzed:** `93`
 - **Application Routes:** `2`
 - **State Stores:** `1`
 - **Query Hooks:** `1`
-- **Atomic UI Primitives:** `5`
+- **Atomic UI Primitives:** `8`
 
 ### Module Breakdown Table
 
@@ -146,11 +152,14 @@ Summary of auto-discovered source modules:
 | **Route** | `src/app/page.tsx` | `HomePage` | `@/components/presentation/Navbar, @/components/presentation/HeroSection, @/components/presentation/SoundExperience, @/components/presentation/EngineeringBento, @/components/presentation/ColorStudio, @/components/presentation/TechnicalSpecs, @/components/presentation/ReviewsSection, @/components/presentation/FAQSection, @/components/presentation/Footer, @/components/presentation/CheckoutDrawer` |
 | **Store** | `src/stores/useProductStore.ts` | `COLORWAYS, useProductStore` | `zustand` |
 | **Query** | `src/hooks/queries/useProductData.ts` | `useProductData, useReviewsData, usePreorderMutation` | `@tanstack/react-query, @/mocks/handlers` |
+| **UI Primitive** | `src/components/ui/Accordion.tsx` | `AccordionItem, Accordion` | `react, lucide-react` |
 | **UI Primitive** | `src/components/ui/Badge.tsx` | `badgeVariants, Badge` | `react, class-variance-authority, @/lib/utils` |
 | **UI Primitive** | `src/components/ui/Button.tsx` | `buttonVariants, Button` | `react, class-variance-authority, @/lib/utils` |
 | **UI Primitive** | `src/components/ui/Card.tsx` | `Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter` | `react, @/lib/utils` |
 | **UI Primitive** | `src/components/ui/Input.tsx` | `Input` | `react, @/lib/utils` |
 | **UI Primitive** | `src/components/ui/Modal.tsx` | `Modal` | `react, lucide-react, @/lib/utils, ./Button` |
+| **UI Primitive** | `src/components/ui/StarRating.tsx` | `StarRating` | `react, lucide-react` |
+| **UI Primitive** | `src/components/ui/TrustBadgeBar.tsx` | `TrustBadgeBar` | `react, lucide-react` |
 | **Mock / Network** | `src/mocks/browser.ts` | `worker` | `msw` |
 | **Mock / Network** | `src/mocks/handlers.ts` | `mockProductData, mockReviewsData, handlers` | `msw` |
 | **Mock / Network** | `src/mocks/server.ts` | `server` | `msw` |

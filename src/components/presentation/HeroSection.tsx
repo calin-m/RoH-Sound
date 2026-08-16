@@ -1,9 +1,10 @@
 'use client';
 
 import React from 'react';
-import { useProductStore, ViewAngle } from '@/stores/useProductStore';
+import { useProductStore } from '@/stores/useProductStore';
 import { SectionHeader } from './SectionHeader';
 import { ColorwaySelector, COLORWAYS_LIST } from './ColorwaySelector';
+import { AngleSelector } from './AngleSelector';
 import { HeadphoneVisualizer } from './HeadphoneVisualizer';
 import { MotionReveal } from '../motion/MotionReveal';
 import { MagneticButton } from '../motion/MagneticButton';
@@ -32,7 +33,7 @@ export const HeroSection: React.FC = () => {
         {/* Section Header & Rating Badge */}
         <MotionReveal direction="down" duration={600}>
           <SectionHeader step="01" eyebrow="Acoustic Architecture" className="!mb-6">
-            <div className="flex items-center gap-2 bg-white/80 backdrop-blur-md px-3.5 py-1 rounded-full border border-black/[0.06] text-xs font-medium text-zinc-600 shadow-sm">
+            <div className="flex items-center gap-2 bg-white/80 backdrop-blur-md px-3.5 py-1 rounded-full border border-black/[0.06] text-xs font-medium text-zinc-600 shadow-xs">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
               <span>4.9 / 5.0 Rating • 1,240+ Sound Engineers</span>
             </div>
@@ -91,7 +92,7 @@ export const HeroSection: React.FC = () => {
 
                 <button
                   onClick={toggleDemoPlayback}
-                  className="flex items-center justify-center gap-2 bg-white hover:bg-zinc-50 text-zinc-800 border border-black/[0.08] rounded-full px-5 py-3.5 text-xs font-medium tracking-wider uppercase transition-all shadow-sm hover:shadow shrink-0 min-w-[130px] cursor-pointer"
+                  className="flex items-center justify-center gap-2 bg-white hover:bg-zinc-50 text-zinc-800 border border-black/[0.08] rounded-full px-5 py-3.5 text-xs font-medium tracking-wider uppercase transition-all shadow-xs hover:shadow shrink-0 min-w-[130px] cursor-pointer"
                 >
                   {isPlayingDemo ? (
                     <>
@@ -126,21 +127,11 @@ export const HeroSection: React.FC = () => {
           <div className="lg:col-span-6 flex flex-col items-center justify-center relative">
             {/* View Angle Pill Switcher */}
             <MotionReveal direction="down" delay={200}>
-              <div className="flex items-center gap-1 bg-white/80 backdrop-blur-md p-1 rounded-full border border-black/[0.06] shadow-sm mb-4">
-                {(['front', 'angle', 'side'] as ViewAngle[]).map((angle) => (
-                  <button
-                    key={angle}
-                    onClick={() => setViewAngle(angle)}
-                    className={`px-4 py-1 rounded-full text-[11px] font-medium uppercase tracking-wider transition-all duration-200 cursor-pointer ${
-                      viewAngle === angle
-                        ? 'bg-zinc-950 text-white shadow-sm'
-                        : 'text-zinc-500 hover:text-zinc-950'
-                    }`}
-                  >
-                    {angle}
-                  </button>
-                ))}
-              </div>
+              <AngleSelector
+                currentAngle={viewAngle}
+                onSelectAngle={setViewAngle}
+                className="mb-4"
+              />
             </MotionReveal>
 
             {/* Acoustic Wave Ripple Backing */}

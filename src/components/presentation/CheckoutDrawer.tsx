@@ -5,7 +5,9 @@ import { useProductStore } from '@/stores/useProductStore';
 import { usePreorderMutation } from '@/hooks/queries/useProductData';
 import { ColorwaySelector } from './ColorwaySelector';
 import { LaserEngravingPreview } from './LaserEngravingPreview';
-import { X, ShieldCheck, Truck, Check, Loader2, Sparkles } from 'lucide-react';
+import { PreorderForm } from './PreorderForm';
+import { OrderSuccessCard } from './OrderSuccessCard';
+import { X, ShieldCheck, Truck } from 'lucide-react';
 
 export const CheckoutDrawer: React.FC = () => {
   const {
@@ -94,42 +96,15 @@ export const CheckoutDrawer: React.FC = () => {
           {/* Body Content */}
           <div className="flex-1 overflow-y-auto p-6 space-y-6">
             {orderSuccessData ? (
-              <div className="py-8 text-center space-y-4">
-                <div className="w-16 h-16 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto border border-emerald-200">
-                  <Check className="w-8 h-8" />
-                </div>
-                <h3 className="text-2xl font-light text-zinc-950">
-                  Priority Reservation Confirmed
-                </h3>
-                <p className="text-zinc-600 text-xs font-light max-w-xs mx-auto">
-                  Thank you, <strong className="text-zinc-900">{customerName}</strong>. Your custom RoH Sound set is scheduled for precision calibration.
-                </p>
-
-                <div className="p-4 bg-[#fafaf9] rounded-2xl border border-black/[0.06] text-left space-y-2 font-mono text-xs">
-                  <div className="flex justify-between">
-                    <span className="text-zinc-500">Reservation Code:</span>
-                    <span className="font-bold text-zinc-950">{orderSuccessData.reservationCode}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-zinc-500">Finish:</span>
-                    <span className="capitalize text-zinc-950">{selectedColor}</span>
-                  </div>
-                  {engravingText && (
-                    <div className="flex justify-between">
-                      <span className="text-zinc-500">Engraving:</span>
-                      <span className="text-[#b8934a] font-bold">&ldquo;{engravingText}&rdquo;</span>
-                    </div>
-                  )}
-                  <div className="flex justify-between">
-                    <span className="text-zinc-500">Est. Dispatch:</span>
-                    <span className="text-zinc-950">{orderSuccessData.estimatedShipDate}</span>
-                  </div>
-                  <div className="flex justify-between pt-2 border-t border-black/[0.06]">
-                    <span className="text-zinc-500">Total Billed:</span>
-                    <span className="font-bold text-zinc-950">${totalPrice}</span>
-                  </div>
-                </div>
-
+              <div className="space-y-6">
+                <OrderSuccessCard
+                  customerName={customerName}
+                  reservationCode={orderSuccessData.reservationCode}
+                  selectedColor={selectedColor}
+                  engravingText={engravingText}
+                  hasExtendedWarranty={hasExtendedWarranty}
+                  estimatedShipDate={orderSuccessData.estimatedShipDate}
+                />
                 <button
                   onClick={handleClose}
                   className="w-full bg-zinc-950 text-white rounded-xl py-3 text-xs font-mono uppercase tracking-wider hover:bg-zinc-800 transition-colors cursor-pointer"
@@ -138,7 +113,7 @@ export const CheckoutDrawer: React.FC = () => {
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmitPreorder} className="space-y-6">
+              <div className="space-y-6">
                 {/* 1. Colorway Selection Sub-Component */}
                 <div>
                   <label className="text-xs font-mono uppercase text-zinc-500 block mb-2">
@@ -163,7 +138,7 @@ export const CheckoutDrawer: React.FC = () => {
                   onClick={() => setHasExtendedWarranty(!hasExtendedWarranty)}
                   className={`p-3.5 rounded-2xl border transition-all cursor-pointer flex items-center justify-between ${
                     hasExtendedWarranty
-                      ? 'bg-zinc-950 text-white border-zinc-950 shadow-sm'
+                      ? 'bg-zinc-950 text-white border-zinc-950 shadow-xs'
                       : 'bg-[#fafaf9] border-black/[0.06] text-zinc-700 hover:bg-zinc-50'
                   }`}
                 >
@@ -179,62 +154,18 @@ export const CheckoutDrawer: React.FC = () => {
                   <span className="font-mono text-xs font-semibold shrink-0">+$49</span>
                 </div>
 
-                {/* 4. Customer Contact Details */}
-                <div className="space-y-3 pt-2">
-                  <div>
-                    <label className="text-xs font-mono uppercase text-zinc-500 block mb-1">
-                      Full Name
-                    </label>
-                    <input
-                      required
-                      type="text"
-                      value={customerName}
-                      onChange={(e) => setCustomerName(e.target.value)}
-                      placeholder="Jane Doe"
-                      className="w-full bg-[#fafaf9] border border-black/[0.08] rounded-xl px-3.5 py-2.5 text-xs text-zinc-950 focus:outline-none focus:ring-1 focus:ring-zinc-950"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-xs font-mono uppercase text-zinc-500 block mb-1">
-                      Email for Dispatch Notice
-                    </label>
-                    <input
-                      required
-                      type="email"
-                      value={customerEmail}
-                      onChange={(e) => setCustomerEmail(e.target.value)}
-                      placeholder="jane@studio.com"
-                      className="w-full bg-[#fafaf9] border border-black/[0.08] rounded-xl px-3.5 py-2.5 text-xs text-zinc-950 focus:outline-none focus:ring-1 focus:ring-zinc-950"
-                    />
-                  </div>
-                </div>
-
-                {/* Error Banner if any */}
-                {preorderMutation.isError && (
-                  <div className="p-3 bg-red-50 border border-red-200 text-red-700 text-xs rounded-xl">
-                    Unable to submit reservation. Please check your connection and try again.
-                  </div>
-                )}
-
-                {/* Submit Pre-order Button */}
-                <button
-                  type="submit"
-                  disabled={preorderMutation.isPending}
-                  className="w-full bg-zinc-950 hover:bg-zinc-800 disabled:bg-zinc-400 text-white rounded-full py-4 text-xs font-semibold tracking-widest uppercase transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
-                >
-                  {preorderMutation.isPending ? (
-                    <>
-                      <Loader2 className="w-4 h-4 animate-spin text-[#d4af37]" />
-                      <span>Reserving Serial Number...</span>
-                    </>
-                  ) : (
-                    <>
-                      <Sparkles className="w-4 h-4 text-[#d4af37]" />
-                      <span>Reserve for ${totalPrice}</span>
-                    </>
-                  )}
-                </button>
-              </form>
+                {/* 4. Modular Preorder Form */}
+                <PreorderForm
+                  customerName={customerName}
+                  customerEmail={customerEmail}
+                  onNameChange={setCustomerName}
+                  onEmailChange={setCustomerEmail}
+                  onSubmit={handleSubmitPreorder}
+                  isPending={preorderMutation.isPending}
+                  error={preorderMutation.isError ? 'Unable to submit reservation. Please try again.' : null}
+                  totalPrice={totalPrice}
+                />
+              </div>
             )}
           </div>
 

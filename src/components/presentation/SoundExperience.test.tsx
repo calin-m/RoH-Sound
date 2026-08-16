@@ -25,11 +25,11 @@ describe('SoundExperience', () => {
 
   it('toggles spatial audio and handles rotation slider', () => {
     render(<SoundExperience />);
-    const spatialBtn = screen.getByRole('button', { name: /Spatial ON/i });
+    const spatialBtn = screen.getByRole('button', { name: /Toggle Dynamic Head Tracking/i });
     fireEvent.click(spatialBtn);
     expect(useProductStore.getState().isSpatialActive).toBe(false);
 
-    const slider = screen.getByLabelText(/Spatial audio angle slider/i);
+    const slider = screen.getByLabelText(/Virtual Emitter Angle/i);
     fireEvent.change(slider, { target: { value: '180' } });
     expect(useProductStore.getState().spatialAngle).toBe(180);
   });

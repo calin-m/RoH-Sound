@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useProductStore } from '@/stores/useProductStore';
+import { AcousticNavLink } from '../motion/AcousticNavLink';
 import { ShoppingBag, Menu, X, Sparkles } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
@@ -39,7 +40,7 @@ export const Navbar: React.FC = () => {
       >
         {/* Brand Monogram */}
         <a href="#" className="flex items-center gap-2 group">
-          <div className="w-8 h-8 rounded-full bg-zinc-950 flex items-center justify-center text-white font-mono text-xs font-bold tracking-widest transition-transform duration-300 group-hover:scale-105 shadow-sm">
+          <div className="w-8 h-8 rounded-full bg-zinc-950 flex items-center justify-center text-white font-mono text-xs font-bold tracking-widest transition-transform duration-300 group-hover:scale-105 shadow-xs">
             R
           </div>
           <span className="font-sans text-sm font-semibold tracking-[0.2em] text-zinc-900 uppercase">
@@ -47,16 +48,12 @@ export const Navbar: React.FC = () => {
           </span>
         </a>
 
-        {/* Desktop Links */}
+        {/* Desktop Links with Acoustic Letter Visualizer Wave */}
         <nav className="hidden md:flex items-center gap-7">
           {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className="text-xs font-medium uppercase tracking-[0.12em] text-zinc-500 hover:text-zinc-950 transition-colors duration-200"
-            >
+            <AcousticNavLink key={link.name} href={link.href}>
               {link.name}
-            </a>
+            </AcousticNavLink>
           ))}
         </nav>
 
@@ -64,7 +61,7 @@ export const Navbar: React.FC = () => {
         <div className="flex items-center gap-3">
           <button
             onClick={() => setDrawerOpen(true)}
-            className="flex items-center gap-2 bg-zinc-950 hover:bg-zinc-800 text-white rounded-full px-4 py-1.5 text-xs font-medium tracking-wider uppercase transition-all duration-200 hover:shadow-md active:scale-98"
+            className="flex items-center gap-2 bg-zinc-950 hover:bg-zinc-800 text-white rounded-full px-4 py-1.5 text-xs font-medium tracking-wider uppercase transition-all duration-200 hover:shadow-md active:scale-98 cursor-pointer"
           >
             <Sparkles className="w-3 h-3 text-[#d4af37]" />
             <span>Pre-Order • $399</span>
@@ -73,7 +70,7 @@ export const Navbar: React.FC = () => {
           {/* Mobile Menu Toggle */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-1.5 rounded-full text-zinc-700 hover:text-zinc-950 hover:bg-zinc-100 transition-colors"
+            className="md:hidden p-1.5 rounded-full text-zinc-700 hover:text-zinc-950 hover:bg-zinc-100 transition-colors cursor-pointer"
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -101,7 +98,7 @@ export const Navbar: React.FC = () => {
                   setMobileMenuOpen(false);
                   setDrawerOpen(true);
                 }}
-                className="w-full flex items-center justify-center gap-2 bg-zinc-950 text-white rounded-full py-3 text-xs font-medium uppercase tracking-widest shadow-md"
+                className="w-full flex items-center justify-center gap-2 bg-zinc-950 text-white rounded-full py-3 text-xs font-medium uppercase tracking-widest shadow-md cursor-pointer"
               >
                 <ShoppingBag className="w-4 h-4" />
                 <span>Pre-Order RoH Sound ($399)</span>

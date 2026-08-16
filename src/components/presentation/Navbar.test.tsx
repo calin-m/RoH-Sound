@@ -12,9 +12,9 @@ describe('Navbar', () => {
   it('renders RoH Sound brand and navigation links', () => {
     render(<Navbar />);
     expect(screen.getAllByText(/RoH/i).length).toBeGreaterThan(0);
-    expect(screen.getByText(/Experience/i)).toBeInTheDocument();
-    expect(screen.getByText(/Acoustic Engineering/i)).toBeInTheDocument();
-    expect(screen.getByText(/Tech Specs/i)).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /Experience/i })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /Acoustic Engineering/i })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /Tech Specs/i })).toBeInTheDocument();
   });
 
   it('triggers drawer opening when pre-order CTA is clicked', () => {
