@@ -3,6 +3,7 @@
   "entry": [
     "src/app/**/*.{ts,tsx}",
     "src/components/ui/*.tsx",
+    "src/components/presentation/*.tsx",
     "src/mocks/browser.ts",
     "src/mocks/server.ts",
     "src/mocks/handlers.ts",

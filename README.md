@@ -1,4 +1,4 @@
-# Enterprise Application Foundation & Closed-Loop Quality Engine
+# RoH Sound — Product Presentation Single Page Application
 
 [![Next.js 15](https://img.shields.io/badge/Next.js-15.0-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![React 19](https://img.shields.io/badge/React-19.0-blue?style=for-the-badge&logo=react)](https://react.dev/)
@@ -8,35 +8,54 @@
 [![MSW v2](https://img.shields.io/badge/MSW-v2.0-E35555?style=for-the-badge&logo=mockserviceworker)](https://mswjs.io/)
 [![Quality Gateway](https://img.shields.io/badge/7--Gateway-Verified-emerald?style=for-the-badge&logo=shield)](./DEVELOPMENT.md)
 
-A clean, domain-neutral, production-grade enterprise application foundation powered by Next.js 15 App Router, Zustand state management, TanStack React Query, MSW v2 network isolation, atomic UI primitives, and a Closed-Loop 7-Gateway Quality & AST Living Documentation Engine.
+An ultra-refined, high-performance **Product Presentation Single Page Application** for **RoH Sound** (*"Pure Acoustic Architecture. Zero Distortion."*) built with a Light Minimalistic Sleek luxury design language, Next.js 15 App Router, Zustand state management, TanStack React Query, MSW v2 network isolation, and a Closed-Loop 7-Gateway Quality Engine.
 
 ---
 
-## 🏛️ High-Level System Architecture
+## 🏛️ System Architecture
 
 ```mermaid
 flowchart TD
-    User["👤 Enterprise Operator"]
+    User["👤 Customer / Sound Engineer"]
     
-    subgraph FrontendApp ["Next.js 15 App Router Container"]
-        Canvas["Starter Canvas (src/app/page.tsx)"]
-        UI["Atomic UI Primitives (Button, Card, Badge, Input, Modal)"]
-        Store["Zustand Client Store (useAppStore.ts)"]
-        QueryHooks["TanStack Query Hooks (useAppStatus.ts)"]
+    subgraph FrontendApp ["RoH Sound Next.js 15 SPA (src/app/page.tsx)"]
+        Navbar["Capsule Navbar (Navbar.tsx)"]
+        Hero["Acoustic Hero & Colorway Selector (HeroSection.tsx)"]
+        Visualizer["Studio-Lit Vector Visualizer (HeadphoneVisualizer.tsx)"]
+        SoundLab["Interactive ANC & Spatial Lab (SoundExperience.tsx)"]
+        Bento["Engineering Bento Matrix (EngineeringBento.tsx)"]
+        Studio["Material Atelier (ColorStudio.tsx)"]
+        Specs["Technical Specs & Benchmark Table (TechnicalSpecs.tsx)"]
+        Reviews["Verified Feedback (ReviewsSection.tsx)"]
+        FAQ["Inquiries & Policies (FAQSection.tsx)"]
+        Drawer["Slide-Over Checkout & Laser Engraving (CheckoutDrawer.tsx)"]
+        Footer["Sticky Purchase Bar & Footer (Footer.tsx)"]
         
-        Canvas --> UI
-        Canvas --> Store
-        Canvas --> QueryHooks
-        UI --> Store
+        Store["Zustand State Store (useProductStore.ts)"]
+        QueryHooks["TanStack Query Hooks (useProductData.ts)"]
+        
+        Hero --> Visualizer
+        Hero --> Store
+        SoundLab --> Store
+        Studio --> Store
+        Drawer --> Store
+        Drawer --> QueryHooks
+        Reviews --> QueryHooks
+        Footer --> Store
     end
     
-    subgraph NetworkInterception ["Mock Service Worker (MSW v2)"]
-        MSWServer["MSW Server / Worker"]
-        Handlers["API Handlers (/api/status, /api/app-config)"]
-        MSWServer --> Handlers
+    subgraph BackendRoutes ["Next.js App Router API & MSW v2"]
+        MSWServer["MSW Interception / Browser Worker"]
+        APIProduct["/api/product (Transducer Specs & Pricing)"]
+        APIReviews["/api/reviews (Verified Audiophile Feedback)"]
+        APIPreorder["/api/order/preorder (Reservation Dispatch)"]
+        
+        MSWServer --> APIProduct
+        MSWServer --> APIReviews
+        MSWServer --> APIPreorder
     end
     
-    subgraph QualityEngine ["7-Gateway Quality & Documentation Engine"]
+    subgraph QualityEngine ["7-Gateway Quality & Living Docs Engine"]
         Gateway["scripts/verify-build.js"]
         AST["scripts/lib/ast-parser.js"]
         ArchMatrix["ARCHITECTURE.md"]
@@ -47,7 +66,7 @@ flowchart TD
         Gateway --> AuditReport
     end
     
-    QueryHooks <-->|Intercepts / Caches| MSWServer
+    QueryHooks <-->|REST API Fetch / Cache| BackendRoutes
     FrontendApp -.->|Validated by| Gateway
 ```
 
@@ -64,10 +83,10 @@ flowchart TD
 # 1. Install all dependencies
 npm install
 
-# 2. Run local development server
-npm run dev
+# 2. Run local development server (auto-opens browser)
+npm run dev:open
 
-# 3. Open browser at http://localhost:3000
+# 3. Access presentation at http://localhost:3000
 ```
 
 ---
@@ -80,7 +99,7 @@ npm run dev
 | `npm run dev:open` | **Dev Server + Browser** | Launches dev server and automatically opens http://localhost:3000 in browser |
 | `npm run dev:all` | **Full Dev Environment** | Launches Next.js dev server & CLI terminal test watcher, auto-opening http://localhost:3000 |
 | `npm run verify` | **Master 7-Gateway Gatekeeper** | Secrets, Types, Tests (≥ 85% cov), Living Docs, ADRs, Lint, Knip, Build |
-| `npm test` | **Vitest Test Suite** | Runs all unit and integration tests with v8 code coverage reporting |
+| `npm test` | **Vitest Test Suite** | Runs all 20 test suites with v8 code coverage reporting |
 | `npm run test:ui` | **Vitest Graphical UI** | Interactive test explorer & execution visualizer |
 | `npm run test:watch` | **Test Watcher** | Continuous test runner for active feature development |
 | `npm run typecheck` | **TypeScript Typecheck** | Strict typecheck across all `.ts` and `.tsx` source files |

@@ -2,7 +2,7 @@
 
 > [!NOTE]
 > This document is **100% auto-generated** via AST code introspection (`scripts/generate-architecture-matrix.js`). Any manual edits will be overwritten during verification (`npm run verify`) or synchronization (`npm run docs:sync`).
-> **Last Synchronized:** `2026-08-16T12:43:35.280Z`
+> **Last Synchronized:** `2026-08-16T13:38:33.870Z`
 
 ---
 
@@ -93,15 +93,13 @@ flowchart LR
     end
 
     subgraph Queries ["TanStack Query Hooks"]
-        Query_0["useAppConfig
-(fetchAppConfig, useAppConfig)"]
-        Query_1["useAppStatus
-(fetchAppStatus, useAppStatus)"]
+        Query_0["useProductData
+(fetchProductData, fetchReviewsData, submitPreorder, useProductData, useReviewsData, usePreorderMutation)"]
     end
 
     subgraph Stores ["Zustand Stores"]
-        Store_0["useAppStore
-(useAppStore)"]
+        Store_0["useProductStore
+(COLORWAYS, useProductStore)"]
     end
 
     subgraph UIComponents ["Atomic UI Primitives"]
@@ -134,10 +132,10 @@ flowchart LR
 ## 4. AST-Extracted Component & Module Inventory
 
 Summary of auto-discovered source modules:
-- **Total Source Files Analyzed:** `26`
+- **Total Source Files Analyzed:** `49`
 - **Application Routes:** `2`
 - **State Stores:** `1`
-- **Query Hooks:** `2`
+- **Query Hooks:** `1`
 - **Atomic UI Primitives:** `5`
 
 ### Module Breakdown Table
@@ -145,17 +143,16 @@ Summary of auto-discovered source modules:
 | Category | File Path | Exported Symbols | Key Dependencies |
 | :--- | :--- | :--- | :--- |
 | **Route** | `src/app/layout.tsx` | `metadata, RootLayout` | `none` |
-| **Route** | `src/app/page.tsx` | `Home` | `@/components/ui/Button, @/components/ui/Card, @/components/ui/Badge, @/components/ui/Input, @/components/ui/Modal, @/stores/useAppStore, @/hooks/queries/useAppStatus, @/hooks/queries/useAppConfig` |
-| **Store** | `src/stores/useAppStore.ts` | `useAppStore` | `zustand` |
-| **Query** | `src/hooks/queries/useAppConfig.ts` | `fetchAppConfig, useAppConfig` | `@tanstack/react-query, @/mocks/handlers` |
-| **Query** | `src/hooks/queries/useAppStatus.ts` | `fetchAppStatus, useAppStatus` | `@tanstack/react-query, @/mocks/handlers` |
+| **Route** | `src/app/page.tsx` | `HomePage` | `@/components/presentation/Navbar, @/components/presentation/HeroSection, @/components/presentation/SoundExperience, @/components/presentation/EngineeringBento, @/components/presentation/ColorStudio, @/components/presentation/TechnicalSpecs, @/components/presentation/ReviewsSection, @/components/presentation/FAQSection, @/components/presentation/Footer, @/components/presentation/CheckoutDrawer` |
+| **Store** | `src/stores/useProductStore.ts` | `COLORWAYS, useProductStore` | `zustand` |
+| **Query** | `src/hooks/queries/useProductData.ts` | `fetchProductData, fetchReviewsData, submitPreorder, useProductData, useReviewsData, usePreorderMutation` | `@tanstack/react-query, @/mocks/handlers` |
 | **UI Primitive** | `src/components/ui/Badge.tsx` | `badgeVariants, Badge` | `react, class-variance-authority, @/lib/utils` |
 | **UI Primitive** | `src/components/ui/Button.tsx` | `buttonVariants, Button` | `react, class-variance-authority, @/lib/utils` |
 | **UI Primitive** | `src/components/ui/Card.tsx` | `Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter` | `react, @/lib/utils` |
 | **UI Primitive** | `src/components/ui/Input.tsx` | `Input` | `react, @/lib/utils` |
 | **UI Primitive** | `src/components/ui/Modal.tsx` | `Modal` | `react, lucide-react, @/lib/utils, ./Button` |
 | **Mock / Network** | `src/mocks/browser.ts` | `worker` | `msw` |
-| **Mock / Network** | `src/mocks/handlers.ts` | `mockStatusData, mockConfigData, handlers` | `msw` |
+| **Mock / Network** | `src/mocks/handlers.ts` | `mockProductData, mockReviewsData, handlers` | `msw` |
 | **Mock / Network** | `src/mocks/server.ts` | `server` | `msw` |
 
 ---

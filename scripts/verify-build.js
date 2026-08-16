@@ -135,6 +135,25 @@ function pass2And3VitestTestsAndCoverage() {
     return false;
   }
 
+  // Print detailed test execution breakdown from test-results.json
+  const testResultsPath = path.join(rootDir, 'docs/test-results.json');
+  if (fs.existsSync(testResultsPath)) {
+    try {
+      const testReport = JSON.parse(fs.readFileSync(testResultsPath, 'utf-8'));
+      if (Array.isArray(testReport.testResults)) {
+        testReport.testResults.forEach((suite) => {
+          const relPath = path.relative(rootDir, suite.name).replace(/\\/g, '/');
+          const passedCount = (suite.assertionResults || []).filter((r) => r.status === 'passed').length;
+          const totalCount = (suite.assertionResults || []).length;
+          console.log(`  ${colors.green}✓${colors.reset} ${colors.dim}${relPath}${colors.reset} (${colors.bright}${passedCount}/${totalCount} passed${colors.reset})`);
+        });
+        console.log(`  ${colors.green}${colors.bright}Summary: ${testReport.numPassedTestSuites}/${testReport.numTotalTestSuites} files passed | ${testReport.numPassedTests}/${testReport.numTotalTests} tests passed${colors.reset}`);
+      }
+    } catch (e) {
+      // Fallback silently if json read fails
+    }
+  }
+
   const coveragePath = path.join(rootDir, 'coverage/coverage-summary.json');
   if (!fs.existsSync(coveragePath)) {
     logFail('Coverage summary file not found at coverage/coverage-summary.json');

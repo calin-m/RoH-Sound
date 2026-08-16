@@ -9,4 +9,6 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 <!-- END:nextjs-agent-rules -->
 
 # Enterprise Master Governance
-See full protocol in [`.agents/AGENTS.md`](./.agents/AGENTS.md).
+- **Rule 0 (User Approval):** All code modifications, dependency changes, and architectural plans require explicit user review & approval before execution.
+- **Rule 9 (On-Demand User Commits):** The AI agent is strictly prohibited from running `git commit` or `git push`, and only formulates conventional commit commands when explicitly requested by the user.
+- **Full Governance Protocol:** See [`.agents/AGENTS.md`](./.agents/AGENTS.md).

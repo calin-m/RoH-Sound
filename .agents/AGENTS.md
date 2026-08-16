@@ -6,6 +6,11 @@ This document establishes immutable engineering rules, governance procedures, an
 
 ## 1. Core Governance Rules
 
+### Rule 0: Mandatory User Approval & Mutation Protocol
+- **Approval-First Execution:** The AI agent must never perform destructive actions, apply major architectural mutations, or install unexpected dependencies without explicit prior user approval and review.
+- **Proposal & Review:** The AI agent must propose technical plans, explain trade-offs clearly, and obtain explicit user consent before proceeding with major code modifications.
+- **Human Developer Authority:** The human developer retains final authority over all codebase changes, architectural decisions, and terminal command executions.
+
 ### Rule 1: Automated Documentation Synchronization
 All architecture diagrams (`ARCHITECTURE.md`), quality reports (`docs/QUALITY_AUDIT_REPORT.md`), and change logs (`CHANGELOG.md`) must be kept in continuous synchronization with the source code.
 - **Trigger:** Synchronize docs via `npm run docs:sync` whenever routes, stores, queries, or components are added, modified, or deleted.
@@ -36,9 +41,9 @@ All ADRs in `docs/DECISIONS.md` must adhere to standard schema (Status, Date, Co
 - **Continuous Scan:** Pass 0.5 executes pattern-matching secret scanning against all repository files prior to build.
 
 ### Rule 9: Conventional Commit Formatting & User-Driven Commit Execution Protocol
-- **Agent Role:** The AI agent is strictly prohibited from executing `git commit` or `git push` directly.
-- **Diff Inspection & Command Formulation:** The agent must inspect staged changes via `git status --short` and `git diff` to formulate standard Conventional Commit commands with distinct multi-part `-m` flags for clear provenance.
-- **User Execution:** The agent presents the fully-formulated commit command in markdown code blocks for the human developer to review and execute in their terminal:
+- **Agent Prohibition:** The AI agent is strictly prohibited from executing `git commit` or `git push` directly.
+- **On-Demand Command Formulation Only:** The AI agent must only generate and provide `git commit` commands **when explicitly requested by the user** (e.g. when the user asks "how do I commit this?", "generate commit command", or asks to commit a completed step). The agent must NOT automatically append git commands to general Q&A or intermediate discussion turns.
+- **Diff Inspection & Structure:** When requested, the agent inspects staged changes via `git status --short` and `git diff` to formulate Conventional Commit commands with distinct multi-part `-m` flags for the user to review and execute:
 \`\`\`bash
 git add .
 git commit \

@@ -14,9 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Enterprise Application Foundation | Closed-Loop Quality Engine',
+  title: 'RoH Sound | Pure Acoustic Architecture & Precision Wireless',
   description:
-    'Domain-neutral enterprise web foundation featuring Next.js 15, MSW v2, Zustand, TanStack Query, and a 7-Gateway Quality Engine.',
+    'Experience RoH Sound flagship wireless headphones with 45mm custom titanium-graphene drivers, 48dB neural hybrid ANC, and 360-degree spatial audio in a light minimalist aesthetic.',
 };
 
 export default function RootLayout({
@@ -29,7 +29,7 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50">
+      <body className="min-h-full flex flex-col bg-[#fafaf9] text-zinc-900 selection:bg-zinc-900 selection:text-white">
         <Providers>{children}</Providers>
       </body>
     </html>
