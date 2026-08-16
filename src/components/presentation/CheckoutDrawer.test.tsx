@@ -4,6 +4,8 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { CheckoutDrawer } from './CheckoutDrawer';
 import { useProductStore } from '@/stores/useProductStore';
+import { http, HttpResponse } from 'msw';
+import { server } from '@/mocks/server';
 
 function renderWithClient(ui: React.ReactElement) {
   const queryClient = new QueryClient({
@@ -72,5 +74,29 @@ describe('CheckoutDrawer', () => {
     const returnBtn = screen.getByRole('button', { name: /Return to Sound Stage/i });
     fireEvent.click(returnBtn);
     expect(useProductStore.getState().isDrawerOpen).toBe(false);
+  });
+
+  it('displays error banner when preorder API fails', async () => {
+    server.use(
+      http.post('/api/order/preorder', () => {
+        return new HttpResponse(null, { status: 500, statusText: 'Internal Server Error' });
+      })
+    );
+
+    useProductStore.getState().setDrawerOpen(true);
+    renderWithClient(<CheckoutDrawer />);
+
+    const nameInput = screen.getByPlaceholderText('Jane Doe');
+    fireEvent.change(nameInput, { target: { value: 'Jane Doe' } });
+
+    const emailInput = screen.getByPlaceholderText('jane@studio.com');
+    fireEvent.change(emailInput, { target: { value: 'jane@studio.com' } });
+
+    const submitBtn = screen.getByRole('button', { name: /Reserve for/i });
+    fireEvent.click(submitBtn);
+
+    await waitFor(() => {
+      expect(screen.getByText(/Unable to submit reservation/i)).toBeInTheDocument();
+    });
   });
 });

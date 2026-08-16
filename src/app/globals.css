@@ -13,6 +13,10 @@
   --text-muted: #a1a1aa;
   --accent-brass: #b8934a;
   --accent-brass-light: #d4af37;
+
+  /* Luxury Motion Easing Curves */
+  --ease-luxury: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 @theme {
@@ -27,6 +31,7 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
 }
 
 /* Crystal Glassmorphism */
@@ -67,7 +72,7 @@ body {
   background: radial-gradient(circle at 50% 50%, rgba(228, 228, 231, 0.6) 0%, transparent 70%);
 }
 
-/* Interactive Sound Wave Animation */
+/* Hardware-Accelerated Animations */
 @keyframes wavePulse {
   0%, 100% {
     transform: scaleY(0.3);
@@ -77,9 +82,48 @@ body {
   }
 }
 
+@keyframes rippleExpand {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+@keyframes floatSubtle {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
 .soundwave-bar {
   animation: wavePulse 1.2s ease-in-out infinite;
   transform-origin: center;
+}
+
+.animate-float-subtle {
+  animation: floatSubtle 6s ease-in-out infinite;
+}
+
+.animate-ripple-1 {
+  animation: rippleExpand 3s var(--ease-luxury) infinite;
+}
+
+.animate-ripple-2 {
+  animation: rippleExpand 3s var(--ease-luxury) infinite 1s;
+}
+
+.animate-ripple-3 {
+  animation: rippleExpand 3s var(--ease-luxury) infinite 2s;
 }
 
 /* Smooth custom scrollbars */
