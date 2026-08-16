@@ -2,7 +2,7 @@
 
 > [!NOTE]
 > This audit report is **100% auto-generated** by the Closed-Loop Quality Engine (`scripts/generate-quality-report.js`).
-> **Audit Timestamp:** `2026-08-16T10:48:53.829Z`
+> **Audit Timestamp:** `2026-08-16T10:50:41.554Z`
 > **Overall Quality Gate Status:** **`PASSED`**
 
 ---
@@ -24,16 +24,16 @@
 
 | Test Suite File | Execution Status | Tests Run | Duration |
 | :--- | :--- | :--- | :--- |
-| ✅ `src/app/page.test.tsx` | `PASSED` | 7 tests | 975.061279296875ms |
-| ✅ `src/lib/utils.test.ts` | `PASSED` | 3 tests | 11.5283203125ms |
-| ✅ `src/stores/useAppStore.test.ts` | `PASSED` | 8 tests | 5.351318359375ms |
-| ✅ `src/hooks/queries/useAppConfig.test.tsx` | `PASSED` | 2 tests | 115.8916015625ms |
-| ✅ `src/hooks/queries/useAppStatus.test.tsx` | `PASSED` | 3 tests | 196.626708984375ms |
-| ✅ `src/components/ui/Badge.test.tsx` | `PASSED` | 2 tests | 52.885986328125ms |
-| ✅ `src/components/ui/Button.test.tsx` | `PASSED` | 5 tests | 222.302978515625ms |
-| ✅ `src/components/ui/Card.test.tsx` | `PASSED` | 1 tests | 187ms |
-| ✅ `src/components/ui/Input.test.tsx` | `PASSED` | 3 tests | 185.569580078125ms |
-| ✅ `src/components/ui/Modal.test.tsx` | `PASSED` | 5 tests | 198.037353515625ms |
+| ✅ `src/app/page.test.tsx` | `PASSED` | 7 tests | 929.55517578125ms |
+| ✅ `src/lib/utils.test.ts` | `PASSED` | 3 tests | 8.3232421875ms |
+| ✅ `src/stores/useAppStore.test.ts` | `PASSED` | 8 tests | 5.311279296875ms |
+| ✅ `src/components/ui/Badge.test.tsx` | `PASSED` | 2 tests | 57.392333984375ms |
+| ✅ `src/components/ui/Button.test.tsx` | `PASSED` | 5 tests | 203.843505859375ms |
+| ✅ `src/components/ui/Card.test.tsx` | `PASSED` | 1 tests | 160.135009765625ms |
+| ✅ `src/components/ui/Input.test.tsx` | `PASSED` | 3 tests | 167.2978515625ms |
+| ✅ `src/components/ui/Modal.test.tsx` | `PASSED` | 5 tests | 179.99658203125ms |
+| ✅ `src/hooks/queries/useAppConfig.test.tsx` | `PASSED` | 2 tests | 105.6494140625ms |
+| ✅ `src/hooks/queries/useAppStatus.test.tsx` | `PASSED` | 3 tests | 183.22119140625ms |
 
 ---
 

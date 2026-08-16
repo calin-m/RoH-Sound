@@ -26,4 +26,5 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ---
 
 ### Recent Git Commit History
+- `745308b` - **feat(scripts): add dev:all script to run next dev and vitest concurrently** (2026-08-16)
 - `339547f` - **feat(core): bootstrap enterprise application foundation with closed-loop quality engine** (2026-08-16)
