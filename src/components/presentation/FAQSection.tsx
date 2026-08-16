@@ -1,33 +1,33 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ChevronDown, HelpCircle } from 'lucide-react';
+import { SectionHeader } from './SectionHeader';
+import { ChevronDown } from 'lucide-react';
 
 const faqs = [
   {
     question: 'What is included in the 30-day in-home audition?',
-    answer:
-      'We believe true acoustic performance must be evaluated in your own listening environment with your favorite source material. Try RoH Sound for 30 days. If it does not exceed your expectations, return it in original packaging for a full 100% refund with prepaid return shipping.',
+    answer: 'We want you to experience RoH Sound in your personal acoustic environment. If within 30 days you are not completely enchanted by the soundstage clarity, simply return them in original condition for a 100% full refund with complimentary return shipping.',
   },
   {
-    question: 'How does RoH Sound achieve -48dB Active Noise Cancellation without pressure buildup?',
-    answer:
-      'Our proprietary neural DSP utilizes an adaptive barometric pressure equalization valve combined with quad feedback/feedforward microphone arrays. It samples external noise at 50kHz and adjusts anti-phase curves dynamically without creating ear fatigue or acoustic suction.',
+    question: 'How does RoH Sound achieve -48dB Active Noise Cancellation?',
+    answer: 'RoH Sound uses custom neural DSP algorithms sampling environmental audio 50,000 times per second paired with an adaptive barometric pressure equalization valve to eliminate low and mid frequencies without ear fatigue.',
   },
   {
-    question: 'Can I listen to uncompressed lossless audio over wired connections?',
-    answer:
-      'Yes. RoH Sound includes dual-mode operation. You can listen via Bluetooth 5.4 with LDAC (24-bit/192kHz) or plug in via the included braided USB-C cable for bit-perfect digital audio directly from your Mac, PC, or smartphone, bypassing standard headphone jack compression.',
+    question: 'How does RoH Sound connect to my audio source?',
+    answer: 'RoH Sound supports Bluetooth 5.4 with high-resolution LDAC and AAC codecs. For zero-latency studio mastering, use the included 1.5m braided USB-C digital audio cable (supporting 24-bit/192kHz DAC streaming) or the 3.5mm gold-plated analog cable with included 6.35mm adapter.',
   },
   {
-    question: 'What does the 3-Year RoH Platinum Care warranty cover?',
-    answer:
-      'The included precision warranty covers all transducer components, battery degradation below 80%, mechanical headband integrity, and neural DSP motherboard replacements. We also offer one complimentary headband cushion replacement during the warranty period.',
+    question: 'Can I replace the ear cushions over time?',
+    answer: 'Yes. The Italian protein leather memory foam ear cushions feature a magnetic self-aligning acoustic latch. Replacement pads in all matching colorways are readily available through our Atelier store.',
   },
   {
-    question: 'When will priority pre-orders ship?',
-    answer:
-      'The initial production batch of RoH Sound is scheduled to ship within 2–3 business days via insured express courier with real-time tracking.',
+    question: 'What is included with my pre-order package?',
+    answer: 'Every RoH Sound flagship set includes: RoH Sound Headphones, Magnetic Hard Travel Case, 1.5m Braided USB-C Lossless Cable, 1.2m 3.5mm Analog Audio Cable, 6.35mm Gold-Plated Studio Adapter, Flight Adapter, and Certificate of Acoustic Calibration.',
+  },
+  {
+    question: 'What warranty is included?',
+    answer: 'Every pair includes our 3-Year Precision Limited Warranty covering all electronic transducers, battery degradation beyond 20%, and structural components.',
   },
 ];
 
@@ -41,39 +41,31 @@ export const FAQSection: React.FC = () => {
   return (
     <section id="faq" className="py-24 px-4 sm:px-8 bg-[#fafaf9]">
       <div className="max-w-4xl mx-auto">
-        {/* Step Index & Header */}
-        <div className="flex items-center gap-3 mb-4">
-          <span className="font-mono text-xs font-semibold tracking-widest text-[#b8934a]">
-            07
-          </span>
-          <span className="h-3 w-px bg-black/10" />
-          <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-zinc-500">
-            Inquiries & Policies
-          </span>
-        </div>
-
-        <div className="mb-12">
-          <h2 className="text-3xl sm:text-4xl font-light tracking-tight text-zinc-950">
-            Frequently Asked Questions
-          </h2>
-          <p className="mt-2 text-zinc-600 font-light text-sm sm:text-base">
-            Everything you need to know about auditioning, technology, warranty, and delivery.
-          </p>
-        </div>
+        {/* Section Header */}
+        <SectionHeader
+          step="07"
+          eyebrow="Inquiries & Policies"
+          title="Frequently Asked Questions"
+          subtitle="Everything you need to know about delivery, warranty, audio connectivity, and our in-home audition policy."
+          className="mb-12"
+        />
 
         {/* Accordion List */}
-        <div className="bg-white rounded-3xl border border-black/[0.06] divide-y divide-black/[0.04] shadow-sm overflow-hidden">
+        <div className="space-y-4">
           {faqs.map((faq, index) => {
             const isOpen = openIndex === index;
 
             return (
-              <div key={index} className="transition-colors">
+              <div
+                key={index}
+                className="bg-white rounded-2xl border border-black/[0.06] overflow-hidden transition-all shadow-xs"
+              >
                 <button
                   onClick={() => toggleFaq(index)}
-                  className="w-full p-6 sm:px-8 text-left flex items-center justify-between gap-4 hover:bg-zinc-50/50 transition-colors"
+                  className="w-full p-6 text-left flex items-center justify-between gap-4 hover:bg-zinc-50/50 transition-colors cursor-pointer"
                   aria-expanded={isOpen}
                 >
-                  <span className="text-sm sm:text-base font-medium text-zinc-950">
+                  <span className="text-sm sm:text-base font-medium text-zinc-900">
                     {faq.question}
                   </span>
                   <ChevronDown
@@ -84,26 +76,13 @@ export const FAQSection: React.FC = () => {
                 </button>
 
                 {isOpen && (
-                  <div className="px-6 pb-6 sm:px-8 sm:pb-8 pt-1 text-sm text-zinc-600 font-light leading-relaxed animate-in fade-in duration-200">
+                  <div className="px-6 pb-6 text-xs sm:text-sm text-zinc-600 font-light leading-relaxed border-t border-black/[0.04] pt-4">
                     {faq.answer}
                   </div>
                 )}
               </div>
             );
           })}
-        </div>
-
-        {/* Support Help Footer */}
-        <div className="mt-8 flex items-center justify-between p-4 bg-white rounded-2xl border border-black/[0.06] text-xs text-zinc-500 font-mono">
-          <span className="flex items-center gap-2">
-            <HelpCircle className="w-4 h-4 text-[#b8934a]" /> Have a technical question?
-          </span>
-          <a
-            href="mailto:support@rohsound.example"
-            className="text-zinc-950 font-semibold hover:text-[#b8934a] transition-colors"
-          >
-            Contact Acoustic Concierge →
-          </a>
         </div>
       </div>
     </section>

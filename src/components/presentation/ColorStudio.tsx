@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useProductStore, Colorway } from '@/stores/useProductStore';
+import { SectionHeader } from './SectionHeader';
 import { Sparkles, Check } from 'lucide-react';
 
 const studioFinishes: {
@@ -52,25 +53,14 @@ export const ColorStudio: React.FC = () => {
   return (
     <section id="studio" className="py-24 px-4 sm:px-8 bg-white border-y border-black/[0.06]">
       <div className="max-w-6xl mx-auto">
-        {/* Step Index & Header */}
-        <div className="flex items-center gap-3 mb-4">
-          <span className="font-mono text-xs font-semibold tracking-widest text-[#b8934a]">
-            04
-          </span>
-          <span className="h-3 w-px bg-black/10" />
-          <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-zinc-500">
-            Material Atelier
-          </span>
-        </div>
-
-        <div className="max-w-xl mb-12">
-          <h2 className="text-3xl sm:text-4xl font-light tracking-tight text-zinc-950">
-            Four Iconic Finishes
-          </h2>
-          <p className="mt-2 text-zinc-600 font-light text-sm sm:text-base">
-            Each colorway is treated with specialized metallurgical coatings for exceptional scratch resistance and tactile luxury.
-          </p>
-        </div>
+        {/* Section Header */}
+        <SectionHeader
+          step="04"
+          eyebrow="Material Atelier"
+          title="Four Iconic Finishes"
+          subtitle="Each colorway is treated with specialized metallurgical coatings for exceptional scratch resistance and tactile luxury."
+          className="mb-12"
+        />
 
         {/* 4 Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

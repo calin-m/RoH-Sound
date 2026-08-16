@@ -1,16 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useProductStore, Colorway } from '@/stores/useProductStore';
+import { useProductStore } from '@/stores/useProductStore';
 import { usePreorderMutation } from '@/hooks/queries/useProductData';
-import { X, Sparkles, ShieldCheck, Check, ArrowRight, Loader2 } from 'lucide-react';
-
-const colorwaysList: { id: Colorway; label: string; hex: string }[] = [
-  { id: 'midnight', label: 'Obsidian Midnight', hex: '#18181b' },
-  { id: 'silver', label: 'Alabaster Silver', hex: '#e4e4e7' },
-  { id: 'titanium', label: 'Champagne Titanium', hex: '#d8c7a6' },
-  { id: 'emerald', label: 'Forest Emerald', hex: '#14382e' },
-];
+import { ColorwaySelector } from './ColorwaySelector';
+import { LaserEngravingPreview } from './LaserEngravingPreview';
+import { X, ShieldCheck, Truck, Check, Loader2, Sparkles } from 'lucide-react';
 
 export const CheckoutDrawer: React.FC = () => {
   const {
@@ -18,257 +13,242 @@ export const CheckoutDrawer: React.FC = () => {
     setDrawerOpen,
     selectedColor,
     setSelectedColor,
-    quantity,
-    setQuantity,
     engravingText,
     setEngravingText,
     hasExtendedWarranty,
     setHasExtendedWarranty,
   } = useProductStore();
 
-  const preorderMutation = usePreorderMutation();
-  const [confirmedReservation, setConfirmedReservation] = useState<string | null>(null);
+  const [customerEmail, setCustomerEmail] = useState('');
+  const [customerName, setCustomerName] = useState('');
+  const [orderSuccessData, setOrderSuccessData] = useState<{
+    reservationCode: string;
+    estimatedShipDate: string;
+  } | null>(null);
 
-  if (!isDrawerOpen) return null;
+  const preorderMutation = usePreorderMutation();
 
   const basePrice = 399;
   const warrantyPrice = hasExtendedWarranty ? 49 : 0;
-  const unitTotal = basePrice + warrantyPrice;
-  const orderTotal = unitTotal * quantity;
+  const totalPrice = basePrice + warrantyPrice;
 
-  const handlePreorderSubmit = async () => {
+  const handleSubmitPreorder = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!customerEmail || !customerName) return;
+
     try {
-      const result = await preorderMutation.mutateAsync({
+      const res = await preorderMutation.mutateAsync({
+        customerName,
+        customerEmail,
         colorway: selectedColor,
-        quantity,
-        engraving: engravingText || 'Standard Edition',
-        warranty: hasExtendedWarranty,
+        quantity: 1,
+        engravingText,
+        includeWarranty: hasExtendedWarranty,
       });
-      setConfirmedReservation(result.reservationCode);
+
+      if (res.success || res.status === 'confirmed') {
+        setOrderSuccessData({
+          reservationCode: res.reservationCode,
+          estimatedShipDate: res.estimatedShipDate || res.details?.estimatedDelivery || 'October 15, 2026',
+        });
+      }
     } catch {
-      // Handled by UI
+      // Error handled by react-query state
     }
   };
 
   const handleClose = () => {
-    setConfirmedReservation(null);
     setDrawerOpen(false);
+    setOrderSuccessData(null);
   };
 
+  if (!isDrawerOpen) return null;
+
   return (
-    <div className="fixed inset-0 z-50 overflow-hidden">
-      {/* Backdrop */}
+    <div className="fixed inset-0 z-50 overflow-hidden" data-testid="checkout-drawer">
+      {/* Backdrop Blur */}
       <div
         onClick={handleClose}
-        className="absolute inset-0 bg-black/30 backdrop-blur-sm transition-opacity duration-300 animate-in fade-in"
+        className="fixed inset-0 bg-black/40 backdrop-blur-xs transition-opacity duration-300"
       />
 
-      <div className="absolute inset-y-0 right-0 max-w-full flex pl-10">
-        <div className="w-screen max-w-md bg-white border-l border-black/[0.08] shadow-2xl p-6 sm:p-8 flex flex-col justify-between overflow-y-auto animate-in slide-in-from-right duration-300">
+      <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
+        <div className="w-screen max-w-md bg-white shadow-2xl flex flex-col justify-between border-l border-black/[0.06] transform transition-transform duration-300 ease-in-out">
           {/* Header */}
-          <div>
-            <div className="flex items-center justify-between pb-4 border-b border-black/[0.06]">
-              <div className="flex items-center gap-2">
-                <div className="w-7 h-7 rounded-full bg-zinc-950 flex items-center justify-center text-white font-mono text-xs font-bold">
-                  R
-                </div>
-                <span className="font-semibold text-zinc-950 text-sm tracking-wide">
-                  Your RoH Sound Pre-Order
-                </span>
-              </div>
-              <button
-                onClick={handleClose}
-                className="p-1.5 rounded-full text-zinc-400 hover:text-zinc-950 hover:bg-zinc-100 transition-colors"
-                aria-label="Close drawer"
-              >
-                <X className="w-5 h-5" />
-              </button>
+          <div className="p-6 border-b border-black/[0.06] flex items-center justify-between bg-[#fafaf9]">
+            <div>
+              <span className="text-[11px] font-mono uppercase tracking-widest text-zinc-500">
+                Priority Atelier Batch 01
+              </span>
+              <h2 className="text-xl font-light text-zinc-950">Pre-Order RoH Sound</h2>
             </div>
+            <button
+              onClick={handleClose}
+              className="p-2 rounded-full hover:bg-zinc-200/50 text-zinc-400 hover:text-zinc-950 transition-colors cursor-pointer"
+              aria-label="Close drawer"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
 
-            {/* Confirmation View */}
-            {confirmedReservation ? (
-              <div className="mt-8 text-center py-6 animate-in zoom-in-95 duration-200">
-                <div className="w-14 h-14 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4 border border-emerald-200 shadow-sm">
-                  <Check className="w-7 h-7" />
+          {/* Body Content */}
+          <div className="flex-1 overflow-y-auto p-6 space-y-6">
+            {orderSuccessData ? (
+              <div className="py-8 text-center space-y-4">
+                <div className="w-16 h-16 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto border border-emerald-200">
+                  <Check className="w-8 h-8" />
                 </div>
-                <h3 className="text-xl font-light text-zinc-950">Reservation Confirmed</h3>
-                <p className="text-xs text-zinc-500 font-mono mt-1">
-                  Your position in the priority production run is locked.
+                <h3 className="text-2xl font-light text-zinc-950">
+                  Priority Reservation Confirmed
+                </h3>
+                <p className="text-zinc-600 text-xs font-light max-w-xs mx-auto">
+                  Thank you, <strong className="text-zinc-900">{customerName}</strong>. Your custom RoH Sound set is scheduled for precision calibration.
                 </p>
 
-                <div className="my-6 p-4 bg-[#fafaf9] rounded-2xl border border-black/[0.06]">
-                  <span className="text-[11px] font-mono text-zinc-400 uppercase block">Reservation Code:</span>
-                  <strong className="text-xl font-mono tracking-widest text-zinc-950 block mt-1">
-                    {confirmedReservation}
-                  </strong>
-                </div>
-
-                <div className="text-xs text-zinc-500 font-light leading-relaxed">
-                  We will send tracking credentials and dispatch details prior to shipment.
+                <div className="p-4 bg-[#fafaf9] rounded-2xl border border-black/[0.06] text-left space-y-2 font-mono text-xs">
+                  <div className="flex justify-between">
+                    <span className="text-zinc-500">Reservation Code:</span>
+                    <span className="font-bold text-zinc-950">{orderSuccessData.reservationCode}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-zinc-500">Finish:</span>
+                    <span className="capitalize text-zinc-950">{selectedColor}</span>
+                  </div>
+                  {engravingText && (
+                    <div className="flex justify-between">
+                      <span className="text-zinc-500">Engraving:</span>
+                      <span className="text-[#b8934a] font-bold">&ldquo;{engravingText}&rdquo;</span>
+                    </div>
+                  )}
+                  <div className="flex justify-between">
+                    <span className="text-zinc-500">Est. Dispatch:</span>
+                    <span className="text-zinc-950">{orderSuccessData.estimatedShipDate}</span>
+                  </div>
+                  <div className="flex justify-between pt-2 border-t border-black/[0.06]">
+                    <span className="text-zinc-500">Total Billed:</span>
+                    <span className="font-bold text-zinc-950">${totalPrice}</span>
+                  </div>
                 </div>
 
                 <button
                   onClick={handleClose}
-                  className="mt-8 w-full bg-zinc-950 hover:bg-zinc-800 text-white rounded-full py-3.5 text-xs font-medium uppercase tracking-widest transition-all"
+                  className="w-full bg-zinc-950 text-white rounded-xl py-3 text-xs font-mono uppercase tracking-wider hover:bg-zinc-800 transition-colors cursor-pointer"
                 >
-                  Return to Overview
+                  Return to Sound Stage
                 </button>
               </div>
             ) : (
-              /* Customizer Drawer Form */
-              <div className="mt-6 flex flex-col gap-6">
-                {/* Product Summary Card */}
-                <div className="flex items-center justify-between p-4 bg-[#fafaf9] rounded-2xl border border-black/[0.06]">
-                  <div>
-                    <h4 className="text-sm font-semibold text-zinc-950">RoH Sound Flagship</h4>
-                    <span className="text-xs font-mono text-zinc-500 capitalize">
-                      {selectedColor} Finish • 45mm Titanium-Graphene
-                    </span>
-                  </div>
-                  <div className="font-mono text-sm font-bold text-zinc-950">${basePrice}</div>
-                </div>
-
-                {/* Colorway Selection */}
+              <form onSubmit={handleSubmitPreorder} className="space-y-6">
+                {/* 1. Colorway Selection Sub-Component */}
                 <div>
                   <label className="text-xs font-mono uppercase text-zinc-500 block mb-2">
-                    Select Finish
+                    Selected Atelier Finish
                   </label>
-                  <div className="grid grid-cols-2 gap-2">
-                    {colorwaysList.map((c) => (
-                      <button
-                        key={c.id}
-                        onClick={() => setSelectedColor(c.id)}
-                        className={`flex items-center gap-2.5 p-2.5 rounded-xl border text-xs font-medium transition-all ${
-                          selectedColor === c.id
-                            ? 'bg-zinc-950 text-white border-zinc-950 shadow-sm'
-                            : 'bg-white text-zinc-700 border-black/[0.06] hover:bg-zinc-50'
-                        }`}
-                        aria-label={`Switch to ${c.label}`}
-                      >
-                        <span
-                          className="w-4 h-4 rounded-full border border-white/20 shrink-0"
-                          style={{ backgroundColor: c.hex }}
-                        />
-                        <span className="truncate">{c.label}</span>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Laser Engraving Customizer */}
-                <div>
-                  <div className="flex items-center justify-between mb-1.5">
-                    <label className="text-xs font-mono uppercase text-zinc-500">
-                      Laser Engraving (Complimentary)
-                    </label>
-                    <span className="text-[10px] font-mono text-zinc-400">
-                      {engravingText.length}/20 chars
-                    </span>
-                  </div>
-                  <input
-                    type="text"
-                    maxLength={20}
-                    value={engravingText}
-                    onChange={(e) => setEngravingText(e.target.value)}
-                    placeholder="e.g. MASTERING LAB 01"
-                    className="w-full bg-[#fafaf9] border border-black/[0.08] rounded-xl px-3.5 py-2.5 text-xs font-mono uppercase text-zinc-950 focus:outline-none focus:ring-1 focus:ring-zinc-950"
+                  <ColorwaySelector
+                    selectedColor={selectedColor}
+                    onSelectColor={setSelectedColor}
+                    variant="pill"
                   />
-                  {engravingText && (
-                    <div className="mt-2 p-2 bg-white rounded-lg border border-black/[0.06] text-center">
-                      <span className="text-[10px] font-mono text-zinc-400 block">Preview on Gimbal:</span>
-                      <span className="text-xs font-mono font-bold tracking-widest text-[#b8934a]">
-                        &ldquo;{engravingText.toUpperCase()}&rdquo;
-                      </span>
-                    </div>
-                  )}
                 </div>
 
-                {/* Extended Warranty Add-on */}
+                {/* 2. Custom Laser Engraving Sub-Component */}
+                <LaserEngravingPreview
+                  value={engravingText}
+                  onChange={setEngravingText}
+                  maxLength={20}
+                />
+
+                {/* 3. Extended Warranty Addon */}
                 <div
                   onClick={() => setHasExtendedWarranty(!hasExtendedWarranty)}
-                  className={`p-4 rounded-2xl border cursor-pointer transition-all ${
+                  className={`p-3.5 rounded-2xl border transition-all cursor-pointer flex items-center justify-between ${
                     hasExtendedWarranty
                       ? 'bg-zinc-950 text-white border-zinc-950 shadow-sm'
-                      : 'bg-[#fafaf9] text-zinc-800 border-black/[0.06] hover:bg-zinc-100'
+                      : 'bg-[#fafaf9] border-black/[0.06] text-zinc-700 hover:bg-zinc-50'
                   }`}
                 >
-                  <div className="flex items-start justify-between">
-                    <div className="flex items-center gap-2">
-                      <ShieldCheck
-                        className={`w-4 h-4 ${
-                          hasExtendedWarranty ? 'text-[#d4af37]' : 'text-zinc-600'
-                        }`}
-                      />
-                      <span className="text-xs font-semibold">3-Year RoH Platinum Care</span>
+                  <div className="flex items-center gap-3">
+                    <ShieldCheck className={`w-5 h-5 ${hasExtendedWarranty ? 'text-[#b8934a]' : 'text-zinc-500'}`} />
+                    <div>
+                      <div className="text-xs font-semibold">5-Year Extended Audiophile Care</div>
+                      <div className={`text-[11px] font-light ${hasExtendedWarranty ? 'text-zinc-300' : 'text-zinc-500'}`}>
+                        Accidental transducer drop & liquid coverage
+                      </div>
                     </div>
-                    <span className="text-xs font-mono font-bold">+$49</span>
                   </div>
-                  <p
-                    className={`text-[11px] font-light mt-1.5 ${
-                      hasExtendedWarranty ? 'text-zinc-300' : 'text-zinc-500'
-                    }`}
-                  >
-                    Zero-deductible coverage for accidental drops, liquid spills, and battery renewal.
-                  </p>
+                  <span className="font-mono text-xs font-semibold shrink-0">+$49</span>
                 </div>
 
-                {/* Quantity Stepper */}
-                <div className="flex items-center justify-between pt-2">
-                  <span className="text-xs font-mono uppercase text-zinc-500">Quantity</span>
-                  <div className="flex items-center gap-3 bg-[#fafaf9] border border-black/[0.08] rounded-full px-3 py-1">
-                    <button
-                      onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                      className="text-sm font-bold text-zinc-600 hover:text-zinc-950 px-1"
-                    >
-                      -
-                    </button>
-                    <span className="text-xs font-mono font-bold text-zinc-950">{quantity}</span>
-                    <button
-                      onClick={() => setQuantity(quantity + 1)}
-                      className="text-sm font-bold text-zinc-600 hover:text-zinc-950 px-1"
-                    >
-                      +
-                    </button>
+                {/* 4. Customer Contact Details */}
+                <div className="space-y-3 pt-2">
+                  <div>
+                    <label className="text-xs font-mono uppercase text-zinc-500 block mb-1">
+                      Full Name
+                    </label>
+                    <input
+                      required
+                      type="text"
+                      value={customerName}
+                      onChange={(e) => setCustomerName(e.target.value)}
+                      placeholder="Jane Doe"
+                      className="w-full bg-[#fafaf9] border border-black/[0.08] rounded-xl px-3.5 py-2.5 text-xs text-zinc-950 focus:outline-none focus:ring-1 focus:ring-zinc-950"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-xs font-mono uppercase text-zinc-500 block mb-1">
+                      Email for Dispatch Notice
+                    </label>
+                    <input
+                      required
+                      type="email"
+                      value={customerEmail}
+                      onChange={(e) => setCustomerEmail(e.target.value)}
+                      placeholder="jane@studio.com"
+                      className="w-full bg-[#fafaf9] border border-black/[0.08] rounded-xl px-3.5 py-2.5 text-xs text-zinc-950 focus:outline-none focus:ring-1 focus:ring-zinc-950"
+                    />
                   </div>
                 </div>
-              </div>
+
+                {/* Error Banner if any */}
+                {preorderMutation.isError && (
+                  <div className="p-3 bg-red-50 border border-red-200 text-red-700 text-xs rounded-xl">
+                    Unable to submit reservation. Please check your connection and try again.
+                  </div>
+                )}
+
+                {/* Submit Pre-order Button */}
+                <button
+                  type="submit"
+                  disabled={preorderMutation.isPending}
+                  className="w-full bg-zinc-950 hover:bg-zinc-800 disabled:bg-zinc-400 text-white rounded-full py-4 text-xs font-semibold tracking-widest uppercase transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  {preorderMutation.isPending ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin text-[#d4af37]" />
+                      <span>Reserving Serial Number...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Sparkles className="w-4 h-4 text-[#d4af37]" />
+                      <span>Reserve for ${totalPrice}</span>
+                    </>
+                  )}
+                </button>
+              </form>
             )}
           </div>
 
-          {/* Footer Checkout Actions */}
-          {!confirmedReservation && (
-            <div className="pt-6 border-t border-black/[0.06] mt-6">
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-xs font-mono uppercase text-zinc-500">Estimated Total</span>
-                <span className="text-2xl font-mono font-light text-zinc-950">
-                  ${orderTotal}
-                </span>
-              </div>
-
-              <button
-                onClick={handlePreorderSubmit}
-                disabled={preorderMutation.isPending}
-                className="w-full flex items-center justify-center gap-2 bg-zinc-950 hover:bg-zinc-800 disabled:opacity-50 text-white rounded-full py-4 text-xs font-semibold uppercase tracking-widest transition-all shadow-md hover:shadow-xl active:scale-98"
-              >
-                {preorderMutation.isPending ? (
-                  <>
-                    <Loader2 className="w-4 h-4 animate-spin text-[#d4af37]" />
-                    <span>Reserving Batch...</span>
-                  </>
-                ) : (
-                  <>
-                    <Sparkles className="w-4 h-4 text-[#d4af37]" />
-                    <span>Confirm Priority Pre-Order</span>
-                    <ArrowRight className="w-3.5 h-3.5 ml-1" />
-                  </>
-                )}
-              </button>
-
-              <div className="mt-3 text-center text-[10px] font-mono text-zinc-400">
-                No immediate charge • 30-Day Money-Back Guarantee
-              </div>
+          {/* Footer Highlights */}
+          <div className="p-6 bg-[#fafaf9] border-t border-black/[0.06] space-y-2">
+            <div className="flex items-center gap-2 text-[11px] font-mono text-zinc-500">
+              <Truck className="w-3.5 h-3.5 text-zinc-700" />
+              <span>Complimentary worldwide express insured courier</span>
             </div>
-          )}
+            <div className="flex items-center gap-2 text-[11px] font-mono text-zinc-500">
+              <ShieldCheck className="w-3.5 h-3.5 text-zinc-700" />
+              <span>30-day audition with 100% money-back guarantee</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>

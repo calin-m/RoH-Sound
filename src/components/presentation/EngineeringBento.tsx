@@ -1,31 +1,21 @@
 'use client';
 
 import React from 'react';
+import { SectionHeader } from './SectionHeader';
 import { Cpu, BatteryCharging, Zap, Feather, Waves, Bluetooth } from 'lucide-react';
 
 export const EngineeringBento: React.FC = () => {
   return (
     <section id="engineering" className="py-24 px-4 sm:px-8 bg-[#fafaf9]">
       <div className="max-w-6xl mx-auto">
-        {/* Step Index & Header */}
-        <div className="flex items-center gap-3 mb-4">
-          <span className="font-mono text-xs font-semibold tracking-widest text-[#b8934a]">
-            03
-          </span>
-          <span className="h-3 w-px bg-black/10" />
-          <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-zinc-500">
-            Acoustic Engineering
-          </span>
-        </div>
-
-        <div className="max-w-xl mb-12">
-          <h2 className="text-3xl sm:text-4xl font-light tracking-tight text-zinc-950">
-            Engineered Down to the Micron
-          </h2>
-          <p className="mt-2 text-zinc-600 font-light text-sm sm:text-base">
-            Every component is crafted from aerospace-grade materials to eliminate unwanted resonance and reproduce music precisely as recorded.
-          </p>
-        </div>
+        {/* Section Header */}
+        <SectionHeader
+          step="03"
+          eyebrow="Acoustic Engineering"
+          title="Engineered Down to the Micron"
+          subtitle="Every component is crafted from aerospace-grade materials to eliminate unwanted resonance and reproduce music precisely as recorded."
+          className="mb-12"
+        />
 
         {/* Bento Grid */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6">

@@ -25,7 +25,7 @@ describe('HeroSection', () => {
 
   it('toggles audio preview demo mode on CTA click', () => {
     render(<HeroSection />);
-    const demoBtn = screen.getByRole('button', { name: /Listen to Sound Stage Demo/i });
+    const demoBtn = screen.getByRole('button', { name: /Play Demo/i });
     fireEvent.click(demoBtn);
     expect(useProductStore.getState().isPlayingDemo).toBe(true);
   });

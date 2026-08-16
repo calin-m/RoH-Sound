@@ -1,16 +1,11 @@
 'use client';
 
 import React from 'react';
-import { useProductStore, Colorway, ViewAngle } from '@/stores/useProductStore';
+import { useProductStore, ViewAngle } from '@/stores/useProductStore';
+import { SectionHeader } from './SectionHeader';
+import { ColorwaySelector, COLORWAYS_LIST } from './ColorwaySelector';
 import { HeadphoneVisualizer } from './HeadphoneVisualizer';
 import { Play, Pause, ShieldCheck, Sparkles, CheckCircle2 } from 'lucide-react';
-
-const colorways: { id: Colorway; label: string; hex: string; desc: string }[] = [
-  { id: 'midnight', label: 'Obsidian Midnight', hex: '#18181b', desc: 'Anodized PVD Matte' },
-  { id: 'silver', label: 'Alabaster Silver', hex: '#e4e4e7', desc: 'Bead-Blasted Alloy' },
-  { id: 'titanium', label: 'Champagne Titanium', hex: '#d8c7a6', desc: 'Satin Brass Luster' },
-  { id: 'emerald', label: 'Forest Emerald', hex: '#14382e', desc: 'Deep Alpine Ceramic' },
-];
 
 export const HeroSection: React.FC = () => {
   const {
@@ -23,29 +18,21 @@ export const HeroSection: React.FC = () => {
     setDrawerOpen,
   } = useProductStore();
 
+  const activeColorDesc = COLORWAYS_LIST.find((c) => c.id === selectedColor)?.desc;
+
   return (
     <section className="relative min-h-[92vh] flex flex-col justify-center pt-28 pb-16 px-4 sm:px-8 overflow-hidden radial-glow-subtle">
       {/* Background Decorative Hairline Grid */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#00000006_1px,transparent_1px),linear-gradient(to_bottom,#00000006_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto w-full relative z-10">
-        {/* Step Index & Eyebrow Badge */}
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-          <div className="flex items-center gap-3">
-            <span className="font-mono text-xs font-semibold tracking-widest text-[#b8934a]">
-              01
-            </span>
-            <span className="h-3 w-px bg-black/10" />
-            <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-zinc-500">
-              Acoustic Architecture
-            </span>
-          </div>
-
+        {/* Section Header & Rating Badge */}
+        <SectionHeader step="01" eyebrow="Acoustic Architecture" className="!mb-6">
           <div className="flex items-center gap-2 bg-white/80 backdrop-blur-md px-3.5 py-1 rounded-full border border-black/[0.06] text-xs font-medium text-zinc-600 shadow-sm">
             <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
             <span>4.9 / 5.0 Rating • 1,240+ Sound Engineers</span>
           </div>
-        </div>
+        </SectionHeader>
 
         {/* Hero Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
@@ -67,36 +54,22 @@ export const HeroSection: React.FC = () => {
                   Finish: <strong className="text-zinc-950 capitalize">{selectedColor}</strong>
                 </span>
                 <span className="text-xs text-zinc-400 font-mono">
-                  {colorways.find((c) => c.id === selectedColor)?.desc}
+                  {activeColorDesc}
                 </span>
               </div>
 
-              <div className="flex items-center gap-4">
-                {colorways.map((item) => (
-                  <button
-                    key={item.id}
-                    onClick={() => setSelectedColor(item.id)}
-                    className={`group relative p-1 rounded-full transition-all duration-300 ${
-                      selectedColor === item.id
-                        ? 'ring-2 ring-zinc-950 ring-offset-2 ring-offset-[#fafaf9]'
-                        : 'hover:ring-1 hover:ring-zinc-400 ring-offset-1 ring-offset-[#fafaf9]'
-                    }`}
-                    aria-label={`Select ${item.label}`}
-                  >
-                    <span
-                      className="block w-7 h-7 rounded-full shadow-inner border border-black/10 transition-transform group-hover:scale-105"
-                      style={{ backgroundColor: item.hex }}
-                    />
-                  </button>
-                ))}
-              </div>
+              <ColorwaySelector
+                selectedColor={selectedColor}
+                onSelectColor={setSelectedColor}
+                variant="swatch"
+              />
             </div>
 
             {/* CTA Actions */}
-            <div className="mt-9 flex flex-wrap items-center gap-4">
+            <div className="mt-9 flex flex-row flex-wrap sm:flex-nowrap items-center gap-3.5">
               <button
                 onClick={() => setDrawerOpen(true)}
-                className="flex items-center gap-2.5 bg-zinc-950 hover:bg-zinc-800 text-white rounded-full px-7 py-3.5 text-xs font-semibold tracking-widest uppercase transition-all duration-200 shadow-md hover:shadow-xl active:scale-98"
+                className="flex items-center gap-2.5 bg-zinc-950 hover:bg-zinc-800 text-white rounded-full px-6 sm:px-7 py-3.5 text-xs font-semibold tracking-widest uppercase transition-all duration-200 shadow-md hover:shadow-xl active:scale-98 shrink-0 cursor-pointer"
               >
                 <Sparkles className="w-4 h-4 text-[#d4af37]" />
                 <span>Pre-Order RoH Sound • $399</span>
@@ -104,17 +77,17 @@ export const HeroSection: React.FC = () => {
 
               <button
                 onClick={toggleDemoPlayback}
-                className="flex items-center gap-2.5 bg-white hover:bg-zinc-50 text-zinc-800 border border-black/[0.08] rounded-full px-5 py-3.5 text-xs font-medium tracking-wider uppercase transition-all shadow-sm hover:shadow"
+                className="flex items-center justify-center gap-2 bg-white hover:bg-zinc-50 text-zinc-800 border border-black/[0.08] rounded-full px-5 py-3.5 text-xs font-medium tracking-wider uppercase transition-all shadow-sm hover:shadow shrink-0 min-w-[130px] cursor-pointer"
               >
                 {isPlayingDemo ? (
                   <>
                     <Pause className="w-3.5 h-3.5 text-[#b8934a]" />
-                    <span>Pause Audiophile Demo</span>
+                    <span>Stop Demo</span>
                   </>
                 ) : (
                   <>
                     <Play className="w-3.5 h-3.5 text-[#b8934a] fill-[#b8934a]" />
-                    <span>Listen to Sound Stage Demo</span>
+                    <span>Play Demo</span>
                   </>
                 )}
               </button>
@@ -140,7 +113,7 @@ export const HeroSection: React.FC = () => {
                 <button
                   key={angle}
                   onClick={() => setViewAngle(angle)}
-                  className={`px-4 py-1 rounded-full text-[11px] font-medium uppercase tracking-wider transition-all duration-200 ${
+                  className={`px-4 py-1 rounded-full text-[11px] font-medium uppercase tracking-wider transition-all duration-200 cursor-pointer ${
                     viewAngle === angle
                       ? 'bg-zinc-950 text-white shadow-sm'
                       : 'text-zinc-500 hover:text-zinc-950'

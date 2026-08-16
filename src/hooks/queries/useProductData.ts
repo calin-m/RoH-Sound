@@ -1,7 +1,7 @@
 import { useQuery, useMutation, UseQueryOptions } from '@tanstack/react-query';
 import { ProductDetails, ReviewItem } from '@/mocks/handlers';
 
-export async function fetchProductData(): Promise<ProductDetails> {
+async function fetchProductData(): Promise<ProductDetails> {
   const res = await fetch('/api/product');
   if (!res.ok) {
     throw new Error(`Failed to fetch RoH Sound product data: ${res.statusText}`);
@@ -9,7 +9,7 @@ export async function fetchProductData(): Promise<ProductDetails> {
   return res.json();
 }
 
-export async function fetchReviewsData(): Promise<ReviewItem[]> {
+async function fetchReviewsData(): Promise<ReviewItem[]> {
   const res = await fetch('/api/reviews');
   if (!res.ok) {
     throw new Error(`Failed to fetch RoH Sound reviews: ${res.statusText}`);
@@ -18,17 +18,24 @@ export async function fetchReviewsData(): Promise<ReviewItem[]> {
 }
 
 export interface PreorderPayload {
-  colorway: string;
-  quantity: number;
+  colorway?: string;
+  color?: string;
+  quantity?: number;
   engraving?: string;
+  engravingText?: string;
   hasWarranty?: boolean;
   warranty?: boolean;
+  includeWarranty?: boolean;
+  customerName?: string;
+  customerEmail?: string;
 }
 
 export interface PreorderResponse {
   success: boolean;
+  status?: string;
   reservationCode: string;
   message: string;
+  estimatedShipDate?: string;
   details: {
     colorway: string;
     quantity: number;
@@ -37,7 +44,7 @@ export interface PreorderResponse {
   };
 }
 
-export async function submitPreorder(payload: PreorderPayload): Promise<PreorderResponse> {
+async function submitPreorder(payload: PreorderPayload): Promise<PreorderResponse> {
   const res = await fetch('/api/order/preorder', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

@@ -7,7 +7,7 @@ import { useProductStore } from '@/stores/useProductStore';
 
 function renderWithClient(ui: React.ReactElement) {
   const queryClient = new QueryClient({
-    defaultOptions: { queries: { retry: false } },
+    defaultOptions: { queries: { retry: false }, mutations: { retry: false } },
   });
   return render(<QueryClientProvider client={queryClient}>{ui}</QueryClientProvider>);
 }
@@ -22,31 +22,24 @@ describe('CheckoutDrawer', () => {
     expect(container.firstChild).toBeNull();
   });
 
-  it('renders order summary and allows customizing engraving and warranty when open', () => {
+  it('renders order form and allows customizing colorway, engraving, and warranty when open', () => {
     useProductStore.getState().setDrawerOpen(true);
     renderWithClient(<CheckoutDrawer />);
 
-    expect(screen.getByText(/Your RoH Sound Pre-Order/i)).toBeInTheDocument();
-    expect(screen.getByText(/RoH Sound Flagship/i)).toBeInTheDocument();
+    expect(screen.getByText(/Pre-Order RoH Sound/i)).toBeInTheDocument();
+    expect(screen.getByText(/Priority Atelier Batch 01/i)).toBeInTheDocument();
 
+    // Laser Engraving Sub-component
     const engravingInput = screen.getByPlaceholderText(/e\.g\. MASTERING LAB 01/i);
     fireEvent.change(engravingInput, { target: { value: 'STUDIO A' } });
     expect(useProductStore.getState().engravingText).toBe('STUDIO A');
 
-    const warrantyOption = screen.getByText(/3-Year RoH Platinum Care/i);
+    // Extended warranty option
+    const warrantyOption = screen.getByText(/5-Year Extended Audiophile Care/i);
     fireEvent.click(warrantyOption);
     expect(useProductStore.getState().hasExtendedWarranty).toBe(true);
 
-    // Quantity buttons
-    const plusBtn = screen.getByText('+');
-    fireEvent.click(plusBtn);
-    expect(useProductStore.getState().quantity).toBe(2);
-
-    const minusBtn = screen.getByText('-');
-    fireEvent.click(minusBtn);
-    expect(useProductStore.getState().quantity).toBe(1);
-
-    // Switch colorway inside drawer
+    // Colorway selection sub-component in pill mode
     const emeraldBtn = screen.getByRole('button', { name: /Switch to Forest Emerald/i });
     fireEvent.click(emeraldBtn);
     expect(useProductStore.getState().selectedColor).toBe('emerald');
@@ -61,15 +54,22 @@ describe('CheckoutDrawer', () => {
     useProductStore.getState().setDrawerOpen(true);
     renderWithClient(<CheckoutDrawer />);
 
-    const confirmBtn = screen.getByRole('button', { name: /Confirm Priority Pre-Order/i });
-    fireEvent.click(confirmBtn);
+    // Fill required customer details
+    const nameInput = screen.getByPlaceholderText('Jane Doe');
+    fireEvent.change(nameInput, { target: { value: 'Alexander Vance' } });
+
+    const emailInput = screen.getByPlaceholderText('jane@studio.com');
+    fireEvent.change(emailInput, { target: { value: 'alexander@studio.com' } });
+
+    const submitBtn = screen.getByRole('button', { name: /Reserve for/i });
+    fireEvent.click(submitBtn);
 
     await waitFor(() => {
-      expect(screen.getByText(/Reservation Confirmed/i)).toBeInTheDocument();
+      expect(screen.getByText(/Priority Reservation Confirmed/i)).toBeInTheDocument();
       expect(screen.getByText(/Reservation Code:/i)).toBeInTheDocument();
     });
 
-    const returnBtn = screen.getByRole('button', { name: /Return to Overview/i });
+    const returnBtn = screen.getByRole('button', { name: /Return to Sound Stage/i });
     fireEvent.click(returnBtn);
     expect(useProductStore.getState().isDrawerOpen).toBe(false);
   });
