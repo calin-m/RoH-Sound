@@ -2,6 +2,8 @@
 
 import React, { useState } from 'react';
 import { SectionHeader } from './SectionHeader';
+import { MotionReveal } from '@/components/motion/MotionReveal';
+import { StaggerGroup } from '@/components/motion/StaggerGroup';
 import { ChevronDown } from 'lucide-react';
 
 const faqs = [
@@ -42,16 +44,18 @@ export const FAQSection: React.FC = () => {
     <section id="faq" className="py-24 px-4 sm:px-8 bg-[#fafaf9]">
       <div className="max-w-4xl mx-auto">
         {/* Section Header */}
-        <SectionHeader
-          step="07"
-          eyebrow="Inquiries & Policies"
-          title="Frequently Asked Questions"
-          subtitle="Everything you need to know about delivery, warranty, audio connectivity, and our in-home audition policy."
-          className="mb-12"
-        />
+        <MotionReveal direction="up">
+          <SectionHeader
+            step="07"
+            eyebrow="Inquiries & Policies"
+            title="Frequently Asked Questions"
+            subtitle="Everything you need to know about delivery, warranty, audio connectivity, and our in-home audition policy."
+            className="mb-12"
+          />
+        </MotionReveal>
 
-        {/* Accordion List */}
-        <div className="space-y-4">
+        {/* Accordion List with Staggered Entrance */}
+        <StaggerGroup staggerInterval={60} direction="up" className="space-y-4">
           {faqs.map((faq, index) => {
             const isOpen = openIndex === index;
 
@@ -83,7 +87,7 @@ export const FAQSection: React.FC = () => {
               </div>
             );
           })}
-        </div>
+        </StaggerGroup>
       </div>
     </section>
   );

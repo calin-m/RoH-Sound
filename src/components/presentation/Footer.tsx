@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useProductStore } from '@/stores/useProductStore';
+import { MotionReveal } from '@/components/motion/MotionReveal';
 import { Sparkles, ArrowUp } from 'lucide-react';
 
 export const Footer: React.FC = () => {
@@ -25,45 +26,47 @@ export const Footer: React.FC = () => {
     <>
       <footer className="bg-white border-t border-black/[0.06] pt-16 pb-28 sm:pb-20 px-4 sm:px-8">
         <div className="max-w-6xl mx-auto flex flex-col justify-between gap-12">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
-            <div className="md:col-span-6">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-zinc-950 flex items-center justify-center text-white font-mono text-xs font-bold">
-                  R
+          <MotionReveal direction="up">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+              <div className="md:col-span-6">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-full bg-zinc-950 flex items-center justify-center text-white font-mono text-xs font-bold">
+                    R
+                  </div>
+                  <span className="font-sans text-sm font-semibold tracking-[0.2em] text-zinc-950 uppercase">
+                    RoH<span className="text-[#b8934a] font-normal ml-0.5">·</span>SOUND
+                  </span>
                 </div>
-                <span className="font-sans text-sm font-semibold tracking-[0.2em] text-zinc-950 uppercase">
-                  RoH<span className="text-[#b8934a] font-normal ml-0.5">·</span>SOUND
-                </span>
+                <p className="mt-4 text-xs text-zinc-500 font-light max-w-sm leading-relaxed">
+                  Pure Acoustic Architecture. Dedicated to uncompromising electroacoustic engineering, zero-distortion transducers, and timeless minimalist aesthetics.
+                </p>
               </div>
-              <p className="mt-4 text-xs text-zinc-500 font-light max-w-sm leading-relaxed">
-                Pure Acoustic Architecture. Dedicated to uncompromising electroacoustic engineering, zero-distortion transducers, and timeless minimalist aesthetics.
-              </p>
-            </div>
 
-            <div className="md:col-span-3">
-              <div className="text-xs font-mono uppercase tracking-widest text-zinc-400 mb-3">
-                Exploration
+              <div className="md:col-span-3">
+                <div className="text-xs font-mono uppercase tracking-widest text-zinc-400 mb-3">
+                  Exploration
+                </div>
+                <ul className="space-y-2 text-xs text-zinc-600 font-light">
+                  <li><a href="#experience" className="hover:text-zinc-950 transition-colors">Acoustic Sound Lab</a></li>
+                  <li><a href="#engineering" className="hover:text-zinc-950 transition-colors">Titanium Transducers</a></li>
+                  <li><a href="#studio" className="hover:text-zinc-950 transition-colors">Metallurgical Finishes</a></li>
+                  <li><a href="#specs" className="hover:text-zinc-950 transition-colors">Laboratory Metrics</a></li>
+                </ul>
               </div>
-              <ul className="space-y-2 text-xs text-zinc-600 font-light">
-                <li><a href="#experience" className="hover:text-zinc-950 transition-colors">Acoustic Sound Lab</a></li>
-                <li><a href="#engineering" className="hover:text-zinc-950 transition-colors">Titanium Transducers</a></li>
-                <li><a href="#studio" className="hover:text-zinc-950 transition-colors">Metallurgical Finishes</a></li>
-                <li><a href="#specs" className="hover:text-zinc-950 transition-colors">Laboratory Metrics</a></li>
-              </ul>
-            </div>
 
-            <div className="md:col-span-3">
-              <div className="text-xs font-mono uppercase tracking-widest text-zinc-400 mb-3">
-                Concierge & Legal
+              <div className="md:col-span-3">
+                <div className="text-xs font-mono uppercase tracking-widest text-zinc-400 mb-3">
+                  Concierge & Legal
+                </div>
+                <ul className="space-y-2 text-xs text-zinc-600 font-light">
+                  <li><a href="#faq" className="hover:text-zinc-950 transition-colors">30-Day Audition Policy</a></li>
+                  <li><a href="#faq" className="hover:text-zinc-950 transition-colors">3-Year Platinum Warranty</a></li>
+                  <li><a href="mailto:concierge@rohsound.example" className="hover:text-zinc-950 transition-colors">Acoustic Support Desk</a></li>
+                  <li><span className="text-zinc-400">Zurich • Tokyo • San Francisco</span></li>
+                </ul>
               </div>
-              <ul className="space-y-2 text-xs text-zinc-600 font-light">
-                <li><a href="#faq" className="hover:text-zinc-950 transition-colors">30-Day Audition Policy</a></li>
-                <li><a href="#faq" className="hover:text-zinc-950 transition-colors">3-Year Platinum Warranty</a></li>
-                <li><a href="mailto:concierge@rohsound.example" className="hover:text-zinc-950 transition-colors">Acoustic Support Desk</a></li>
-                <li><span className="text-zinc-400">Zurich • Tokyo • San Francisco</span></li>
-              </ul>
             </div>
-          </div>
+          </MotionReveal>
 
           <div className="pt-8 border-t border-black/[0.06] flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] font-mono text-zinc-400">
             <div>

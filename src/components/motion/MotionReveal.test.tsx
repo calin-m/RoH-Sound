@@ -130,4 +130,40 @@ describe('MotionReveal', () => {
     });
     expect(unobserveMock).not.toHaveBeenCalled();
   });
+
+  it('re-animates on visibilitychange when tab returns to visible', () => {
+    vi.stubGlobal('IntersectionObserver', class {
+      observe = vi.fn();
+      unobserve = vi.fn();
+      disconnect = vi.fn();
+    });
+
+    // Mock getBoundingClientRect
+    Element.prototype.getBoundingClientRect = vi.fn().mockReturnValue({
+      top: 100,
+      bottom: 200,
+      left: 0,
+      right: 100,
+      width: 100,
+      height: 100,
+    });
+
+    render(
+      <MotionReveal direction="up">
+        <span>Tab Switching Content</span>
+      </MotionReveal>
+    );
+
+    // Trigger tab return
+    Object.defineProperty(document, 'visibilityState', {
+      value: 'visible',
+      configurable: true,
+    });
+
+    act(() => {
+      document.dispatchEvent(new Event('visibilitychange'));
+    });
+
+    expect(screen.getByText('Tab Switching Content')).toBeInTheDocument();
+  });
 });

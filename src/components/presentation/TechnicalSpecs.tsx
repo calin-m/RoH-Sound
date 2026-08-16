@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { SectionHeader } from './SectionHeader';
 import { SpecComparisonTable } from './SpecComparisonTable';
+import { MotionReveal } from '@/components/motion/MotionReveal';
 
 type SpecCategory = 'acoustic' | 'connectivity' | 'battery' | 'physical';
 
@@ -48,51 +49,59 @@ export const TechnicalSpecs: React.FC = () => {
     <section id="specs" className="py-24 px-4 sm:px-8 bg-[#fafaf9]">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
-        <SectionHeader
-          step="05"
-          eyebrow="Technical Architecture"
-          title="Uncompromising Specifications"
-          subtitle="Verified laboratory measurements and component tolerances engineered for demanding audiophiles and sound professionals."
-          className="mb-12"
-        />
+        <MotionReveal direction="up">
+          <SectionHeader
+            step="05"
+            eyebrow="Technical Architecture"
+            title="Uncompromising Specifications"
+            subtitle="Verified laboratory measurements and component tolerances engineered for demanding audiophiles and sound professionals."
+            className="mb-12"
+          />
+        </MotionReveal>
 
         {/* Tab Navigation */}
-        <div className="flex flex-wrap gap-2 mb-8 border-b border-black/[0.06] pb-4">
-          {categories.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveCategory(tab.id)}
-              className={`px-5 py-2.5 rounded-full text-xs font-medium uppercase tracking-wider transition-all duration-200 cursor-pointer ${
-                activeCategory === tab.id
-                  ? 'bg-zinc-950 text-white shadow-sm'
-                  : 'bg-white text-zinc-600 border border-black/[0.06] hover:bg-zinc-50 hover:text-zinc-950'
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>
+        <MotionReveal direction="up" delay={100}>
+          <div className="flex flex-wrap gap-2 mb-8 border-b border-black/[0.06] pb-4">
+            {categories.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveCategory(tab.id)}
+                className={`px-5 py-2.5 rounded-full text-xs font-medium uppercase tracking-wider transition-all duration-200 cursor-pointer ${
+                  activeCategory === tab.id
+                    ? 'bg-zinc-950 text-white shadow-sm'
+                    : 'bg-white text-zinc-600 border border-black/[0.06] hover:bg-zinc-50 hover:text-zinc-950'
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+        </MotionReveal>
 
         {/* Spec Matrix List */}
-        <div className="bg-white rounded-3xl border border-black/[0.06] divide-y divide-black/[0.04] shadow-sm mb-16 overflow-hidden">
-          {specsData[activeCategory].map((spec, index) => (
-            <div
-              key={index}
-              className="p-6 sm:px-8 flex flex-col sm:flex-row sm:items-center justify-between gap-2 hover:bg-zinc-50/50 transition-colors"
-            >
-              <div>
-                <span className="text-sm font-medium text-zinc-950">{spec.label}</span>
-                <span className="block text-xs text-zinc-400 font-light mt-0.5">{spec.detail}</span>
+        <MotionReveal direction="up" delay={200}>
+          <div className="bg-white rounded-3xl border border-black/[0.06] divide-y divide-black/[0.04] shadow-sm mb-16 overflow-hidden">
+            {specsData[activeCategory].map((spec, index) => (
+              <div
+                key={index}
+                className="p-6 sm:px-8 flex flex-col sm:flex-row sm:items-center justify-between gap-2 hover:bg-zinc-50/50 transition-colors"
+              >
+                <div>
+                  <span className="text-sm font-medium text-zinc-950">{spec.label}</span>
+                  <span className="block text-xs text-zinc-400 font-light mt-0.5">{spec.detail}</span>
+                </div>
+                <div className="font-mono text-sm font-semibold text-zinc-900 sm:text-right">
+                  {spec.value}
+                </div>
               </div>
-              <div className="font-mono text-sm font-semibold text-zinc-900 sm:text-right">
-                {spec.value}
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        </MotionReveal>
 
         {/* Competitor Benchmark Comparison Sub-Component */}
-        <SpecComparisonTable />
+        <MotionReveal direction="up" delay={300}>
+          <SpecComparisonTable />
+        </MotionReveal>
       </div>
     </section>
   );

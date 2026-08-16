@@ -151,6 +151,7 @@ export const HeroSection: React.FC = () => {
               <HeadphoneVisualizer
                 color={selectedColor}
                 angle={viewAngle}
+                onAngleChange={setViewAngle}
                 isPlayingDemo={isPlayingDemo}
               />
             </MotionReveal>

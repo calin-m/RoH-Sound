@@ -2,7 +2,7 @@
 
 > [!NOTE]
 > This document is **100% auto-generated** via AST code introspection (`scripts/generate-architecture-matrix.js`). Any manual edits will be overwritten during verification (`npm run verify`) or synchronization (`npm run docs:sync`).
-> **Last Synchronized:** `2026-08-16T14:18:46.198Z`
+> **Last Synchronized:** `2026-08-16T15:17:44.228Z`
 
 ---
 
@@ -132,7 +132,7 @@ flowchart LR
 ## 4. AST-Extracted Component & Module Inventory
 
 Summary of auto-discovered source modules:
-- **Total Source Files Analyzed:** `69`
+- **Total Source Files Analyzed:** `71`
 - **Application Routes:** `2`
 - **State Stores:** `1`
 - **Query Hooks:** `1`

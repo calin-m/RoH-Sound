@@ -26,6 +26,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ---
 
 ### Recent Git Commit History
+- `9e8a7ef` - **fix(motion): eliminate SSR hydration mismatch and add configurable replay support** (2026-08-16)
 - `ccb1635` - **refactor(presentation): extract modular sub-components and add comprehensive test coverage** (2026-08-16)
 - `89774e4` - **feat(presentation): implement RoH Sound light minimalist product presentation SPA** (2026-08-16)
 - `a82856e` - **feat(dx): decouple vitest ui from dev:all and establish user-driven commit governance** (2026-08-16)

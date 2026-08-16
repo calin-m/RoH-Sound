@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
+import { MOTION_CONFIG } from './motion-config';
 
 export type RevealDirection = 'up' | 'down' | 'left' | 'right' | 'none';
 
@@ -10,7 +11,7 @@ export interface MotionRevealProps {
   delay?: number; // in ms
   duration?: number; // in ms
   threshold?: number;
-  once?: boolean; // defaults to true (single-play). Set to false to replay whenever entering/leaving viewport.
+  once?: boolean;
   className?: string;
 }
 
@@ -18,9 +19,9 @@ export const MotionReveal: React.FC<MotionRevealProps> = ({
   children,
   direction = 'up',
   delay = 0,
-  duration = 700,
-  threshold = 0.1,
-  once = true,
+  duration = MOTION_CONFIG.duration,
+  threshold = MOTION_CONFIG.threshold,
+  once = MOTION_CONFIG.once,
   className = '',
 }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -62,17 +63,40 @@ export const MotionReveal: React.FC<MotionRevealProps> = ({
     };
   }, [threshold, once]);
 
+  // Replay animation on tab visibility change when the element is active in the viewport
+  useEffect(() => {
+    if (typeof window === 'undefined' || once) return;
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible' && elementRef.current) {
+        const rect = elementRef.current.getBoundingClientRect();
+        const inViewport = rect.top < window.innerHeight && rect.bottom > 0;
+        if (inViewport) {
+          setIsVisible(false);
+          const frame = requestAnimationFrame(() => {
+            setIsVisible(true);
+          });
+          return () => cancelAnimationFrame(frame);
+        }
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+  }, [once]);
+
   const getTransform = () => {
     if (isVisible) return 'translate3d(0, 0, 0)';
+    const d = MOTION_CONFIG.distance;
     switch (direction) {
       case 'up':
-        return 'translate3d(0, 24px, 0)';
+        return `translate3d(0, ${d}px, 0)`;
       case 'down':
-        return 'translate3d(0, -24px, 0)';
+        return `translate3d(0, -${d}px, 0)`;
       case 'left':
-        return 'translate3d(24px, 0, 0)';
+        return `translate3d(${d}px, 0, 0)`;
       case 'right':
-        return 'translate3d(-24px, 0, 0)';
+        return `translate3d(-${d}px, 0, 0)`;
       case 'none':
       default:
         return 'translate3d(0, 0, 0)';
@@ -87,7 +111,7 @@ export const MotionReveal: React.FC<MotionRevealProps> = ({
       style={{
         opacity: isVisible ? 1 : 0,
         transform: getTransform(),
-        transition: `opacity ${duration}ms cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms, transform ${duration}ms cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms`,
+        transition: `opacity ${duration}ms ${MOTION_CONFIG.easing} ${delay}ms, transform ${duration}ms ${MOTION_CONFIG.easing} ${delay}ms`,
         willChange: 'opacity, transform',
       }}
     >

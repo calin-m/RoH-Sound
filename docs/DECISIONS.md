@@ -5,6 +5,7 @@ This document tracks all foundational architecture decisions for the enterprise 
 ## ADR Index
 - [ADR-001: Enterprise Tech Stack Selection (Next.js 15, MSW v2, Zustand, TanStack Query, Vitest)](#adr-001-enterprise-tech-stack-selection)
 - [ADR-002: Closed-Loop Quality & 7-Gateway Verification Engine Architecture](#adr-002-closed-loop-quality--7-gateway-verification-engine-architecture)
+- [ADR-003: Procedural WebGL 3D Headphone Model Engine using Three.js](#adr-003-procedural-webgl-3d-headphone-model-engine-using-threejs)
 
 ---
 
@@ -57,3 +58,26 @@ We implement the 7-Gateway Quality Engine (`scripts/verify-build.js` executed vi
 ### Consequences
 - **Positive:** Zero documentation drift, guaranteed minimum 85% test coverage, immediate discovery of dead code or leaked secrets.
 - **Negative:** Verification gate must pass completely before commit creation.
+
+---
+
+## ADR-003: Procedural WebGL 3D Headphone Model Engine using Three.js
+
+- **Status:** Accepted
+- **Date:** 2026-08-16
+- **Authors:** Enterprise Solutions Architect & Staff Engineer
+- **Deciders:** Core Engineering Team
+
+### Context
+Static 2D illustrations and CSS flat-plane 3D transforms cannot faithfully represent multi-axis volumetric geometry, PBR studio specular highlights, or authentic 360-degree rotational viewing required for luxury audiophile product presentations. Furthermore, downloading heavy external `.glb` binary assets introduces network latency and bundle bloat.
+
+### Decision
+We adopt **Three.js** (`three`, `@types/three`) to construct a **pure procedural WebGL 3D Headphone Model**:
+1. **Procedural Geometry:** Build the entire model in code via Three.js primitives (TorusGeometry headband, beveled CylinderGeometry earcups, protein leather cushion toroids, metallic gimbal forks, and brass acoustic resonant rings).
+2. **PBR Studio Lighting:** Implement 3-point studio lighting with key, fill, and rim lights interacting with MeshStandardMaterial roughness and metalness tokens per colorway.
+3. **Interactive 3D Turntable & Orbit:** Provide smooth angle rotation interpolation (`front`, `angle`, `side`), pointer drag inspection, and automated 360° studio orbit.
+4. **Resilient Fallback:** Provide graceful degradation for environments without WebGL context.
+
+### Consequences
+- **Positive:** Authentic 3D spatial fidelity, $<5\text{ms}$ initialization with 0 asset network downloads, seamless real-time material swapping, and silky smooth 360° rotational physics.
+- **Negative:** Introduces `three` dependency (~150KB gzip) which is dynamically bundled on the client.
