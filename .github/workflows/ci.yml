@@ -1,0 +1,47 @@
+name: Enterprise 7-Gateway CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality-gate:
+    name: 7-Gateway Quality Engine
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Execute 7-Gateway Closed-Loop Verification
+        run: npm run verify
+
+      - name: Archive Quality & Coverage Reports
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: quality-audit-artifacts
+          path: |
+            docs/QUALITY_AUDIT_REPORT.md
+            docs/quality-audit-results.json
+            docs/test-results.json
+            coverage/
+          retention-days: 14
