@@ -26,6 +26,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ---
 
 ### Recent Git Commit History
+- `33ba31e` - **docs(readme): harmonize CI badge with shields.io for-the-badge style** (2026-08-17)
+- `4a859fa` - **fix(ci): make changelog generator cross-platform and upgrade to Node 22 LTS** (2026-08-17)
 - `69c7553` - **fix(ci): polyfill browser observers and anchor vitest ESM paths for Linux CI** (2026-08-17)
 - `17efc54` - **ci(github): add 7-Gateway automated CI workflow and status badge** (2026-08-17)
 - `9aa7382` - **docs(meta): add MIT license, repository links, and footer attribution** (2026-08-17)

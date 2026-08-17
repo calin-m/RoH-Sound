@@ -9,7 +9,7 @@
 [![TypeScript 5](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 [![Three.js](https://img.shields.io/badge/Three.js-WebGL_3D-000000?style=for-the-badge&logo=three.js)](https://threejs.org/)
 [![Tailwind CSS v4](https://img.shields.io/badge/Tailwind_CSS-v4.0-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
-[![Vitest Coverage](https://img.shields.io/badge/Vitest-105%2F105_Passed_(95.02%25)-green?style=for-the-badge&logo=vitest)](https://vitest.dev/)
+[![Vitest Coverage](https://img.shields.io/badge/Vitest-105%2F105_Passed_(94.29%25)-green?style=for-the-badge&logo=vitest)](https://vitest.dev/)
 [![MSW v2](https://img.shields.io/badge/MSW-v2.0-E35555?style=for-the-badge&logo=mockserviceworker)](https://mswjs.io/)
 [![Quality Gateways](https://img.shields.io/badge/7--Gateway-Verified-emerald?style=for-the-badge&logo=shield)](./DEVELOPMENT.md)
 
@@ -201,21 +201,21 @@ graph TD
 | :-: | :--- | :--- |
 | **01** | **Atelier Capsule Navbar** | Brand monogram `[R]` with animated speaker transducer cone excursion and hover volume dampening, split-letter wave elevation (`translateY(-3.5px)`) staggered by $24\text{ms}$ with spring physics, gold hairline sweeps, mobile menu drawer, and active colorway cart indicator. |
 | **02** | **Acoustic Hero & 3D Turntable** | Procedural WebGL Three.js studio model with multi-mesh materials, default 360° continuous auto-orbit, drag interaction with unsnapped continuous resumption, floating status pill indicator, permanent ambient circular acoustic soundwave rings ($0.7\times$ intensity), and singular Grounded Pre-Order CTA with interactive magnetic cursor tracking and periodic soundwave typography. |
-| **03** | **Interactive Sound Lab** | Triple-mode Active Noise Cancellation simulator (Transparency, Balanced, Ultra 48dB) with real-time waveform physics and decibel attenuation ripples, plus a 360° HRTF Binaural Soundstage with **direct-drag pointer capture orbit**, listener anatomy, left/right driver energy glow, and real-time acoustic vector ray-tracing. |
+| **03** | **Interactive Sound Lab** | Triple-mode Active Noise Cancellation simulator (Transparency, Balanced, Ultra 48dB) with **autonomous 60fps pure traveling sinusoidal waves** (solid obsidian acoustic signal + synchronized 180° gold dashed anti-phase cancellation wave) and decibel attenuation ripples, plus a 360° HRTF Binaural Soundstage with **direct-drag pointer capture orbit**, listener anatomy, left/right driver energy glow, and real-time acoustic vector ray-tracing. |
 | **04** | **Acoustic Bento Matrix** | Asymmetric bento grid with corner light refraction sweeps and acoustic transducer diaphragm hover auras, showcasing the 45mm Custom Graphene Driver, Aerospace Titanium chassis, 65-Hour Extended Battery, and Lossless 24-bit/192kHz LDAC Bluetooth 5.4. |
 | **05** | **Color Studio** | Interactive finish atelier featuring Midnight Obsidian, Champagne Platinum, Raw Titanium, and Forest Emerald with live metallurgical shader sync and **specular metallic sheen light sweeps** on selection. |
 | **06** | **Technical Architecture** | Complete laboratory metrics with animated category tabs and spec row hover illumination, frequency response curves ($4\text{Hz} - 48\text{kHz}$), and side-by-side benchmark table comparing RoH Sound against legacy flagships. |
 | **07** | **Customer Reviews** | Acclaimed customer feedback from verified sound engineers and mastering specialists with star ratings and verified buyer credentials. |
 | **08** | **Concierge & FAQ** | Accordion-based inquiry hub with smooth height expansion, $180^\circ$ rotating luxury chevrons, and illuminated champagne gold margin draws. |
 | **09** | **Slide-Over Checkout Drawer** | Hardware-accelerated 400ms slide-in/out cubic-bezier drawer with backdrop tap/click outside dismissal, Escape key handling, live personalized laser engraving with **animated CNC laser spark focal indicator**, warranty selection, and instant reservation code dispatch. |
-| **10** | **Floating Back to Top Pill** | Glassmorphic floating **Back to Top** pill positioned in the bottom-right corner when scrolling down past the hero section with smooth scroll physics. |
+| **10** | **Atelier Footer & Floating Back to Top** | Direct hyperlink for RoH Sound Laboratories AG to the GitHub repository, alongside a glassmorphic floating **Back to Top** pill with smooth scroll physics. |
 
 ---
 
 ## ⚡ Quick Start
 
 ### Prerequisites
-- **Node.js**: `>= 20.0.0`
+- **Node.js**: `>= 20.0.0` (Node 22 LTS recommended)
 - **npm**: `>= 10.0.0`
 
 ### Installation & Local Development
@@ -275,7 +275,7 @@ Every contribution is validated through 7 deterministic quality gateways:
 1. **Pass 0.5 (Secret Scanner):** Scans all codebase files for private keys, AWS/GCP tokens, or exposed API credentials.
 2. **Pass 1 (TypeScript Strict Typecheck):** Verifies 0 compile errors via `tsc --noEmit`.
 3. **Pass 2 (Vitest MSW Server & Queries):** Validates network mocking and query hook state transitions.
-4. **Pass 3 (Vitest Client UI & Primitives):** Executes all test suites and asserts **≥ 85% code coverage** (*current: 95.86%*).
+4. **Pass 3 (Vitest Client UI & Primitives):** Executes all test suites and asserts **≥ 85% code coverage** (*current: 94.29%*).
 5. **Pass 4 (Living Architecture & Quality Sync):** Auto-generates C4 matrices in `ARCHITECTURE.md`, compiles `docs/QUALITY_AUDIT_REPORT.md`, and syncs `CHANGELOG.md`.
 6. **Pass 5 (ADR Decision Ledger Validation):** Verifies sequential numbering and schema conformance in `docs/DECISIONS.md`.
 7. **Pass 6 (ESLint & Knip Audit):** Validates 0 lint errors and 0 dead code/unused exports.
