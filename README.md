@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](./LICENSE)
 [![CI: 7-Gateway](https://img.shields.io/github/actions/workflow/status/calin-m/RoH-Sound/ci.yml?branch=master&style=for-the-badge&logo=githubactions&label=CI%207-GATEWAY)](https://github.com/calin-m/RoH-Sound/actions)
-[![Live Demo](https://img.shields.io/badge/Live_Demo-Vercel_Deployment-000000?style=for-the-badge&logo=vercel)](https://ro-h-sound.vercel.app/)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Vercel_Deployment-000000?style=for-the-badge&logo=vercel)](https://roh-sound.vercel.app/)
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github)](https://github.com/calin-m/RoH-Sound)
 [![Next.js 15](https://img.shields.io/badge/Next.js-15.0-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![React 19](https://img.shields.io/badge/React-19.0-blue?style=for-the-badge&logo=react)](https://react.dev/)
@@ -15,7 +15,7 @@
 
 An ultra-refined, high-performance **Product Presentation Single Page Application** for **RoH Sound** (*"Pure Acoustic Architecture. Zero Distortion."*). Engineered with a **Light Minimalistic Sleek Atelier Luxury** design aesthetic, Next.js 15 App Router, procedural Three.js WebGL 3D turntable, precision HRTF vector spatial audio ray-tracing, lightweight Zustand reactive state, and the deterministic 7-Gateway Quality Engine.
 
-> 🌐 **Live Demo:** [https://ro-h-sound.vercel.app/](https://ro-h-sound.vercel.app/)  
+> 🌐 **Live Demo:** [https://roh-sound.vercel.app/](https://roh-sound.vercel.app/)  
 > 📦 **GitHub Repository:** [https://github.com/calin-m/RoH-Sound](https://github.com/calin-m/RoH-Sound)
 
 ---
