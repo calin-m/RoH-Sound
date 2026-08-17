@@ -17,7 +17,7 @@ export const ReviewsSection: React.FC = () => {
         <MotionReveal direction="up">
           <SectionHeader
             step="06"
-            eyebrow="Verified Audiophile Feedback"
+            eyebrow="Reviews"
             title="Acclaimed by Sound Engineers"
             subtitle="Discover what mastering engineers, audio critics, and music lovers experience with RoH Sound."
             className="mb-12"

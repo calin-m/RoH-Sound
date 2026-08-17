@@ -18,8 +18,8 @@ function renderWithQueryClient(ui: React.ReactElement) {
 describe('ReviewsSection', () => {
   it('renders verified customer reviews and ratings', async () => {
     renderWithQueryClient(<ReviewsSection />);
-    expect(screen.getByText(/Verified Audiophile Feedback/i)).toBeInTheDocument();
+    expect(screen.getByText(/^Reviews$/i)).toBeInTheDocument();
     expect(screen.getByText(/4\.9/i)).toBeInTheDocument();
-    expect(await screen.findByText(/Elena Rostova/i)).toBeInTheDocument();
+    expect(await screen.findByText(/Customer 1/i)).toBeInTheDocument();
   });
 });

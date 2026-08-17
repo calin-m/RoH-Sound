@@ -41,7 +41,7 @@ describe('useProductData & useReviewsData', () => {
 
     expect(Array.isArray(result.current.data)).toBe(true);
     expect(result.current.data?.length).toBeGreaterThan(0);
-    expect(result.current.data?.[0].author).toBe('Elena Rostova');
+    expect(result.current.data?.[0].author).toBe('Customer 1');
   });
 
   it('handles API error states gracefully', async () => {

@@ -51,8 +51,8 @@ export const mockProductData: ProductDetails = {
 export const mockReviewsData: ReviewItem[] = [
   {
     id: 'rev-1',
-    author: 'Elena Rostova',
-    role: 'Grammy-Nominated Mastering Engineer',
+    author: 'Customer 1',
+    role: 'Verified Buyer • Mastering Engineer',
     rating: 5,
     date: '2 days ago',
     verified: true,
@@ -63,8 +63,8 @@ export const mockReviewsData: ReviewItem[] = [
   },
   {
     id: 'rev-2',
-    author: 'Marcus Vance',
-    role: 'Acoustic Architect & Composer',
+    author: 'Customer 2',
+    role: 'Verified Buyer • Acoustic Designer',
     rating: 5,
     date: '1 week ago',
     verified: true,
@@ -75,8 +75,8 @@ export const mockReviewsData: ReviewItem[] = [
   },
   {
     id: 'rev-3',
-    author: 'Dr. Aris Thorne',
-    role: 'Audio DSP Researcher',
+    author: 'Customer 3',
+    role: 'Verified Buyer • Audio Researcher',
     rating: 5,
     date: '2 weeks ago',
     verified: true,

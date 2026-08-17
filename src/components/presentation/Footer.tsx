@@ -87,10 +87,21 @@ export const Footer: React.FC = () => {
         </div>
       </footer>
 
-      {/* Floating Sticky Purchase Bar */}
+      {/* Floating Sticky Actions (Back to Top & Pre-Order Bar) */}
       {showStickyBar && (
-        <div className="fixed bottom-4 inset-x-4 sm:inset-x-auto sm:right-8 z-40 animate-in slide-in-from-bottom-6 duration-300">
-          <div className="glass-crystal rounded-full p-2 pl-5 pr-2 flex items-center justify-between gap-4 sm:gap-6 shadow-2xl border border-black/[0.08]">
+        <div className="fixed bottom-4 inset-x-4 sm:inset-x-auto sm:right-8 z-40 flex flex-col items-end gap-2.5 animate-in slide-in-from-bottom-6 duration-300">
+          {/* Floating Back to Top Button */}
+          <button
+            onClick={scrollToTop}
+            aria-label="Scroll back to top"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 bg-white/95 hover:bg-white text-zinc-700 hover:text-zinc-950 text-[11px] font-mono rounded-full border border-black/[0.08] shadow-lg backdrop-blur-md transition-all hover:-translate-y-0.5 active:scale-95 cursor-pointer group"
+          >
+            <ArrowUp className="w-3.5 h-3.5 text-zinc-500 group-hover:text-zinc-950 transition-colors" />
+            <span>Back to top</span>
+          </button>
+
+          {/* Floating Sticky Purchase Bar */}
+          <div className="w-full sm:w-auto glass-crystal rounded-full p-2 pl-5 pr-2 flex items-center justify-between gap-4 sm:gap-6 shadow-2xl border border-black/[0.08]">
             <div className="hidden sm:flex flex-col text-left">
               <span className="text-xs font-semibold text-zinc-950">RoH Sound Flagship</span>
               <span className="text-[10px] font-mono text-zinc-500 capitalize">
