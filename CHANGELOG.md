@@ -26,6 +26,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ---
 
 ### Recent Git Commit History
+- `0792aad` - **feat(mobile): refine navbar drawer controls, 3D gesture isolation, and benchmark switcher** (2026-08-17)
 - `da96e17` - **fix(footer): update copyright holder to Calin M linking to github.com/calin-m** (2026-08-17)
 - `9caeb4d` - **docs(license): update MIT copyright attribution to calin-m with GitHub profile link** (2026-08-17)
 - `061210c` - **docs(readme): update live demo deployment URL to roh-sound.vercel.app** (2026-08-17)

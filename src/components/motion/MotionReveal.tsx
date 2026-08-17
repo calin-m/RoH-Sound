@@ -48,7 +48,7 @@ export const MotionReveal: React.FC<MotionRevealProps> = ({
           setIsVisible(false);
         }
       },
-      { threshold }
+      { threshold: Math.min(threshold, 0.05), rootMargin: '120px 0px 80px 0px' }
     );
 
     const currentElem = elementRef.current;

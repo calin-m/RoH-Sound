@@ -49,7 +49,7 @@ export const AncModeSelector: React.FC<AncModeSelectorProps> = ({
           className={`w-full text-left p-3.5 rounded-2xl border transition-all duration-200 flex items-start justify-between cursor-pointer ${
             currentMode === mode.id
               ? 'bg-white border-zinc-950 shadow-xs ring-1 ring-zinc-950/10'
-              : 'bg-white/50 border-black/[0.04] hover:bg-white hover:border-black/[0.08]'
+              : 'bg-white border-black/[0.08] shadow-xs hover:border-black/[0.15]'
           }`}
           aria-pressed={currentMode === mode.id}
         >

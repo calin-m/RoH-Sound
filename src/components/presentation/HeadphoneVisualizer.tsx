@@ -131,7 +131,7 @@ export const HeadphoneVisualizer: React.FC<HeadphoneVisualizerProps> = ({
       sceneRef.current = scene;
 
       const camera = new THREE.PerspectiveCamera(42, width / height, 0.1, 100);
-      camera.position.set(0, 0, 7.8);
+      camera.position.set(0, 0, 8.2);
 
       // 2. WebGL Renderer
       const renderer = new THREE.WebGLRenderer({
@@ -272,8 +272,8 @@ export const HeadphoneVisualizer: React.FC<HeadphoneVisualizerProps> = ({
       modelGroup.add(createEarcup(true)); // Left Earcup
       modelGroup.add(createEarcup(false)); // Right Earcup
 
-      // Model center offset adjustment
-      modelGroup.position.set(0, -0.3, 0);
+      // Model center offset adjustment - perfectly centered vertically
+      modelGroup.position.set(0, 0.05, 0);
 
       // 5. Render Loop with Smooth Continuous Physics Interpolation
       let lastTime = performance.now();
@@ -430,7 +430,7 @@ export const HeadphoneVisualizer: React.FC<HeadphoneVisualizerProps> = ({
 
   return (
     <div
-      className={`relative w-full aspect-square max-w-[320px] sm:max-w-[420px] md:max-w-[460px] mx-auto flex flex-col items-center justify-center select-none group touch-pan-y ${className}`}
+      className={`relative w-full max-w-[340px] sm:max-w-[420px] md:max-w-[460px] mx-auto flex flex-col items-center justify-center select-none group touch-pan-y ${className}`}
       data-testid="headphone-visualizer"
     >
       {/* Atelier 360° Turntable Status & Controls Pill */}
@@ -443,7 +443,7 @@ export const HeadphoneVisualizer: React.FC<HeadphoneVisualizerProps> = ({
 
       {/* Studio Floor Soft Ambient Shadow */}
       <div
-        className="absolute bottom-6 w-3/4 h-10 rounded-full blur-xl transition-all duration-300 pointer-events-none"
+        className="absolute bottom-4 sm:bottom-6 w-3/4 h-10 rounded-full blur-xl transition-all duration-300 pointer-events-none"
         style={{
           background: `radial-gradient(ellipse at center, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.03) 60%, transparent 80%)`,
           transform: isPlayingDemo ? 'scale(1.18)' : 'scale(1)',
@@ -456,14 +456,14 @@ export const HeadphoneVisualizer: React.FC<HeadphoneVisualizerProps> = ({
         style={{ backgroundColor: activeTheme.glow }}
       />
 
-      {/* WebGL 3D Canvas Container with Bottom Gradient Lighting Fade */}
+      {/* WebGL 3D Canvas Container */}
       <div
         ref={mountRef}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerUp}
-        className="relative w-full h-[280px] sm:h-[340px] md:h-[380px] flex items-center justify-center cursor-grab active:cursor-grabbing z-10 [mask-image:linear-gradient(to_bottom,black_82%,transparent_100%)]"
+        className="relative w-full h-[320px] sm:h-[360px] md:h-[380px] flex items-center justify-center cursor-grab active:cursor-grabbing z-10"
         data-testid="turntable-viewport"
         title="Swipe horizontally to rotate in 3D, swipe vertically to scroll"
       />

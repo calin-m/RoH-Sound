@@ -44,7 +44,7 @@ export const SoundExperience: React.FC = () => {
         {/* Two Interactive Modules Grid with Staggered Entry */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-10">
           {/* Module 1: ANC Simulator */}
-          <MotionReveal direction="up" delay={100} className="lg:col-span-6 flex">
+          <MotionReveal direction="up" delay={100} once={true} className="lg:col-span-6 flex">
             <div className="w-full bg-[#fafaf9] rounded-3xl p-6 sm:p-8 border border-black/[0.06] flex flex-col justify-between shadow-sm">
               <div>
                 <div className="flex items-center justify-between mb-6">
@@ -67,7 +67,7 @@ export const SoundExperience: React.FC = () => {
           </MotionReveal>
 
           {/* Module 2: 360° Spatial Audio Soundstage */}
-          <MotionReveal direction="up" delay={200} className="lg:col-span-6 flex">
+          <MotionReveal direction="up" delay={200} once={true} className="lg:col-span-6 flex">
             <div className="w-full bg-[#fafaf9] rounded-3xl p-6 sm:p-8 border border-black/[0.06] flex flex-col justify-between shadow-sm">
               <div>
                 <div className="flex items-center justify-between mb-6">
