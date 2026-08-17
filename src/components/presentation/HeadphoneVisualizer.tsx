@@ -275,10 +275,28 @@ export const HeadphoneVisualizer: React.FC<HeadphoneVisualizerProps> = ({
       // Model center offset adjustment - perfectly centered vertically
       modelGroup.position.set(0, 0.05, 0);
 
-      // 5. Render Loop with Smooth Continuous Physics Interpolation
+      // 5. Render Loop with Viewport Visibility Observer & Continuous Physics Interpolation
+      let animId: number;
       let lastTime = performance.now();
+      let isVisible = true;
+
+      let observer: IntersectionObserver | null = null;
+      if (container && 'IntersectionObserver' in window) {
+        observer = new IntersectionObserver(([entry]) => {
+          const wasVisible = isVisible;
+          isVisible = entry.isIntersecting;
+          if (isVisible && !wasVisible) {
+            lastTime = performance.now();
+          }
+        }, { threshold: 0 });
+        observer.observe(container);
+      }
+
       const renderLoop = (time: number) => {
-        const delta = (time - lastTime) / 1000;
+        animId = requestAnimationFrame(renderLoop);
+        if (!isVisible) return;
+
+        const delta = Math.min((time - lastTime) / 1000, 0.1);
         lastTime = time;
 
         if (isAutoRotatingRef.current) {
@@ -295,10 +313,10 @@ export const HeadphoneVisualizer: React.FC<HeadphoneVisualizerProps> = ({
         }
 
         renderer.render(scene, camera);
-        animId = requestAnimationFrame(renderLoop);
       };
 
-      animId = requestAnimationFrame(renderLoop);
+      // Initial frame render
+      renderLoop(performance.now());
 
       // Resize Handler
       const handleResize = () => {
@@ -313,6 +331,9 @@ export const HeadphoneVisualizer: React.FC<HeadphoneVisualizerProps> = ({
 
       return () => {
         cancelAnimationFrame(animId);
+        if (observer) {
+          observer.disconnect();
+        }
         window.removeEventListener('resize', handleResize);
         if (container && renderer.domElement) {
           container.removeChild(renderer.domElement);

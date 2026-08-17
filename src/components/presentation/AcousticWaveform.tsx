@@ -12,6 +12,7 @@ export const AcousticWaveform: React.FC<AcousticWaveformProps> = ({
   mode,
   className = '',
 }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const soundPathRef = useRef<SVGPathElement>(null);
   const cancelPathRef = useRef<SVGPathElement>(null);
   const modeRef = useRef<AncMode>(mode);
@@ -24,8 +25,23 @@ export const AcousticWaveform: React.FC<AcousticWaveformProps> = ({
   useEffect(() => {
     let animId: number;
     let lastTimestamp = performance.now();
+    let isVisible = true;
     let time = 0;
     let currentAmplitude = modeRef.current === 'transparency' ? 34 : modeRef.current === 'balanced' ? 22 : 12;
+
+    const container = containerRef.current;
+    let observer: IntersectionObserver | null = null;
+
+    if (container && 'IntersectionObserver' in window) {
+      observer = new IntersectionObserver(([entry]) => {
+        const wasVisible = isVisible;
+        isVisible = entry.isIntersecting;
+        if (isVisible && !wasVisible) {
+          lastTimestamp = performance.now();
+        }
+      }, { threshold: 0 });
+      observer.observe(container);
+    }
 
     const points = 80;
     const width = 400;
@@ -34,6 +50,9 @@ export const AcousticWaveform: React.FC<AcousticWaveformProps> = ({
     const cycles = 2.5;
 
     const renderFrame = (timestamp: number) => {
+      animId = requestAnimationFrame(renderFrame);
+      if (!isVisible) return;
+
       const delta = Math.min((timestamp - lastTimestamp) / 1000, 0.1);
       lastTimestamp = timestamp;
 
@@ -73,19 +92,22 @@ export const AcousticWaveform: React.FC<AcousticWaveformProps> = ({
       if (cancelPathRef.current) {
         cancelPathRef.current.setAttribute('d', cancelD);
       }
-
-      animId = requestAnimationFrame(renderFrame);
     };
 
-    animId = requestAnimationFrame(renderFrame);
+    // Initial frame render
+    renderFrame(performance.now());
 
     return () => {
       cancelAnimationFrame(animId);
+      if (observer) {
+        observer.disconnect();
+      }
     };
   }, []);
 
   return (
     <div
+      ref={containerRef}
       className={`h-32 bg-white rounded-2xl border border-black/[0.06] p-4 flex items-center justify-center relative overflow-hidden shadow-inner ${className}`}
     >
       {/* Center Zero Reference Line */}

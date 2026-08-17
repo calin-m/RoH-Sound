@@ -23,15 +23,29 @@ if (typeof window !== 'undefined') {
   }
 
   if (!window.IntersectionObserver) {
-    window.IntersectionObserver = class {
+    class MockIntersectionObserver {
       readonly root: Element | Document | null = null;
       readonly rootMargin: string = '';
       readonly thresholds: ReadonlyArray<number> = [];
-      observe = vi.fn();
+      private callback?: IntersectionObserverCallback;
+
+      constructor(callback?: IntersectionObserverCallback) {
+        this.callback = callback;
+      }
+
+      observe = vi.fn((target?: Element) => {
+        if (this.callback && target) {
+          this.callback(
+            [{ isIntersecting: true, target, intersectionRatio: 1 } as unknown as IntersectionObserverEntry],
+            this as unknown as IntersectionObserver
+          );
+        }
+      });
       unobserve = vi.fn();
       disconnect = vi.fn();
       takeRecords = vi.fn(() => []);
-    } as unknown as typeof IntersectionObserver;
+    }
+    window.IntersectionObserver = MockIntersectionObserver as unknown as typeof IntersectionObserver;
   }
 
   if (!window.ResizeObserver) {
