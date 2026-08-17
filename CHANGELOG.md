@@ -15,7 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - 7-Gateway Quality Engine (scripts/verify-build.js) enforcing strict verification passes.
 - AST-driven Living Documentation Engine auto-generating C4 diagrams and quality reports.
 
-## [1.0.0] - 2026-08-16
+## [1.0.0] - 2026-08-17
 
 ### Added
 - Initial enterprise foundation bootstrap with Closed-Loop Quality & Living Documentation Engine.
@@ -26,6 +26,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ---
 
 ### Recent Git Commit History
+- `f075328` - **feat(ui): implement procedural 3D visualizer, modular UI atoms, and acoustic nav animations** (2026-08-16)
 - `55b6bf4` - **feat(3d-visualizer): implement procedural WebGL 3D headphone model and centralize motion tokens** (2026-08-16)
 - `9e8a7ef` - **fix(motion): eliminate SSR hydration mismatch and add configurable replay support** (2026-08-16)
 - `ccb1635` - **refactor(presentation): extract modular sub-components and add comprehensive test coverage** (2026-08-16)

@@ -4,7 +4,6 @@ import React from 'react';
 import { useProductStore } from '@/stores/useProductStore';
 import { SectionHeader } from './SectionHeader';
 import { ColorwaySelector, COLORWAYS_LIST } from './ColorwaySelector';
-import { AngleSelector } from './AngleSelector';
 import { HeadphoneVisualizer } from './HeadphoneVisualizer';
 import { MotionReveal } from '../motion/MotionReveal';
 import { MagneticButton } from '../motion/MagneticButton';
@@ -125,20 +124,11 @@ export const HeroSection: React.FC = () => {
 
           {/* Right Column: Studio Lighting Vector Showcase with Motion & Ripples */}
           <div className="lg:col-span-6 flex flex-col items-center justify-center relative">
-            {/* View Angle Pill Switcher */}
-            <MotionReveal direction="down" delay={200}>
-              <AngleSelector
-                currentAngle={viewAngle}
-                onSelectAngle={setViewAngle}
-                className="mb-4"
-              />
-            </MotionReveal>
-
             {/* Acoustic Wave Ripple Backing */}
             <AcousticRipple active={isPlayingDemo} />
 
-            {/* Dynamic Headphone Visualizer */}
-            <MotionReveal direction="none" delay={300} duration={800} className="w-full flex justify-center py-4">
+            {/* Dynamic Headphone Visualizer with Atelier 360° Turntable Indicator */}
+            <MotionReveal direction="none" delay={200} duration={800} className="w-full flex justify-center py-4">
               <HeadphoneVisualizer
                 color={selectedColor}
                 angle={viewAngle}

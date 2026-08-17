@@ -30,7 +30,7 @@ describe('HeadphoneVisualizer', () => {
     unmount();
   });
 
-  it('toggles 360° auto-orbit rotation mode', () => {
+  it('defaults to 360° auto-orbit on load and toggles pause/resume', () => {
     render(
       <HeadphoneVisualizer
         color="titanium"
@@ -39,14 +39,20 @@ describe('HeadphoneVisualizer', () => {
       />
     );
 
-    const orbitBtn = screen.getByRole('button', { name: /360° Orbit/i });
-    expect(orbitBtn).toBeInTheDocument();
+    // Initial state is auto-orbiting
+    expect(screen.getByText(/360° Studio View/i)).toBeInTheDocument();
+    const pauseBtn = screen.getByRole('button', { name: /Pause auto-orbit/i });
+    expect(pauseBtn).toBeInTheDocument();
 
-    fireEvent.click(orbitBtn);
-    expect(screen.getByRole('button', { name: /Auto-Orbiting/i })).toBeInTheDocument();
+    // Pause orbit
+    fireEvent.click(pauseBtn);
+    expect(screen.getByText(/Orbit Paused/i)).toBeInTheDocument();
+    const resumeBtn = screen.getByRole('button', { name: /Resume auto-orbit/i });
+    expect(resumeBtn).toBeInTheDocument();
 
-    fireEvent.click(screen.getByRole('button', { name: /Auto-Orbiting/i }));
-    expect(screen.getByRole('button', { name: /360° Orbit/i })).toBeInTheDocument();
+    // Resume orbit
+    fireEvent.click(resumeBtn);
+    expect(screen.getByText(/360° Studio View/i)).toBeInTheDocument();
   });
 
   it('handles pointer drag interaction and calls onAngleChange on release', () => {

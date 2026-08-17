@@ -18,17 +18,37 @@ describe('MagneticButton', () => {
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
 
-  it('updates transform on mouse interaction', () => {
+  it('runs multi-directional acoustic dance by default and dampens to 0.35x on hover without interrupting animation', () => {
     render(
-      <MagneticButton>
+      <MagneticButton enableDance={true}>
         <button>Explore</button>
       </MagneticButton>
     );
 
+    const danceLayer = screen.getByTestId('magnetic-button-dance');
+    expect(danceLayer).toHaveClass('animate-acoustic-dance');
+    expect(danceLayer).not.toHaveClass('dance-dampened');
+
     const container = screen.getByTestId('magnetic-button');
     fireEvent.mouseEnter(container);
+    expect(danceLayer).toHaveClass('animate-acoustic-dance');
+    expect(danceLayer).toHaveClass('dance-dampened');
+
     fireEvent.mouseMove(container, { clientX: 50, clientY: 50 });
     fireEvent.mouseLeave(container);
+    expect(danceLayer).toHaveClass('animate-acoustic-dance');
+    expect(danceLayer).not.toHaveClass('dance-dampened');
     expect(container).toHaveStyle({ transform: 'translate3d(0px, 0px, 0)' });
+  });
+
+  it('supports disabling acoustic dance', () => {
+    render(
+      <MagneticButton enableDance={false}>
+        <button>Explore</button>
+      </MagneticButton>
+    );
+
+    const danceLayer = screen.getByTestId('magnetic-button-dance');
+    expect(danceLayer).not.toHaveClass('animate-acoustic-dance');
   });
 });

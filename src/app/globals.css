@@ -105,13 +105,52 @@ body {
   }
 }
 
-.soundwave-bar {
-  animation: wavePulse 1.2s ease-in-out infinite;
-  transform-origin: center;
+@property --dance-scale {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
 }
 
-.animate-float-subtle {
-  animation: floatSubtle 6s ease-in-out infinite;
+@keyframes acousticDance {
+  0%, 100% {
+    transform: translate3d(0px, 0px, 0) rotate(0deg) scale(1);
+  }
+  16% {
+    transform: translate3d(calc(var(--dance-scale, 1) * 3.8px), calc(var(--dance-scale, 1) * -3.2px), 0)
+      rotate(calc(var(--dance-scale, 1) * 0.75deg))
+      scale(calc(1 + var(--dance-scale, 1) * 0.015));
+  }
+  33% {
+    transform: translate3d(calc(var(--dance-scale, 1) * -3.4px), calc(var(--dance-scale, 1) * 2.2px), 0)
+      rotate(calc(var(--dance-scale, 1) * -0.65deg))
+      scale(calc(1 - var(--dance-scale, 1) * 0.005));
+  }
+  50% {
+    transform: translate3d(calc(var(--dance-scale, 1) * 3.2px), calc(var(--dance-scale, 1) * 3.4px), 0)
+      rotate(calc(var(--dance-scale, 1) * 0.6deg))
+      scale(calc(1 + var(--dance-scale, 1) * 0.018));
+  }
+  66% {
+    transform: translate3d(calc(var(--dance-scale, 1) * -3.8px), calc(var(--dance-scale, 1) * -2.4px), 0)
+      rotate(calc(var(--dance-scale, 1) * -0.7deg))
+      scale(calc(1 + var(--dance-scale, 1) * 0.008));
+  }
+  83% {
+    transform: translate3d(calc(var(--dance-scale, 1) * 2px), calc(var(--dance-scale, 1) * -1.2px), 0)
+      rotate(calc(var(--dance-scale, 1) * 0.35deg))
+      scale(calc(1 + var(--dance-scale, 1) * 0.004));
+  }
+}
+
+.animate-acoustic-dance {
+  --dance-scale: 1;
+  animation: acousticDance 3.4s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  transition: --dance-scale 0.4s var(--ease-luxury);
+  will-change: transform;
+}
+
+.animate-acoustic-dance.dance-dampened {
+  --dance-scale: 0.35;
 }
 
 .animate-ripple-1 {

@@ -4,20 +4,26 @@ import React, { useRef, useState } from 'react';
 
 export interface MagneticButtonProps {
   children: React.ReactNode;
-  strength?: number; // pull multiplier (e.g. 0.15 - 0.3)
+  strength?: number; // base pull multiplier
+  enableAmbientGroove?: boolean; // backwards-compatible alias
+  enableDance?: boolean; // multi-directional acoustic dance by default
   className?: string;
   onClick?: () => void;
 }
 
 export const MagneticButton: React.FC<MagneticButtonProps> = ({
   children,
-  strength = 0.2,
+  strength = 0.12,
+  enableAmbientGroove = true,
+  enableDance = true,
   className = '',
   onClick,
 }) => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
   const buttonRef = useRef<HTMLDivElement>(null);
+
+  const isDanceActive = enableDance && enableAmbientGroove;
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const elem = buttonRef.current;
@@ -27,8 +33,10 @@ export const MagneticButton: React.FC<MagneticButtonProps> = ({
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
 
-    const deltaX = (e.clientX - centerX) * strength;
-    const deltaY = (e.clientY - centerY) * strength;
+    // Precision magnetic pull (tightly clamped for steady clicking precision)
+    const precisionStrength = strength * 0.35;
+    const deltaX = Math.max(-5, Math.min(5, (e.clientX - centerX) * precisionStrength));
+    const deltaY = Math.max(-4, Math.min(4, (e.clientY - centerY) * precisionStrength));
 
     setPosition({ x: deltaX, y: deltaY });
   };
@@ -54,12 +62,29 @@ export const MagneticButton: React.FC<MagneticButtonProps> = ({
       style={{
         transform: `translate3d(${position.x}px, ${position.y}px, 0)`,
         transition: isHovered
-          ? 'transform 100ms ease-out'
-          : 'transform 500ms cubic-bezier(0.34, 1.56, 0.64, 1)',
+          ? 'transform 120ms ease-out'
+          : 'transform 600ms cubic-bezier(0.34, 1.56, 0.64, 1)',
         willChange: 'transform',
       }}
     >
-      {children}
+      {/* Continuous Multi-Directional Acoustic Dance Layer (0.35x when hovered) */}
+      <div
+        className={`w-full h-full ${
+          isDanceActive
+            ? `animate-acoustic-dance ${isHovered ? 'dance-dampened' : ''}`
+            : ''
+        }`}
+        data-testid="magnetic-button-dance"
+        style={
+          isDanceActive
+            ? ({
+                '--dance-scale': isHovered ? 0.35 : 1,
+              } as React.CSSProperties)
+            : undefined
+        }
+      >
+        {children}
+      </div>
     </div>
   );
 };

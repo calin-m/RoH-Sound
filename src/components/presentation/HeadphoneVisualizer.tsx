@@ -3,11 +3,12 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import * as THREE from 'three';
 import { Colorway, ViewAngle } from '@/stores/useProductStore';
-import { RotateCw, MoveHorizontal, Sparkles } from 'lucide-react';
+import { ModelOrbitIndicator } from './ModelOrbitIndicator';
+import { Sparkles, MoveHorizontal } from 'lucide-react';
 
 interface HeadphoneVisualizerProps {
   color: Colorway;
-  angle: ViewAngle;
+  angle?: ViewAngle;
   isPlayingDemo: boolean;
   onAngleChange?: (angle: ViewAngle) => void;
   className?: string;
@@ -71,19 +72,21 @@ const angleToRadians: Record<ViewAngle, number> = {
 
 export const HeadphoneVisualizer: React.FC<HeadphoneVisualizerProps> = ({
   color,
-  angle,
+  angle = 'front',
   isPlayingDemo,
   onAngleChange,
   className = '',
 }) => {
   const mountRef = useRef<HTMLDivElement>(null);
-  const [isAutoRotating, setIsAutoRotating] = useState(false);
+  // Auto-Orbit active by default on 3D model load
+  const [isAutoRotating, setIsAutoRotating] = useState(true);
   const [isDragging, setIsDragging] = useState(false);
 
   // Interaction refs
   const targetYawRef = useRef<number>(angleToRadians[angle] || 0);
   const currentYawRef = useRef<number>(angleToRadians[angle] || 0);
-  const isAutoRotatingRef = useRef(false);
+  const isAutoRotatingRef = useRef(true);
+  const wasAutoRotatingRef = useRef(true);
   const isDraggingRef = useRef(false);
   const dragStartXRef = useRef(0);
   const dragStartYawRef = useRef(0);
@@ -95,13 +98,6 @@ export const HeadphoneVisualizer: React.FC<HeadphoneVisualizerProps> = ({
   const cupMaterialsRef = useRef<THREE.MeshStandardMaterial[]>([]);
   const accentMaterialsRef = useRef<THREE.MeshStandardMaterial[]>([]);
   const cushionMaterialsRef = useRef<THREE.MeshStandardMaterial[]>([]);
-
-  // Sync angle prop changes with target yaw
-  useEffect(() => {
-    if (!isDraggingRef.current && !isAutoRotatingRef.current) {
-      targetYawRef.current = angleToRadians[angle] || 0;
-    }
-  }, [angle]);
 
   // Update 3D materials dynamically on colorway change
   useEffect(() => {
@@ -277,7 +273,7 @@ export const HeadphoneVisualizer: React.FC<HeadphoneVisualizerProps> = ({
       // Model center offset adjustment
       modelGroup.position.set(0, -0.3, 0);
 
-      // 5. Render Loop with Smooth Physics Interpolation
+      // 5. Render Loop with Smooth Continuous Physics Interpolation
       let lastTime = performance.now();
       const renderLoop = (time: number) => {
         const delta = (time - lastTime) / 1000;
@@ -330,7 +326,7 @@ export const HeadphoneVisualizer: React.FC<HeadphoneVisualizerProps> = ({
   const handlePointerDown = (e: React.PointerEvent) => {
     setIsDragging(true);
     isDraggingRef.current = true;
-    setIsAutoRotating(false);
+    wasAutoRotatingRef.current = isAutoRotatingRef.current;
     isAutoRotatingRef.current = false;
     dragStartXRef.current = e.clientX;
     dragStartYawRef.current = targetYawRef.current;
@@ -354,18 +350,23 @@ export const HeadphoneVisualizer: React.FC<HeadphoneVisualizerProps> = ({
       // Ignore if released
     }
 
-    // Determine nearest canonical angle
-    const yaw = ((targetYawRef.current % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2);
-    let closest: ViewAngle = 'front';
-    if (yaw < 0.4 || yaw > Math.PI * 2 - 0.4) {
-      closest = 'front';
-    } else if (yaw >= 0.4 && yaw < 1.2) {
-      closest = 'angle';
-    } else {
-      closest = 'side';
+    // Seamlessly resume auto-orbiting from exact current angle if it was previously active
+    if (wasAutoRotatingRef.current) {
+      isAutoRotatingRef.current = true;
+      setIsAutoRotating(true);
     }
 
+    // Notify parent of approximate orientation if callback provided (without snapping yaw)
     if (onAngleChange) {
+      const yaw = ((targetYawRef.current % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2);
+      let closest: ViewAngle = 'front';
+      if (yaw < 0.4 || yaw > Math.PI * 2 - 0.4) {
+        closest = 'front';
+      } else if (yaw >= 0.4 && yaw < 1.2) {
+        closest = 'angle';
+      } else {
+        closest = 'side';
+      }
       onAngleChange(closest);
     }
   }, [onAngleChange]);
@@ -374,6 +375,7 @@ export const HeadphoneVisualizer: React.FC<HeadphoneVisualizerProps> = ({
     const nextState = !isAutoRotating;
     setIsAutoRotating(nextState);
     isAutoRotatingRef.current = nextState;
+    wasAutoRotatingRef.current = nextState;
   };
 
   const activeTheme = colorThemes[color] || colorThemes.midnight;
@@ -383,6 +385,14 @@ export const HeadphoneVisualizer: React.FC<HeadphoneVisualizerProps> = ({
       className={`relative w-full aspect-square max-w-[460px] mx-auto flex flex-col items-center justify-center select-none group touch-none ${className}`}
       data-testid="headphone-visualizer"
     >
+      {/* Atelier 360° Turntable Status & Controls Pill */}
+      <ModelOrbitIndicator
+        isAutoRotating={isAutoRotating}
+        isDragging={isDragging}
+        onToggleAutoRotate={handleToggleAutoRotate}
+        className="mb-2 z-20"
+      />
+
       {/* Studio Floor Soft Ambient Shadow */}
       <div
         className="absolute bottom-6 w-3/4 h-10 rounded-full blur-xl transition-all duration-300 pointer-events-none"
@@ -410,24 +420,11 @@ export const HeadphoneVisualizer: React.FC<HeadphoneVisualizerProps> = ({
         title="Click and drag to rotate in 3D"
       />
 
-      {/* Interactive 3D Orbit & Drag Controls */}
+      {/* Subtle Studio Footer Tags */}
       <div className="flex items-center gap-2 mt-2 z-20">
-        <button
-          onClick={handleToggleAutoRotate}
-          className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono tracking-wider transition-all duration-200 cursor-pointer border ${
-            isAutoRotating
-              ? 'bg-zinc-950 text-white border-zinc-950 shadow-xs'
-              : 'bg-white/80 backdrop-blur-md text-zinc-600 border-black/[0.06] hover:bg-zinc-100 hover:text-zinc-950'
-          }`}
-          title="Toggle continuous 360° studio rotation"
-        >
-          <RotateCw className={`w-3 h-3 ${isAutoRotating ? 'animate-spin' : ''}`} />
-          <span>{isAutoRotating ? 'Auto-Orbiting' : '360° Orbit'}</span>
-        </button>
-
         <div className="flex items-center gap-1 text-[10px] font-mono text-zinc-400 bg-white/60 backdrop-blur-md px-2.5 py-1 rounded-full border border-black/[0.04]">
           <MoveHorizontal className="w-3 h-3 text-zinc-400" />
-          <span>Drag 3D Model</span>
+          <span>Drag Turntable</span>
         </div>
 
         <div className="hidden sm:flex items-center gap-1 text-[10px] font-mono text-zinc-400 bg-white/60 backdrop-blur-md px-2 py-1 rounded-full border border-black/[0.04]">
