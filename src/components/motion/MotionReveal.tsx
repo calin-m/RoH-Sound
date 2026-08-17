@@ -25,6 +25,7 @@ export const MotionReveal: React.FC<MotionRevealProps> = ({
   className = '',
 }) => {
   const [isVisible, setIsVisible] = useState(false);
+  const [isAnimationDone, setIsAnimationDone] = useState(false);
   const elementRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -33,7 +34,10 @@ export const MotionReveal: React.FC<MotionRevealProps> = ({
     }
 
     if (!('IntersectionObserver' in window)) {
-      const timer = setTimeout(() => setIsVisible(true), 0);
+      const timer = setTimeout(() => {
+        setIsVisible(true);
+        setIsAnimationDone(true);
+      }, 0);
       return () => clearTimeout(timer);
     }
 
@@ -41,14 +45,20 @@ export const MotionReveal: React.FC<MotionRevealProps> = ({
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
+          const doneTimer = setTimeout(() => {
+            setIsAnimationDone(true);
+          }, duration + delay + 50);
+
           if (once && elementRef.current) {
             observer.unobserve(elementRef.current);
           }
+          return () => clearTimeout(doneTimer);
         } else if (!once) {
           setIsVisible(false);
+          setIsAnimationDone(false);
         }
       },
-      { threshold: Math.min(threshold, 0.05), rootMargin: '120px 0px 80px 0px' }
+      { threshold: Math.min(threshold, 0.05), rootMargin: '180px 0px 120px 0px' }
     );
 
     const currentElem = elementRef.current;
@@ -61,7 +71,7 @@ export const MotionReveal: React.FC<MotionRevealProps> = ({
         observer.unobserve(currentElem);
       }
     };
-  }, [threshold, once]);
+  }, [threshold, once, duration, delay]);
 
   // Replay animation on tab visibility change when the element is active in the viewport
   useEffect(() => {
@@ -73,6 +83,7 @@ export const MotionReveal: React.FC<MotionRevealProps> = ({
         const inViewport = rect.top < window.innerHeight && rect.bottom > 0;
         if (inViewport) {
           setIsVisible(false);
+          setIsAnimationDone(false);
           const frame = requestAnimationFrame(() => {
             setIsVisible(true);
           });
@@ -112,7 +123,9 @@ export const MotionReveal: React.FC<MotionRevealProps> = ({
         opacity: isVisible ? 1 : 0,
         transform: getTransform(),
         transition: `opacity ${duration}ms ${MOTION_CONFIG.easing} ${delay}ms, transform ${duration}ms ${MOTION_CONFIG.easing} ${delay}ms`,
-        willChange: 'opacity, transform',
+        willChange: isAnimationDone ? 'auto' : 'opacity, transform',
+        WebkitBackfaceVisibility: 'hidden',
+        backfaceVisibility: 'hidden',
       }}
     >
       {children}

@@ -108,6 +108,7 @@ export const AcousticWaveform: React.FC<AcousticWaveformProps> = ({
   return (
     <div
       ref={containerRef}
+      style={{ contain: 'paint layout', WebkitBackfaceVisibility: 'hidden', backfaceVisibility: 'hidden', transform: 'translateZ(0)' }}
       className={`h-32 bg-white rounded-2xl border border-black/[0.06] p-4 flex items-center justify-center relative overflow-hidden shadow-inner ${className}`}
     >
       {/* Center Zero Reference Line */}

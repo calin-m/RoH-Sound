@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-17T12:05:47.472Z",
+  "timestamp": "2026-08-17T12:15:59.270Z",
   "status": "PASSED",
   "tests": {
     "suites": {
@@ -12,13 +12,13 @@
       "passed": 110,
       "failed": 0
     },
-    "durationMs": 14665
+    "durationMs": 13683
   },
   "coverage": {
-    "lines": 96.05,
-    "statements": 93.54,
-    "functions": 95.1,
-    "branches": 89.3,
+    "lines": 95.37,
+    "statements": 92.94,
+    "functions": 94.08,
+    "branches": 89.14,
     "threshold": 85,
     "passed": true
   }

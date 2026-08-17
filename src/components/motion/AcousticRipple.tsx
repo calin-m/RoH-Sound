@@ -19,13 +19,13 @@ export const AcousticRipple: React.FC<AcousticRippleProps> = ({
       data-testid="acoustic-ripple"
     >
       {/* Pure Circular Sub-Bass Transducer Pressure Glow (3s Ambient Breathe) */}
-      <div className="absolute w-72 h-72 rounded-full bg-radial from-[#b8934a]/20 via-[#d4af37]/08 to-transparent blur-2xl animate-ambient-breathe" />
+      <div className="absolute w-72 h-72 rounded-full bg-radial from-[#b8934a]/15 via-[#d4af37]/05 to-transparent blur-2xl animate-ambient-breathe" />
 
-      {/* 4 Staggered Circular Acoustic Soundwave Radiation Rings (0.7x Intensity) */}
-      <div className="absolute w-[360px] h-[360px] rounded-full border-2 border-[#b8934a]/42 animate-ripple-1" />
-      <div className="absolute w-[360px] h-[360px] rounded-full border-2 border-[#b8934a]/35 animate-ripple-2" />
-      <div className="absolute w-[360px] h-[360px] rounded-full border-2 border-[#b8934a]/28 animate-ripple-3" />
-      <div className="absolute w-[360px] h-[360px] rounded-full border-2 border-[#b8934a]/20 animate-ripple-4" />
+      {/* Pure Hardware-Accelerated Acoustic Wavefront Rings (Zero Box-Shadow Overhead) */}
+      <div className="absolute w-[320px] h-[320px] sm:w-[360px] sm:h-[360px] rounded-full border border-[#b8934a]/40 animate-ripple-1" />
+      <div className="absolute w-[320px] h-[320px] sm:w-[360px] sm:h-[360px] rounded-full border border-[#b8934a]/30 animate-ripple-2" />
+      <div className="hidden sm:block absolute w-[360px] h-[360px] rounded-full border border-[#b8934a]/20 animate-ripple-3" />
+      <div className="hidden sm:block absolute w-[360px] h-[360px] rounded-full border border-[#b8934a]/15 animate-ripple-4" />
     </div>
   );
 };
