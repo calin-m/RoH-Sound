@@ -13,7 +13,7 @@ describe('HeroSection', () => {
     render(<HeroSection />);
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(/Pure Acoustic Precision/i);
     expect(screen.getAllByText(/48dB/i).length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/RoH Sound/i).length).toBeGreaterThan(0);
+    expect(screen.getByRole('button', { name: /Pre-Order RoH Sound/i })).toBeInTheDocument();
   });
 
   it('switches colorway when swatch is clicked', () => {

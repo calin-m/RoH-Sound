@@ -6,7 +6,7 @@ export interface MagneticButtonProps {
   children: React.ReactNode;
   strength?: number; // base pull multiplier
   enableAmbientGroove?: boolean; // backwards-compatible alias
-  enableDance?: boolean; // multi-directional acoustic dance by default
+  enableDance?: boolean; // optional multi-directional acoustic dance (default false)
   className?: string;
   onClick?: () => void;
 }
@@ -14,8 +14,8 @@ export interface MagneticButtonProps {
 export const MagneticButton: React.FC<MagneticButtonProps> = ({
   children,
   strength = 0.12,
-  enableAmbientGroove = true,
-  enableDance = true,
+  enableAmbientGroove = false,
+  enableDance = false,
   className = '',
   onClick,
 }) => {

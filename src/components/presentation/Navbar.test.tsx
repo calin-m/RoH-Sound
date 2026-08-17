@@ -9,12 +9,16 @@ describe('Navbar', () => {
     useProductStore.getState().resetProductStore();
   });
 
-  it('renders RoH Sound brand and navigation links', () => {
+  it('renders RoH Sound brand and navigation links with speaker transducer animation', () => {
     render(<Navbar />);
     expect(screen.getAllByText(/RoH/i).length).toBeGreaterThan(0);
+    expect(screen.getByRole('link', { name: /^RoH$/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /Experience/i })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /Acoustic Engineering/i })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /^Acoustic$/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /Tech Specs/i })).toBeInTheDocument();
+
+    const monogram = screen.getByTestId('brand-monogram');
+    expect(monogram).toHaveClass('animate-speaker-pulse');
   });
 
   it('triggers drawer opening when pre-order CTA is clicked', () => {

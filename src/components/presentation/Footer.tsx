@@ -1,18 +1,16 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useProductStore } from '@/stores/useProductStore';
 import { MotionReveal } from '@/components/motion/MotionReveal';
-import { Sparkles, ArrowUp } from 'lucide-react';
+import { ArrowUp } from 'lucide-react';
 
 export const Footer: React.FC = () => {
-  const [showStickyBar, setShowStickyBar] = useState(false);
-  const { setDrawerOpen, selectedColor } = useProductStore();
+  const [showBackToTop, setShowBackToTop] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      // Show sticky bar once scrolled down past hero
-      setShowStickyBar(window.scrollY > 500);
+      // Show Back to Top button once scrolled down past hero section
+      setShowBackToTop(window.scrollY > 400);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -24,7 +22,7 @@ export const Footer: React.FC = () => {
 
   return (
     <>
-      <footer className="bg-white border-t border-black/[0.06] pt-16 pb-28 sm:pb-20 px-4 sm:px-8">
+      <footer className="bg-white border-t border-black/[0.06] pt-16 pb-20 px-4 sm:px-8">
         <div className="max-w-6xl mx-auto flex flex-col justify-between gap-12">
           <MotionReveal direction="up">
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
@@ -48,7 +46,7 @@ export const Footer: React.FC = () => {
                 </div>
                 <ul className="space-y-2 text-xs text-zinc-600 font-light">
                   <li><a href="#experience" className="hover:text-zinc-950 transition-colors">Acoustic Sound Lab</a></li>
-                  <li><a href="#engineering" className="hover:text-zinc-950 transition-colors">Titanium Transducers</a></li>
+                  <li><a href="#acoustic" className="hover:text-zinc-950 transition-colors">Titanium Transducers</a></li>
                   <li><a href="#studio" className="hover:text-zinc-950 transition-colors">Metallurgical Finishes</a></li>
                   <li><a href="#specs" className="hover:text-zinc-950 transition-colors">Laboratory Metrics</a></li>
                 </ul>
@@ -73,50 +71,24 @@ export const Footer: React.FC = () => {
               © {new Date().getFullYear()} RoH Sound Laboratories AG. All rights reserved.
             </div>
 
-            <div className="flex items-center gap-6">
+            <div>
               <span>Pure Acoustic Architecture</span>
-              <button
-                onClick={scrollToTop}
-                className="flex items-center gap-1 text-zinc-600 hover:text-zinc-950 transition-colors cursor-pointer"
-              >
-                <span>Back to top</span>
-                <ArrowUp className="w-3.5 h-3.5" />
-              </button>
             </div>
           </div>
         </div>
       </footer>
 
-      {/* Floating Sticky Actions (Back to Top & Pre-Order Bar) */}
-      {showStickyBar && (
-        <div className="fixed bottom-4 inset-x-4 sm:inset-x-auto sm:right-8 z-40 flex flex-col items-end gap-2.5 animate-in slide-in-from-bottom-6 duration-300">
-          {/* Floating Back to Top Button */}
+      {/* Floating Back to Top Button */}
+      {showBackToTop && (
+        <div className="fixed bottom-6 right-6 sm:right-8 z-40 animate-in fade-in slide-in-from-bottom-4 duration-300">
           <button
             onClick={scrollToTop}
             aria-label="Scroll back to top"
-            className="flex items-center gap-1.5 px-3.5 py-1.5 bg-white/95 hover:bg-white text-zinc-700 hover:text-zinc-950 text-[11px] font-mono rounded-full border border-black/[0.08] shadow-lg backdrop-blur-md transition-all hover:-translate-y-0.5 active:scale-95 cursor-pointer group"
+            className="flex items-center gap-1.5 px-3.5 py-2 bg-white/95 hover:bg-white text-zinc-700 hover:text-zinc-950 text-xs font-mono rounded-full border border-black/[0.08] shadow-xl backdrop-blur-md transition-all hover:-translate-y-0.5 active:scale-95 cursor-pointer group"
           >
-            <ArrowUp className="w-3.5 h-3.5 text-zinc-500 group-hover:text-zinc-950 transition-colors" />
+            <ArrowUp className="w-3.5 h-3.5 text-zinc-500 group-hover:text-zinc-950 transition-transform group-hover:-translate-y-0.5 duration-200" />
             <span>Back to top</span>
           </button>
-
-          {/* Floating Sticky Purchase Bar */}
-          <div className="w-full sm:w-auto glass-crystal rounded-full p-2 pl-5 pr-2 flex items-center justify-between gap-4 sm:gap-6 shadow-2xl border border-black/[0.08]">
-            <div className="hidden sm:flex flex-col text-left">
-              <span className="text-xs font-semibold text-zinc-950">RoH Sound Flagship</span>
-              <span className="text-[10px] font-mono text-zinc-500 capitalize">
-                {selectedColor} • $399
-              </span>
-            </div>
-
-            <button
-              onClick={() => setDrawerOpen(true)}
-              className="flex items-center gap-2 bg-zinc-950 hover:bg-zinc-800 text-white rounded-full px-5 py-2 text-xs font-medium uppercase tracking-widest transition-all shadow-md active:scale-95 cursor-pointer"
-            >
-              <Sparkles className="w-3.5 h-3.5 text-[#d4af37]" />
-              <span>Pre-Order</span>
-            </button>
-          </div>
         </div>
       )}
     </>

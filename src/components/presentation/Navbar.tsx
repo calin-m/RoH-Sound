@@ -19,8 +19,9 @@ export const Navbar: React.FC = () => {
   }, []);
 
   const navLinks = [
+    { name: 'RoH', href: '#hero' },
     { name: 'Experience', href: '#experience' },
-    { name: 'Acoustic Engineering', href: '#engineering' },
+    { name: 'Acoustic', href: '#acoustic' },
     { name: 'Finishes', href: '#studio' },
     { name: 'Tech Specs', href: '#specs' },
     { name: 'Reviews', href: '#reviews' },
@@ -39,9 +40,20 @@ export const Navbar: React.FC = () => {
         }`}
       >
         {/* Brand Monogram */}
-        <a href="#" className="flex items-center gap-2 group">
-          <div className="w-8 h-8 rounded-full bg-zinc-950 flex items-center justify-center text-white font-mono text-xs font-bold tracking-widest transition-transform duration-300 group-hover:scale-105 shadow-xs">
-            R
+        <a href="#" className="flex items-center gap-2 group" aria-label="RoH Sound Homepage">
+          <div className="relative flex items-center justify-center">
+            {/* Ambient Acoustic Wave Ring */}
+            <div
+              className="absolute -inset-1 rounded-full border border-[#b8934a]/30 animate-ping opacity-20 pointer-events-none"
+              style={{ animationDuration: '3.2s' }}
+            />
+            {/* Vibrating Speaker Transducer Cone */}
+            <div
+              data-testid="brand-monogram"
+              className="w-8 h-8 rounded-full bg-zinc-950 flex items-center justify-center text-white font-mono text-xs font-bold tracking-widest animate-speaker-pulse shadow-xs"
+            >
+              R
+            </div>
           </div>
           <span className="font-sans text-sm font-semibold tracking-[0.2em] text-zinc-900 uppercase">
             RoH<span className="text-[#b8934a] font-normal ml-0.5">·</span>SOUND

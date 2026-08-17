@@ -26,6 +26,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ---
 
 ### Recent Git Commit History
+- `18bc6ee` - **feat(docs): modernize README diagrams, add floating back-to-top, and standardize reviews** (2026-08-17)
 - `847ca85` - **feat(ui): add 360 turntable indicator, multi-directional dance, and HRTF soundstage** (2026-08-17)
 - `f075328` - **feat(ui): implement procedural 3D visualizer, modular UI atoms, and acoustic nav animations** (2026-08-16)
 - `55b6bf4` - **feat(3d-visualizer): implement procedural WebGL 3D headphone model and centralize motion tokens** (2026-08-16)

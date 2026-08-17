@@ -41,14 +41,14 @@ flowchart TD
         OrbitIndicator["360° Turntable Indicator (ModelOrbitIndicator.tsx)"]
         SoundLab["Sound Experience Lab (SoundExperience.tsx)"]
         HRTFRadar["HRTF Binaural Soundstage (SpatialRadar.tsx)"]
-        Bento["Engineering Bento Matrix (EngineeringBento.tsx)"]
+        Bento["Acoustic Bento Matrix (AcousticBento.tsx)"]
         Studio["Material Studio (ColorStudio.tsx)"]
         Specs["Technical Architecture (TechnicalSpecs.tsx)"]
         Reviews["Verified Reviews (ReviewsSection.tsx)"]
         FAQ["Concierge & FAQ (FAQSection.tsx)"]
         Drawer["Slide-Over Checkout (CheckoutDrawer.tsx)"]
         LaserEngrave["Live Laser Preview (LaserEngravingPreview.tsx)"]
-        FloatingStack["Floating Back to Top & Pre-Order Stack (Footer.tsx)"]
+        FloatingTop["Floating Back to Top Pill (Footer.tsx)"]
         
         Store[("⚡ Zustand Store (useProductStore.ts)\n• activeColorway\n• activeAngle / orbitActive\n• ancMode\n• spatialAzimuth\n• isDrawerOpen\n• customEngraving")]
         QueryHooks["🔄 React Query Hooks (useProductData.ts)\n• useProductData()\n• useReviewsData()\n• usePreorderMutation()"]
@@ -156,7 +156,8 @@ graph TD
     
     subgraph Motion ["Motion Wrappers (src/components/motion/)"]
         AcousticLink["AcousticNavLink.tsx\n(Letter Wave Hover Physics)"]
-        MagneticBtn["MagneticButton.tsx\n(2D Acoustic Dance & 0.35x Hover Dampening)"]
+        AcousticWave["AcousticTextWave.tsx\n(Periodic Soundwave Typography)"]
+        MagneticBtn["MagneticButton.tsx\n(Fluid Spring-Physics Cursor Pull)"]
         MotionRev["MotionReveal.tsx\n(Viewport Elevation)"]
         Stagger["StaggerGroup.tsx\n(Choreographed Grid Stagger)"]
         AcousticRip["AcousticRipple.tsx\n(Transducer Wave Rings)"]
@@ -170,7 +171,7 @@ graph TD
         SoundExp["SoundExperience.tsx"]
         SpatialRad["SpatialRadar.tsx"]
         Waveform["AcousticWaveform.tsx"]
-        BentoGrid["EngineeringBento.tsx"]
+        BentoGrid["AcousticBento.tsx"]
         StudioComp["ColorStudio.tsx"]
         SpecsComp["TechnicalSpecs.tsx"]
         ReviewsComp["ReviewsSection.tsx"]
@@ -200,7 +201,7 @@ graph TD
 | **07** | **Customer Reviews** | Acclaimed customer feedback from verified sound engineers and mastering specialists with star ratings and verified buyer credentials. |
 | **08** | **Concierge & FAQ** | Accordion-based inquiry hub detailing the 30-Day Audition Policy, 3-Year Platinum Warranty, and Global Concierge Desk. |
 | **09** | **Slide-Over Checkout Drawer** | Real-time interactive pre-order flow with live personalized laser engraving deboss preview, warranty selection, and instant reservation code dispatch. |
-| **10** | **Floating Navigation Stack** | Glassmorphic floating **Back to Top** pill positioned directly above the floating **Pre-Order** flagship bar when scrolling down. |
+| **10** | **Floating Back to Top Pill** | Glassmorphic floating **Back to Top** pill positioned in the bottom-right corner when scrolling down past the hero section. |
 
 ---
 

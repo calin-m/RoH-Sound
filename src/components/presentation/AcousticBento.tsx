@@ -6,15 +6,15 @@ import { BentoCard } from './BentoCard';
 import { MotionReveal } from '../motion/MotionReveal';
 import { Cpu, BatteryCharging, Zap, Feather, Waves, Bluetooth } from 'lucide-react';
 
-export const EngineeringBento: React.FC = () => {
+export const AcousticBento: React.FC = () => {
   return (
-    <section id="engineering" className="py-24 px-4 sm:px-8 bg-[#fafaf9]">
+    <section id="acoustic" className="py-24 px-4 sm:px-8 bg-[#fafaf9]">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <MotionReveal direction="up">
           <SectionHeader
             step="03"
-            eyebrow="Acoustic Engineering"
+            eyebrow="Acoustic"
             title="Engineered Down to the Micron"
             subtitle="Every component is crafted from aerospace-grade materials to eliminate unwanted resonance and reproduce music precisely as recorded."
             className="mb-12"

@@ -14,12 +14,12 @@ describe('AcousticNavLink', () => {
   it('forwards onClick callback', () => {
     const handleClick = vi.fn();
     render(
-      <AcousticNavLink href="#engineering" onClick={handleClick}>
-        Acoustic Engineering
+      <AcousticNavLink href="#acoustic" onClick={handleClick}>
+        Acoustic
       </AcousticNavLink>
     );
 
-    const link = screen.getByRole('link', { name: /Acoustic Engineering/i });
+    const link = screen.getByRole('link', { name: /^Acoustic$/i });
     fireEvent.click(link);
     expect(handleClick).toHaveBeenCalled();
   });

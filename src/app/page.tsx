@@ -1,7 +1,7 @@
 import { Navbar } from '@/components/presentation/Navbar';
 import { HeroSection } from '@/components/presentation/HeroSection';
 import { SoundExperience } from '@/components/presentation/SoundExperience';
-import { EngineeringBento } from '@/components/presentation/EngineeringBento';
+import { AcousticBento } from '@/components/presentation/AcousticBento';
 import { ColorStudio } from '@/components/presentation/ColorStudio';
 import { TechnicalSpecs } from '@/components/presentation/TechnicalSpecs';
 import { ReviewsSection } from '@/components/presentation/ReviewsSection';
@@ -15,7 +15,7 @@ export default function HomePage() {
       <Navbar />
       <HeroSection />
       <SoundExperience />
-      <EngineeringBento />
+      <AcousticBento />
       <ColorStudio />
       <TechnicalSpecs />
       <ReviewsSection />

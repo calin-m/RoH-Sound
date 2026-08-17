@@ -8,6 +8,7 @@ import { HeadphoneVisualizer } from './HeadphoneVisualizer';
 import { MotionReveal } from '../motion/MotionReveal';
 import { MagneticButton } from '../motion/MagneticButton';
 import { AcousticRipple } from '../motion/AcousticRipple';
+import { AcousticTextWave } from '../motion/AcousticTextWave';
 import { Play, Pause, ShieldCheck, Sparkles, CheckCircle2 } from 'lucide-react';
 
 export const HeroSection: React.FC = () => {
@@ -24,7 +25,7 @@ export const HeroSection: React.FC = () => {
   const activeColorDesc = COLORWAYS_LIST.find((c) => c.id === selectedColor)?.desc;
 
   return (
-    <section className="relative min-h-[92vh] flex flex-col justify-center pt-28 pb-16 px-4 sm:px-8 overflow-hidden radial-glow-subtle">
+    <section id="hero" className="relative min-h-[92vh] flex flex-col justify-center pt-28 pb-16 px-4 sm:px-8 overflow-hidden radial-glow-subtle">
       {/* Background Decorative Hairline Grid */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#00000006_1px,transparent_1px),linear-gradient(to_bottom,#00000006_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none" />
 
@@ -82,10 +83,10 @@ export const HeroSection: React.FC = () => {
                 <MagneticButton strength={0.15}>
                   <button
                     onClick={() => setDrawerOpen(true)}
-                    className="flex items-center gap-2.5 bg-zinc-950 hover:bg-zinc-800 text-white rounded-full px-6 sm:px-7 py-3.5 text-xs font-semibold tracking-widest uppercase transition-all duration-200 shadow-md hover:shadow-xl active:scale-98 shrink-0 cursor-pointer"
+                    className="flex items-center gap-2.5 bg-zinc-950 hover:bg-zinc-900 text-white rounded-full px-6 sm:px-7 py-3.5 text-xs font-semibold tracking-widest uppercase transition-all duration-300 shadow-md hover:shadow-[0_10px_28px_rgba(184,147,74,0.2)] border border-white/10 hover:border-[#b8934a]/40 active:scale-98 shrink-0 cursor-pointer"
                   >
                     <Sparkles className="w-4 h-4 text-[#d4af37]" />
-                    <span>Pre-Order RoH Sound • $399</span>
+                    <AcousticTextWave text="Pre-Order RoH Sound • $399" />
                   </button>
                 </MagneticButton>
 
