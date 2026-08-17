@@ -300,5 +300,5 @@ Every contribution is validated through 7 deterministic quality gateways, execut
 
 ## 📄 License
 
-This project is licensed under the [MIT License](./LICENSE) — Copyright © 2026 RoH Sound Laboratories AG / calin-m.
+This project is licensed under the [MIT License](./LICENSE) — Copyright © 2026 [calin-m](https://github.com/calin-m).
 
