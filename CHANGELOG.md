@@ -26,6 +26,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ---
 
 ### Recent Git Commit History
+- `8a4a1df` - **perf(motion): optimize ripple gpu transforms and stabilize mobile scroll rendering** (2026-08-17)
 - `cc9a421` - **feat(visualizer): implement multi-perspective vector svg with controls, exploded anatomy, and calm ambient breathing** (2026-08-17)
 - `2ae9eab` - **refactor(presentation): standardize on modern minimalistic nomenclature and mobile UX hardening** (2026-08-17)
 - `d4b37fd` - **perf(mobile): persist UI visibility on scroll, prevent iOS zoom, and optimize touch responsiveness** (2026-08-17)

@@ -33,7 +33,7 @@ describe('RoH Sound HomePage Single Page Presentation', () => {
     expect(screen.getByText(/Four Iconic Finishes/i)).toBeInTheDocument();
 
     // Technical Specs Section
-    expect(screen.getByText(/Technical Architecture/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/Technical Architecture/i).length).toBeGreaterThan(0);
 
     // Reviews Section
     expect(screen.getAllByText(/Reviews/i).length).toBeGreaterThan(0);

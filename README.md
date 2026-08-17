@@ -9,7 +9,7 @@
 [![TypeScript 5](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 [![Vector SVG](https://img.shields.io/badge/Vector_SVG-Multi--Perspective-000000?style=for-the-badge&logo=svg)](https://www.w3.org/Graphics/SVG/)
 [![Tailwind CSS v4](https://img.shields.io/badge/Tailwind_CSS-v4.0-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
-[![Vitest Coverage](https://img.shields.io/badge/Vitest-110%2F110_Passed_(95.86%25)-green?style=for-the-badge&logo=vitest)](https://vitest.dev/)
+[![Vitest Coverage](https://img.shields.io/badge/Vitest-110%2F110_Passed_(95.37%25)-green?style=for-the-badge&logo=vitest)](https://vitest.dev/)
 [![MSW v2](https://img.shields.io/badge/MSW-v2.0-E35555?style=for-the-badge&logo=mockserviceworker)](https://mswjs.io/)
 [![Quality Gateways](https://img.shields.io/badge/7--Gateway-Verified-emerald?style=for-the-badge&logo=shield)](./DEVELOPMENT.md)
 
@@ -217,9 +217,9 @@ graph TD
 | **05** | **Color Studio** | Interactive finish atelier featuring Midnight Obsidian, Champagne Platinum, Raw Titanium, and Forest Emerald with live metallurgical shader sync and **specular metallic sheen light sweeps** on selection. |
 | **06** | **Technical Architecture** | Complete laboratory metrics with animated category tabs and spec row hover illumination, frequency response curves ($4\text{Hz} - 48\text{kHz}$), desktop 4-column side-by-side benchmark table, and mobile-native **Interactive Versus Switcher** (`[ vs Brand S ]` | `[ vs Brand B ]`) with stacked advantage cards. |
 | **07** | **Customer Reviews** | Acclaimed customer feedback from verified sound engineers and mastering specialists with star ratings and verified buyer credentials. |
-| **08** | **Concierge & FAQ** | Accordion-based inquiry hub with smooth height expansion, $180^\circ$ rotating precision chevrons, and illuminated champagne gold margin draws. |
+| **08** | **Inquiries & FAQ** | Accordion-based inquiry hub with smooth height expansion, top-anchored rotating chevrons, and illuminated champagne gold margin draws. |
 | **09** | **Slide-Over Checkout Drawer** | Hardware-accelerated 400ms slide-in/out cubic-bezier drawer with backdrop tap/click outside dismissal, Escape key handling, live personalized laser engraving with **animated CNC laser spark focal indicator**, warranty selection, and instant reservation code dispatch. |
-| **10** | **Atelier Footer & Floating Back to Top** | Direct hyperlink for Calin M to the GitHub profile, alongside a glassmorphic floating **Back to Top** pill with smooth scroll physics. |
+| **10** | **Atelier Footer & Floating Back to Top** | Direct hyperlink for Calin M to the GitHub profile, alongside a Documentation directory and a glassmorphic floating **Back to Top** pill with smooth scroll physics. |
 
 ---
 
@@ -286,7 +286,7 @@ Every contribution is validated through 7 deterministic quality gateways, execut
 1. **Pass 0.5 (Secret Scanner):** Scans all codebase files for private keys, AWS/GCP tokens, or exposed API credentials.
 2. **Pass 1 (TypeScript Strict Typecheck):** Verifies 0 compile errors via `tsc --noEmit`.
 3. **Pass 2 (Vitest MSW Server & Queries):** Validates network mocking and query hook state transitions.
-4. **Pass 3 (Vitest Client UI & Primitives):** Executes all test suites and asserts **≥ 85% code coverage** (*current: 95.86%*).
+4. **Pass 3 (Vitest Client UI & Primitives):** Executes all test suites and asserts **≥ 85% code coverage** (*current: 95.37%*).
 5. **Pass 4 (Living Architecture & Quality Sync):** Auto-generates C4 matrices in `ARCHITECTURE.md`, compiles `docs/QUALITY_AUDIT_REPORT.md`, and syncs `CHANGELOG.md`.
 6. **Pass 5 (ADR Decision Ledger Validation):** Verifies sequential numbering and schema conformance in `docs/DECISIONS.md`.
 7. **Pass 6 (ESLint & Knip Audit):** Validates 0 lint errors and 0 dead code/unused exports.

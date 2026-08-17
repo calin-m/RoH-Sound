@@ -54,13 +54,13 @@ export const Footer: React.FC = () => {
 
               <div className="md:col-span-3">
                 <div className="text-xs font-mono uppercase tracking-widest text-zinc-400 mb-3">
-                  Concierge & Legal
+                  Documentation
                 </div>
                 <ul className="space-y-2 text-xs text-zinc-600 font-light">
                   <li><a href="#faq" className="hover:text-zinc-950 transition-colors">30-Day Audition Policy</a></li>
-                  <li><a href="#faq" className="hover:text-zinc-950 transition-colors">3-Year Platinum Warranty</a></li>
-                  <li><a href="mailto:concierge@rohsound.example" className="hover:text-zinc-950 transition-colors">Acoustic Support Desk</a></li>
-                  <li><span className="text-zinc-400">Zurich • Tokyo • San Francisco</span></li>
+                  <li><a href="#faq" className="hover:text-zinc-950 transition-colors">3-Year Precision Warranty</a></li>
+                  <li><a href="#specs" className="hover:text-zinc-950 transition-colors">Technical Architecture</a></li>
+                  <li><a href="#faq" className="hover:text-zinc-950 transition-colors">Acoustic Calibration FAQ</a></li>
                 </ul>
               </div>
             </div>
