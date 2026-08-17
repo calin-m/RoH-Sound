@@ -20,7 +20,19 @@ An ultra-refined, high-performance **Product Presentation Single Page Applicatio
 
 ---
 
+## 🎯 Project Scope & Demonstration Intent
+
+This project is a **high-end front-end product presentation, marketing showcase, and interactive luxury demo** engineered to demonstrate modern, production-grade web architecture, creative procedural animations, and seamless responsive design:
+
+- **Interactive Atelier Showcase:** Features a procedural Three.js WebGL 3D model turntable with smart gesture angle disambiguation (`touch-pan-y` vertical page scroll vs. horizontal 3D rotation), dynamic finish shader switching with specular metallic sweeps, and interactive benchmark matrices.
+- **Acoustic Visual Simulations:** Showcases real-time visual and mathematical models of acoustic principles, including autonomous 60fps traveling sinusoidal waves for Active Noise Cancellation and an interactive 360° HRTF Binaural Soundstage with vector ray-tracing and Interaural Level Difference (ILD) ear gain calculations.
+- **Simulated Reservation Flow:** Includes a slide-over pre-order reservation drawer with live CNC laser engraving preview, dynamic warranty recalculation, and simulated order dispatch codes powered by Mock Service Worker (MSW v2) and Next.js App Router API handlers.
+- **Scope Boundary:** This codebase is intentionally designed as a **presentation and portfolio demonstration web application**. It is not a hardware companion utility (e.g. firmware or physical Bluetooth headphone control) or a live payment-processing e-commerce backend.
+
+---
+
 ## 📑 Table of Contents
+- [🎯 Project Scope & Demonstration Intent](#-project-scope--demonstration-intent)
 - [🏛️ System Architecture Diagrams](#-system-architecture-diagrams)
   - [1. End-to-End System Context & Data Flow](#1-end-to-end-system-context--data-flow)
   - [2. Precision HRTF Binaural Soundstage Engine](#2-precision-hrtf-binaural-soundstage-engine)

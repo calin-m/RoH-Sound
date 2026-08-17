@@ -76,7 +76,7 @@ describe('CheckoutDrawer', () => {
     expect(useProductStore.getState().engravingText).toBe('STUDIO A');
 
     // Extended warranty option
-    const warrantyOption = screen.getByText(/5-Year Extended Audiophile Care/i);
+    const warrantyOption = screen.getByText(/5-Year Extended Warranty/i);
     fireEvent.click(warrantyOption);
     expect(useProductStore.getState().hasExtendedWarranty).toBe(true);
 

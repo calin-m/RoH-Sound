@@ -21,7 +21,7 @@ describe('OrderSuccessCard', () => {
     expect(screen.getByText('ROH-9921')).toBeInTheDocument();
     expect(screen.getByText('midnight')).toBeInTheDocument();
     expect(screen.getByText('“MASTERING”')).toBeInTheDocument();
-    expect(screen.getByText('3 Years Concierge')).toBeInTheDocument();
+    expect(screen.getByText('5 Years Extended')).toBeInTheDocument();
     expect(screen.getByText('October 15, 2026')).toBeInTheDocument();
   });
 });

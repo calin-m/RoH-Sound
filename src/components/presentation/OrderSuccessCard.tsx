@@ -51,7 +51,7 @@ export const OrderSuccessCard: React.FC<OrderSuccessCardProps> = ({
         <div className="flex justify-between">
           <span className="text-zinc-500">Atelier Warranty:</span>
           <span className="text-zinc-950">
-            {hasExtendedWarranty ? '3 Years Concierge' : '1 Year Standard'}
+            {hasExtendedWarranty ? '5 Years Extended' : '1 Year Standard'}
           </span>
         </div>
         <div className="flex justify-between pt-2 border-t border-black/[0.06]">

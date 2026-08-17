@@ -177,7 +177,7 @@ export const CheckoutDrawer: React.FC = () => {
                   <div className="flex items-center gap-3">
                     <ShieldCheck className={`w-5 h-5 ${hasExtendedWarranty ? 'text-[#b8934a]' : 'text-zinc-500'}`} />
                     <div>
-                      <div className="text-xs font-semibold">5-Year Extended Audiophile Care</div>
+                      <div className="text-xs font-semibold">5-Year Extended Warranty</div>
                       <div className={`text-[11px] font-light ${hasExtendedWarranty ? 'text-zinc-300' : 'text-zinc-500'}`}>
                         Accidental transducer drop & liquid coverage
                       </div>

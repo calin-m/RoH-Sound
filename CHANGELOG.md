@@ -26,6 +26,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ---
 
 ### Recent Git Commit History
+- `e83e530` - **fix(mobile): center 3D model framing and fix ANC matrix tabs scroll reveal** (2026-08-17)
 - `0792aad` - **feat(mobile): refine navbar drawer controls, 3D gesture isolation, and benchmark switcher** (2026-08-17)
 - `da96e17` - **fix(footer): update copyright holder to Calin M linking to github.com/calin-m** (2026-08-17)
 - `9caeb4d` - **docs(license): update MIT copyright attribution to calin-m with GitHub profile link** (2026-08-17)
