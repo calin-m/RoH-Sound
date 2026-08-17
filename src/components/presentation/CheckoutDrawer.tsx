@@ -34,10 +34,10 @@ export const CheckoutDrawer: React.FC = () => {
   const warrantyPrice = hasExtendedWarranty ? 49 : 0;
   const totalPrice = basePrice + warrantyPrice;
 
-  const handleClose = () => {
+  const handleClose = React.useCallback(() => {
     setDrawerOpen(false);
     setOrderSuccessData(null);
-  };
+  }, [setDrawerOpen, setOrderSuccessData]);
 
   // Body scroll lock & Escape key listener
   useEffect(() => {
@@ -56,7 +56,7 @@ export const CheckoutDrawer: React.FC = () => {
     } else {
       document.body.style.overflow = '';
     }
-  }, [isDrawerOpen]);
+  }, [isDrawerOpen, handleClose]);
 
   const handleSubmitPreorder = async (e: React.FormEvent) => {
     e.preventDefault();

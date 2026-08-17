@@ -1,505 +1,641 @@
 'use client';
 
-import React, { useState, useRef, useEffect, useCallback } from 'react';
-import * as THREE from 'three';
-import { Colorway, ViewAngle } from '@/stores/useProductStore';
-import { ModelOrbitIndicator } from './ModelOrbitIndicator';
-import { Sparkles, MoveHorizontal } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { ViewAngle, ProductColorway } from '@/stores/useProductStore';
+import { Layers, Eye, SlidersHorizontal, Disc, Play, Pause, ChevronLeft, ChevronRight } from 'lucide-react';
 
-interface HeadphoneVisualizerProps {
-  color: Colorway;
+export interface HeadphoneVisualizerProps {
+  color: ProductColorway;
   angle?: ViewAngle;
-  isPlayingDemo: boolean;
   onAngleChange?: (angle: ViewAngle) => void;
+  isPlayingDemo?: boolean;
   className?: string;
 }
 
-const colorThemes: Record<
-  Colorway,
-  {
-    name: string;
-    cupPrimary: number;
-    cupSecondary: number;
-    accent: number;
-    cushion: number;
-    metal: number;
-    glow: string;
-  }
-> = {
+interface ColorPalette {
+  cupGradStart: string;
+  cupGradEnd: string;
+  metalBase: string;
+  metalHighlight: string;
+  accentGold: string;
+  cushionFill: string;
+  cushionStroke: string;
+  headbandFill: string;
+  headbandStroke: string;
+  coreDisc: string;
+  glowColor: string;
+}
+
+const colorThemes: Record<ProductColorway, ColorPalette> = {
   midnight: {
-    name: 'Obsidian Midnight',
-    cupPrimary: 0x141416,
-    cupSecondary: 0x242428,
-    accent: 0xd4af37, // 24k gold
-    cushion: 0x09090b,
-    metal: 0x71717a,
-    glow: 'rgba(212, 175, 55, 0.15)',
+    cupGradStart: '#27272a',
+    cupGradEnd: '#18181b',
+    metalBase: '#3f3f46',
+    metalHighlight: '#71717a',
+    accentGold: '#b8934a',
+    cushionFill: '#1f1f23',
+    cushionStroke: '#27272a',
+    headbandFill: '#18181b',
+    headbandStroke: '#3f3f46',
+    coreDisc: '#09090b',
+    glowColor: 'rgba(184, 147, 74, 0.18)',
   },
   silver: {
-    name: 'Alabaster Silver',
-    cupPrimary: 0xe4e4e7,
-    cupSecondary: 0xf4f4f5,
-    accent: 0x38bdf8,
-    cushion: 0x52525b,
-    metal: 0xa1a1aa,
-    glow: 'rgba(228, 228, 231, 0.3)',
+    cupGradStart: '#f4f4f5',
+    cupGradEnd: '#e4e4e7',
+    metalBase: '#d4d4d8',
+    metalHighlight: '#ffffff',
+    accentGold: '#a1a1aa',
+    cushionFill: '#fafafa',
+    cushionStroke: '#e4e4e7',
+    headbandFill: '#e4e4e7',
+    headbandStroke: '#a1a1aa',
+    coreDisc: '#f4f4f5',
+    glowColor: 'rgba(161, 161, 170, 0.22)',
   },
   titanium: {
-    name: 'Champagne Titanium',
-    cupPrimary: 0xd8c7a6,
-    cupSecondary: 0xecdcc0,
-    accent: 0xb8934a,
-    cushion: 0x3f3f46,
-    metal: 0xd4af37,
-    glow: 'rgba(216, 199, 166, 0.25)',
+    cupGradStart: '#e7dcbf',
+    cupGradEnd: '#d8c7a6',
+    metalBase: '#b39e78',
+    metalHighlight: '#f3ebd4',
+    accentGold: '#d4af37',
+    cushionFill: '#ede5d0',
+    cushionStroke: '#d8c7a6',
+    headbandFill: '#8c7d6b',
+    headbandStroke: '#b39e78',
+    coreDisc: '#c4b18c',
+    glowColor: 'rgba(212, 175, 55, 0.22)',
   },
   emerald: {
-    name: 'Forest Emerald',
-    cupPrimary: 0x103328,
-    cupSecondary: 0x1d5543,
-    accent: 0x34d399,
-    cushion: 0x052018,
-    metal: 0x10b981,
-    glow: 'rgba(16, 185, 129, 0.2)',
+    cupGradStart: '#1c4b3e',
+    cupGradEnd: '#14382e',
+    metalBase: '#2a6b5a',
+    metalHighlight: '#3d8f7a',
+    accentGold: '#d4af37',
+    cushionFill: '#0f2922',
+    cushionStroke: '#1c4b3e',
+    headbandFill: '#14382e',
+    headbandStroke: '#2a6b5a',
+    coreDisc: '#0a1d17',
+    glowColor: 'rgba(20, 56, 46, 0.28)',
   },
 };
 
-const angleToRadians: Record<ViewAngle, number> = {
-  front: 0,
-  angle: Math.PI * 0.25, // 45 degrees
-  side: Math.PI * 0.5, // 90 degrees
-};
+const PERSPECTIVES: { id: ViewAngle; label: string; icon: React.ComponentType<{ className?: string }> }[] = [
+  { id: 'front', label: 'Front', icon: Eye },
+  { id: 'controls', label: 'Controls', icon: SlidersHorizontal },
+  { id: 'side', label: 'Profile', icon: Disc },
+  { id: 'exploded', label: 'Anatomy', icon: Layers },
+];
 
 export const HeadphoneVisualizer: React.FC<HeadphoneVisualizerProps> = ({
   color,
-  angle = 'front',
-  isPlayingDemo,
+  angle,
   onAngleChange,
+  isPlayingDemo = false,
   className = '',
 }) => {
-  const mountRef = useRef<HTMLDivElement>(null);
-  // Auto-Orbit active by default on 3D model load
-  const [isAutoRotating, setIsAutoRotating] = useState(true);
-  const [isDragging, setIsDragging] = useState(false);
+  const [uncontrolledAngle, setUncontrolledAngle] = useState<ViewAngle>('front');
+  const [isAutoTour, setIsAutoTour] = useState(false);
+  const touchStartXRef = useRef<number | null>(null);
+  const touchStartYRef = useRef<number | null>(null);
 
-  // Interaction refs
-  const targetYawRef = useRef<number>(angleToRadians[angle] || 0);
-  const currentYawRef = useRef<number>(angleToRadians[angle] || 0);
-  const isAutoRotatingRef = useRef(true);
-  const wasAutoRotatingRef = useRef(true);
-  const isDraggingRef = useRef(false);
-  const dragStartXRef = useRef(0);
-  const dragStartYRef = useRef(0);
-  const dragStartYawRef = useRef(0);
-  const gestureIntentRef = useRef<'none' | 'pending' | 'horizontal' | 'vertical'>('none');
+  const currentAngle = angle !== undefined ? angle : uncontrolledAngle;
+  const theme = colorThemes[color] || colorThemes.midnight;
 
-  // Three.js object refs
-  const sceneRef = useRef<THREE.Scene | null>(null);
-  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
-  const modelGroupRef = useRef<THREE.Group | null>(null);
-  const cupMaterialsRef = useRef<THREE.MeshStandardMaterial[]>([]);
-  const accentMaterialsRef = useRef<THREE.MeshStandardMaterial[]>([]);
-  const cushionMaterialsRef = useRef<THREE.MeshStandardMaterial[]>([]);
-
-  // Update 3D materials dynamically on colorway change
+  // Optional Automated Studio Perspective Tour
   useEffect(() => {
-    const theme = colorThemes[color] || colorThemes.midnight;
-    cupMaterialsRef.current.forEach((mat) => {
-      mat.color.setHex(theme.cupPrimary);
-    });
-    accentMaterialsRef.current.forEach((mat) => {
-      mat.color.setHex(theme.accent);
-    });
-    cushionMaterialsRef.current.forEach((mat) => {
-      mat.color.setHex(theme.cushion);
-    });
-  }, [color]);
+    if (!isAutoTour) return;
+    const interval = setInterval(() => {
+      const order: ViewAngle[] = ['front', 'controls', 'side', 'exploded'];
+      const currentIndex = order.indexOf(currentAngle === 'angle' ? 'controls' : currentAngle);
+      const nextIndex = (currentIndex + 1) % order.length;
+      const nextAngle = order[nextIndex];
+      setUncontrolledAngle(nextAngle);
+      onAngleChange?.(nextAngle);
+    }, 3800);
 
-  // Initialize Three.js WebGL Scene
-  useEffect(() => {
-    const container = mountRef.current;
-    if (!container) return;
+    return () => clearInterval(interval);
+  }, [isAutoTour, currentAngle, onAngleChange]);
 
-    let animId: number;
-
-    try {
-      const width = container.clientWidth || 340;
-      const height = container.clientHeight || 340;
-
-      // 1. Scene & Camera
-      const scene = new THREE.Scene();
-      sceneRef.current = scene;
-
-      const camera = new THREE.PerspectiveCamera(42, width / height, 0.1, 100);
-      camera.position.set(0, 0, 8.2);
-
-      // 2. WebGL Renderer
-      const renderer = new THREE.WebGLRenderer({
-        antialias: true,
-        alpha: true,
-        powerPreference: 'high-performance',
-      });
-      renderer.setSize(width, height);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-      renderer.toneMapping = THREE.ACESFilmicToneMapping;
-      renderer.toneMappingExposure = 1.15;
-      container.appendChild(renderer.domElement);
-      rendererRef.current = renderer;
-
-      // 3. Studio 3-Point PBR Lighting
-      const keyLight = new THREE.DirectionalLight(0xffffff, 2.6);
-      keyLight.position.set(4, 6, 5);
-      scene.add(keyLight);
-
-      const fillLight = new THREE.DirectionalLight(0xe4e4e7, 1.4);
-      fillLight.position.set(-5, -2, 4);
-      scene.add(fillLight);
-
-      const rimLight = new THREE.DirectionalLight(0xffffff, 2.0);
-      rimLight.position.set(0, 5, -5);
-      scene.add(rimLight);
-
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.85);
-      scene.add(ambientLight);
-
-      // 4. Procedural 3D Headphone Mesh Assembly
-      const modelGroup = new THREE.Group();
-      modelGroupRef.current = modelGroup;
-      scene.add(modelGroup);
-
-      const theme = colorThemes[color] || colorThemes.midnight;
-
-      // Materials
-      const metalMaterial = new THREE.MeshStandardMaterial({
-        color: 0xd4d4d8,
-        metalness: 0.9,
-        roughness: 0.2,
-      });
-
-      const bandCushionMat = new THREE.MeshStandardMaterial({
-        color: 0x18181b,
-        roughness: 0.7,
-        metalness: 0.1,
-      });
-
-      const cupMat = new THREE.MeshStandardMaterial({
-        color: theme.cupPrimary,
-        metalness: 0.85,
-        roughness: 0.28,
-      });
-
-      const accentMat = new THREE.MeshStandardMaterial({
-        color: theme.accent,
-        metalness: 0.95,
-        roughness: 0.15,
-      });
-
-      const cushionMat = new THREE.MeshStandardMaterial({
-        color: theme.cushion,
-        roughness: 0.65,
-        metalness: 0.1,
-      });
-
-      cupMaterialsRef.current = [cupMat];
-      accentMaterialsRef.current = [accentMat];
-      cushionMaterialsRef.current = [cushionMat];
-
-      // A. Outer Headband Arch (Torus)
-      const headbandGeo = new THREE.TorusGeometry(2.1, 0.12, 24, 64, Math.PI * 0.98);
-      const headbandMesh = new THREE.Mesh(headbandGeo, metalMaterial);
-      headbandMesh.rotation.z = Math.PI * 0.01;
-      headbandMesh.rotation.x = Math.PI * 0.05;
-      headbandMesh.position.set(0, 0.4, 0);
-      modelGroup.add(headbandMesh);
-
-      // B. Inner Comfort Cushion
-      const cushionBandGeo = new THREE.TorusGeometry(1.98, 0.09, 16, 48, Math.PI * 0.84);
-      const cushionBandMesh = new THREE.Mesh(cushionBandGeo, bandCushionMat);
-      cushionBandMesh.rotation.z = Math.PI * 0.08;
-      cushionBandMesh.position.set(0, 0.4, 0);
-      modelGroup.add(cushionBandMesh);
-
-      // Helper to build a volumetric earcup
-      const createEarcup = (isLeft: boolean) => {
-        const cupGroup = new THREE.Group();
-        const sideMult = isLeft ? -1 : 1;
-
-        // Gimbal Hinge Fork
-        const hingeGeo = new THREE.CylinderGeometry(0.08, 0.08, 0.5, 16);
-        const hingeMesh = new THREE.Mesh(hingeGeo, metalMaterial);
-        hingeMesh.position.set(0, 0.6, 0);
-        cupGroup.add(hingeMesh);
-
-        // Outer Precision Aluminum Cup Shell
-        const shellGeo = new THREE.CylinderGeometry(0.85, 0.92, 0.48, 48);
-        const shellMesh = new THREE.Mesh(shellGeo, cupMat);
-        shellMesh.rotation.z = Math.PI * 0.5;
-        cupGroup.add(shellMesh);
-
-        // Acoustic Resonant Golden Accent Ring
-        const ringGeo = new THREE.TorusGeometry(0.82, 0.035, 16, 48);
-        const ringMesh = new THREE.Mesh(ringGeo, accentMat);
-        ringMesh.rotation.y = Math.PI * 0.5;
-        ringMesh.position.set(sideMult * 0.15, 0, 0);
-        cupGroup.add(ringMesh);
-
-        // Memory Foam Cushion Toroid (Inside)
-        const foamGeo = new THREE.TorusGeometry(0.72, 0.22, 24, 48);
-        const foamMesh = new THREE.Mesh(foamGeo, cushionMat);
-        foamMesh.rotation.y = Math.PI * 0.5;
-        foamMesh.position.set(sideMult * -0.25, 0, 0);
-        cupGroup.add(foamMesh);
-
-        // Driver Acoustic Grille Disc
-        const grilleGeo = new THREE.CircleGeometry(0.62, 32);
-        const grilleMesh = new THREE.Mesh(grilleGeo, bandCushionMat);
-        grilleMesh.rotation.y = sideMult * Math.PI * -0.5;
-        grilleMesh.position.set(sideMult * -0.26, 0, 0);
-        cupGroup.add(grilleMesh);
-
-        // Outer Atelier Monogram Core Disc
-        const capGeo = new THREE.CylinderGeometry(0.38, 0.38, 0.06, 32);
-        const capMesh = new THREE.Mesh(capGeo, metalMaterial);
-        capMesh.rotation.z = Math.PI * 0.5;
-        capMesh.position.set(sideMult * 0.24, 0, 0);
-        cupGroup.add(capMesh);
-
-        cupGroup.position.set(sideMult * 2.1, -0.65, 0);
-        cupGroup.rotation.y = sideMult * 0.12;
-        return cupGroup;
-      };
-
-      modelGroup.add(createEarcup(true)); // Left Earcup
-      modelGroup.add(createEarcup(false)); // Right Earcup
-
-      // Model center offset adjustment - perfectly centered vertically
-      modelGroup.position.set(0, 0.05, 0);
-
-      // 5. Render Loop with Viewport Visibility Observer & Continuous Physics Interpolation
-      let animId: number;
-      let lastTime = performance.now();
-      let isVisible = true;
-
-      let observer: IntersectionObserver | null = null;
-      if (container && 'IntersectionObserver' in window) {
-        observer = new IntersectionObserver(([entry]) => {
-          const wasVisible = isVisible;
-          isVisible = entry.isIntersecting;
-          if (isVisible && !wasVisible) {
-            lastTime = performance.now();
-          }
-        }, { threshold: 0 });
-        observer.observe(container);
-      }
-
-      const renderLoop = (time: number) => {
-        animId = requestAnimationFrame(renderLoop);
-        if (!isVisible) return;
-
-        const delta = Math.min((time - lastTime) / 1000, 0.1);
-        lastTime = time;
-
-        if (isAutoRotatingRef.current) {
-          targetYawRef.current += delta * 0.45;
-        }
-
-        // Smooth organic lerp to target yaw
-        currentYawRef.current += (targetYawRef.current - currentYawRef.current) * 0.085;
-
-        if (modelGroupRef.current) {
-          modelGroupRef.current.rotation.y = currentYawRef.current;
-          // Subtle natural pitch
-          modelGroupRef.current.rotation.x = -0.06 + Math.sin(currentYawRef.current) * 0.02;
-        }
-
-        renderer.render(scene, camera);
-      };
-
-      // Initial frame render
-      renderLoop(performance.now());
-
-      // Resize Handler
-      const handleResize = () => {
-        if (!container) return;
-        const w = container.clientWidth;
-        const h = container.clientHeight;
-        camera.aspect = w / h;
-        camera.updateProjectionMatrix();
-        renderer.setSize(w, h);
-      };
-      window.addEventListener('resize', handleResize);
-
-      return () => {
-        cancelAnimationFrame(animId);
-        if (observer) {
-          observer.disconnect();
-        }
-        window.removeEventListener('resize', handleResize);
-        if (container && renderer.domElement) {
-          container.removeChild(renderer.domElement);
-        }
-        renderer.dispose();
-      };
-    } catch {
-      // Graceful fallback if WebGL cannot be initialized
-    }
-  }, [color]);
-
-  // Pointer Drag Handlers with Smart Gesture Angle Disambiguation
-  const handlePointerDown = (e: React.PointerEvent) => {
-    isDraggingRef.current = true;
-    dragStartXRef.current = e.clientX;
-    dragStartYRef.current = e.clientY;
-    dragStartYawRef.current = targetYawRef.current;
-    gestureIntentRef.current = e.pointerType === 'mouse' ? 'horizontal' : 'pending';
-
-    if (e.pointerType === 'mouse') {
-      setIsDragging(true);
-      wasAutoRotatingRef.current = isAutoRotatingRef.current;
-      isAutoRotatingRef.current = false;
-      try {
-        (e.target as HTMLElement).setPointerCapture(e.pointerId);
-      } catch {
-        // Fallback safely
-      }
-    }
+  const handleSelectAngle = (newAngle: ViewAngle) => {
+    setIsAutoTour(false);
+    setUncontrolledAngle(newAngle);
+    onAngleChange?.(newAngle);
   };
 
-  const handlePointerMove = (e: React.PointerEvent) => {
-    if (!isDraggingRef.current) return;
-
-    // Disambiguate touch gesture direction on mobile
-    if (gestureIntentRef.current === 'pending') {
-      const dx = Math.abs(e.clientX - dragStartXRef.current);
-      const dy = Math.abs(e.clientY - dragStartYRef.current);
-
-      if (dx < 6 && dy < 6) {
-        return; // Wait for clear movement delta
-      }
-
-      if (dy > dx) {
-        // Vertical swipe detected -> allow default browser page scroll
-        gestureIntentRef.current = 'vertical';
-        isDraggingRef.current = false;
-        return;
-      }
-
-      // Horizontal swipe detected -> engage 3D turntable rotation
-      gestureIntentRef.current = 'horizontal';
-      setIsDragging(true);
-      wasAutoRotatingRef.current = isAutoRotatingRef.current;
-      isAutoRotatingRef.current = false;
-      try {
-        (e.target as HTMLElement).setPointerCapture(e.pointerId);
-      } catch {
-        // Fallback safely
-      }
-    }
-
-    if (gestureIntentRef.current === 'horizontal') {
-      const deltaX = e.clientX - dragStartXRef.current;
-      // 1px drag = ~0.009 radians
-      targetYawRef.current = dragStartYawRef.current + deltaX * 0.009;
-    }
+  const handleNextAngle = () => {
+    const order: ViewAngle[] = ['front', 'controls', 'side', 'exploded'];
+    const activeId = currentAngle === 'angle' ? 'controls' : currentAngle;
+    const currentIndex = order.indexOf(activeId);
+    const nextIndex = (currentIndex + 1) % order.length;
+    handleSelectAngle(order[nextIndex]);
   };
 
-  const handlePointerUp = useCallback((e: React.PointerEvent) => {
-    if (!isDraggingRef.current && gestureIntentRef.current !== 'horizontal') {
-      gestureIntentRef.current = 'none';
-      return;
-    }
+  const handlePrevAngle = () => {
+    const order: ViewAngle[] = ['front', 'controls', 'side', 'exploded'];
+    const activeId = currentAngle === 'angle' ? 'controls' : currentAngle;
+    const currentIndex = order.indexOf(activeId);
+    const prevIndex = (currentIndex - 1 + order.length) % order.length;
+    handleSelectAngle(order[prevIndex]);
+  };
 
-    setIsDragging(false);
-    isDraggingRef.current = false;
-    gestureIntentRef.current = 'none';
+  // Touch Swipe Gesture Disambiguation for Mobile
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartXRef.current = e.touches[0].clientX;
+    touchStartYRef.current = e.touches[0].clientY;
+  };
 
-    try {
-      (e.target as HTMLElement).releasePointerCapture(e.pointerId);
-    } catch {
-      // Ignore if released
-    }
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartXRef.current === null || touchStartYRef.current === null) return;
+    const deltaX = e.changedTouches[0].clientX - touchStartXRef.current;
+    const deltaY = e.changedTouches[0].clientY - touchStartYRef.current;
 
-    // Seamlessly resume auto-orbiting from exact current angle if it was previously active
-    if (wasAutoRotatingRef.current) {
-      isAutoRotatingRef.current = true;
-      setIsAutoRotating(true);
-    }
-
-    // Notify parent of approximate orientation if callback provided (without snapping yaw)
-    if (onAngleChange) {
-      const yaw = ((targetYawRef.current % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2);
-      let closest: ViewAngle = 'front';
-      if (yaw < 0.4 || yaw > Math.PI * 2 - 0.4) {
-        closest = 'front';
-      } else if (yaw >= 0.4 && yaw < 1.2) {
-        closest = 'angle';
+    // Only swipe if horizontal intent dominates vertical scroll
+    if (Math.abs(deltaX) > 40 && Math.abs(deltaX) > Math.abs(deltaY) * 1.5) {
+      if (deltaX > 0) {
+        handlePrevAngle();
       } else {
-        closest = 'side';
+        handleNextAngle();
       }
-      onAngleChange(closest);
     }
-  }, [onAngleChange]);
 
-  const handleToggleAutoRotate = () => {
-    const nextState = !isAutoRotating;
-    setIsAutoRotating(nextState);
-    isAutoRotatingRef.current = nextState;
-    wasAutoRotatingRef.current = nextState;
+    touchStartXRef.current = null;
+    touchStartYRef.current = null;
   };
-
-  const activeTheme = colorThemes[color] || colorThemes.midnight;
 
   return (
     <div
-      className={`relative w-full max-w-[340px] sm:max-w-[420px] md:max-w-[460px] mx-auto flex flex-col items-center justify-center select-none group touch-pan-y ${className}`}
+      className={`flex flex-col items-center justify-center w-full max-w-[460px] select-none ${className}`}
       data-testid="headphone-visualizer"
     >
-      {/* Atelier 360° Turntable Status & Controls Pill */}
-      <ModelOrbitIndicator
-        isAutoRotating={isAutoRotating}
-        isDragging={isDragging}
-        onToggleAutoRotate={handleToggleAutoRotate}
-        className="mb-2 z-20"
-      />
-
-      {/* Studio Floor Soft Ambient Shadow */}
+      {/* Visualizer Canvas Viewport with Touch Swipe */}
       <div
-        className="absolute bottom-4 sm:bottom-6 w-3/4 h-10 rounded-full blur-xl transition-all duration-300 pointer-events-none"
-        style={{
-          background: `radial-gradient(ellipse at center, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.03) 60%, transparent 80%)`,
-          transform: isPlayingDemo ? 'scale(1.18)' : 'scale(1)',
-        }}
-      />
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+        className="relative w-full h-[320px] sm:h-[350px] flex items-center justify-center overflow-hidden"
+      >
+        {/* Soft Ambient Radial Glow matched to finish (3s Calm Breathing) */}
+        <div
+          className="absolute inset-0 pointer-events-none rounded-full blur-3xl opacity-60 transition-all duration-700 animate-ambient-breathe"
+          style={{ background: theme.glowColor }}
+        />
 
-      {/* Dynamic Ambient Color Halo */}
-      <div
-        className="absolute inset-6 rounded-full blur-3xl transition-colors duration-700 pointer-events-none opacity-80"
-        style={{ backgroundColor: activeTheme.glow }}
-      />
+        {/* Dynamic Acoustic Soundwave Emitters on Live Demo */}
+        {isPlayingDemo && (
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div className="w-56 h-56 rounded-full border border-[#b8934a]/30 animate-ping" />
+            <div className="w-72 h-72 rounded-full border border-[#b8934a]/20 animate-ambient-breathe" />
+          </div>
+        )}
 
-      {/* WebGL 3D Canvas Container */}
-      <div
-        ref={mountRef}
-        onPointerDown={handlePointerDown}
-        onPointerMove={handlePointerMove}
-        onPointerUp={handlePointerUp}
-        onPointerCancel={handlePointerUp}
-        className="relative w-full h-[320px] sm:h-[360px] md:h-[380px] flex items-center justify-center cursor-grab active:cursor-grabbing z-10"
-        data-testid="turntable-viewport"
-        title="Swipe horizontally to rotate in 3D, swipe vertically to scroll"
-      />
+        {/* 1. FRONT SYMMETRICAL VIEW (0°) */}
+        {currentAngle === 'front' && (
+          <svg
+            viewBox="0 0 400 340"
+            className="w-full h-full max-h-[340px] drop-shadow-[0_16px_32px_rgba(0,0,0,0.12)] animate-in fade-in zoom-in-95 duration-500"
+            role="img"
+            aria-label={`RoH Sound in ${color} - Front Symmetrical Perspective`}
+          >
+            <defs>
+              <linearGradient id={`cupGrad-${color}`} x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor={theme.cupGradStart} />
+                <stop offset="100%" stopColor={theme.cupGradEnd} />
+              </linearGradient>
+              <linearGradient id={`accentGrad-${color}`} x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor={theme.accentGold} />
+                <stop offset="50%" stopColor="#ffffff" stopOpacity="0.4" />
+                <stop offset="100%" stopColor={theme.accentGold} />
+              </linearGradient>
+              <linearGradient id={`metalGrad-${color}`} x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor={theme.metalHighlight} />
+                <stop offset="100%" stopColor={theme.metalBase} />
+              </linearGradient>
+            </defs>
 
-      {/* Subtle Studio Footer Tags */}
-      <div className="flex items-center gap-2 mt-2 z-20">
-        <div className="flex items-center gap-1 text-[10px] font-mono text-zinc-400 bg-white/60 backdrop-blur-md px-2.5 py-1 rounded-full border border-black/[0.04]">
-          <MoveHorizontal className="w-3 h-3 text-zinc-400" />
-          <span>Drag Turntable</span>
+            {/* Stainless Steel Outer Headband Arch */}
+            <path
+              d="M 100 200 C 100 80, 300 80, 300 200"
+              fill="none"
+              stroke={theme.headbandStroke}
+              strokeWidth="14"
+              strokeLinecap="round"
+            />
+            {/* Inner Ergonomic Headband Cushion Pad */}
+            <path
+              d="M 125 180 C 125 105, 275 105, 275 180"
+              fill="none"
+              stroke={theme.headbandFill}
+              strokeWidth="8"
+              strokeLinecap="round"
+            />
+
+            {/* Left Gimbal Yoke Fork */}
+            <g transform="translate(68, 175)">
+              <rect x="18" y="0" width="8" height="36" rx="4" fill={`url(#metalGrad-${color})`} />
+              <path d="M 12 30 C 12 55, 32 55, 32 30" fill="none" stroke={theme.metalBase} strokeWidth="6" />
+            </g>
+
+            {/* Right Gimbal Yoke Fork */}
+            <g transform="translate(288, 175)">
+              <rect x="18" y="0" width="8" height="36" rx="4" fill={`url(#metalGrad-${color})`} />
+              <path d="M 12 30 C 12 55, 32 55, 32 30" fill="none" stroke={theme.metalBase} strokeWidth="6" />
+            </g>
+
+            {/* Left Earcup Assembly */}
+            <g transform="translate(60, 195)">
+              {/* Outer Shell */}
+              <rect x="8" y="0" width="46" height="88" rx="23" fill={`url(#cupGrad-${color})`} stroke={theme.headbandStroke} strokeWidth="2" />
+              {/* Acoustic Accent Ring */}
+              <rect x="38" y="6" width="6" height="76" rx="3" fill={`url(#accentGrad-${color})`} />
+              {/* Inner Memory Foam Cushion */}
+              <rect x="42" y="10" width="22" height="68" rx="11" fill={theme.cushionFill} stroke={theme.cushionStroke} strokeWidth="2" />
+              {/* CNC Chamfer Rim */}
+              <ellipse cx="26" cy="44" rx="14" ry="28" fill="none" stroke={theme.metalHighlight} strokeWidth="1" strokeOpacity="0.4" />
+            </g>
+
+            {/* Right Earcup Assembly */}
+            <g transform="translate(264, 195)">
+              {/* Outer Shell */}
+              <rect x="26" y="0" width="46" height="88" rx="23" fill={`url(#cupGrad-${color})`} stroke={theme.headbandStroke} strokeWidth="2" />
+              {/* Acoustic Accent Ring */}
+              <rect x="36" y="6" width="6" height="76" rx="3" fill={`url(#accentGrad-${color})`} />
+              {/* Inner Memory Foam Cushion */}
+              <rect x="16" y="10" width="22" height="68" rx="11" fill={theme.cushionFill} stroke={theme.cushionStroke} strokeWidth="2" />
+              {/* CNC Chamfer Rim */}
+              <ellipse cx="54" cy="44" rx="14" ry="28" fill="none" stroke={theme.metalHighlight} strokeWidth="1" strokeOpacity="0.4" />
+            </g>
+
+            {/* Central Monogram Laser Accent */}
+            <circle cx="200" cy="85" r="7" fill={theme.accentGold} opacity="0.9" />
+            <text x="200" y="88" textAnchor="middle" fill="#ffffff" fontSize="6" fontFamily="monospace" fontWeight="bold">R</text>
+          </svg>
+        )}
+
+        {/* 2. TACTILE CONTROLS & PORTS PERSPECTIVE */}
+        {(currentAngle === 'controls' || currentAngle === 'angle') && (
+          <svg
+            viewBox="0 0 400 340"
+            className="w-full h-full max-h-[340px] drop-shadow-[0_16px_32px_rgba(0,0,0,0.12)] animate-in fade-in zoom-in-95 duration-500"
+            role="img"
+            aria-label={`RoH Sound in ${color} - Tactile Controls and Ports Perspective`}
+          >
+            <defs>
+              <linearGradient id={`controlsCupGrad-${color}`} x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor={theme.cupGradStart} />
+                <stop offset="100%" stopColor={theme.cupGradEnd} />
+              </linearGradient>
+            </defs>
+
+            {/* Rear-Facing Memory Foam Cushion (Circular Contour behind Cup) */}
+            <circle cx="136" cy="148" r="80" fill={theme.cushionFill} stroke={theme.cushionStroke} strokeWidth="2.5" />
+
+            {/* Main Round Anodized Aluminum Earcup Shell */}
+            <circle cx="160" cy="148" r="78" fill={`url(#controlsCupGrad-${color})`} stroke={theme.headbandStroke} strokeWidth="2.5" />
+
+            {/* Machined Chamfer Outer Bezel & Lathe Accent Rings */}
+            <circle cx="160" cy="148" r="72" fill="none" stroke={theme.accentGold} strokeWidth="2" />
+            <circle cx="160" cy="148" r="58" fill="none" stroke={theme.metalHighlight} strokeWidth="1" strokeOpacity="0.4" />
+            <circle cx="160" cy="148" r="44" fill="none" stroke={theme.metalHighlight} strokeWidth="1" strokeOpacity="0.3" />
+
+            {/* Central Monogram Core Medallion */}
+            <circle cx="160" cy="148" r="22" fill={theme.coreDisc} stroke={theme.accentGold} strokeWidth="1.5" />
+            <text x="160" y="154" textAnchor="middle" fill="#ffffff" fontSize="14" fontFamily="monospace" fontWeight="bold">R</text>
+
+            {/* 1. Precision Knurled Digital Crown (Rotated -32° on Top-Right Rim) */}
+            <g transform="translate(226, 107) rotate(-32)">
+              {/* Machined Bezel Housing */}
+              <rect x="-6" y="-14" width="18" height="28" rx="3" fill={theme.metalBase} stroke={theme.accentGold} strokeWidth="1.2" />
+              {/* Knurled Rotary Dial */}
+              <rect x="0" y="-12" width="13" height="24" rx="2.5" fill={theme.cupGradEnd} stroke={theme.metalHighlight} strokeWidth="1" />
+              {/* Tactile Ridges */}
+              {[-8, -4, 0, 4, 8].map((y) => (
+                <line key={y} x1="2" y1={y} x2="11" y2={y} stroke={theme.accentGold} strokeWidth="1.2" />
+              ))}
+            </g>
+            {/* Crown Callout Leader */}
+            <line x1="240" y1="98" x2="278" y2="85" stroke={theme.accentGold} strokeWidth="1" strokeDasharray="2 2" />
+            <circle cx="278" cy="85" r="2" fill={theme.accentGold} />
+            <text x="284" y="88" fill="#18181b" fontSize="8.5" fontFamily="monospace" fontWeight="bold">Digital Crown (Vol/Scrub)</text>
+
+            {/* 2. Multi-Function ANC / Spatial Action Button (Equator Rim at 0°) */}
+            <g transform="translate(236, 148)">
+              {/* Machined Socket */}
+              <rect x="-4" y="-12" width="11" height="24" rx="3" fill={theme.coreDisc} stroke={theme.metalHighlight} strokeWidth="1" />
+              {/* Tactile Button Body */}
+              <rect x="-2" y="-10" width="8" height="20" rx="2" fill={theme.cupGradStart} stroke={theme.accentGold} strokeWidth="1.2" />
+              {/* Active Center Dot */}
+              <circle cx="2" cy="0" r="1.8" fill={theme.accentGold} />
+            </g>
+            {/* ANC Callout Leader */}
+            <line x1="246" y1="148" x2="278" y2="148" stroke={theme.accentGold} strokeWidth="1" strokeDasharray="2 2" />
+            <circle cx="278" cy="148" r="2" fill={theme.accentGold} />
+            <text x="284" y="151" fill="#18181b" fontSize="8.5" fontFamily="monospace" fontWeight="bold">ANC & Spatial Mode Key</text>
+
+            {/* 3. Multi-State Power & Bluetooth 5.4 Slider (Rotated +32° on Lower-Right Rim) */}
+            <g transform="translate(226, 189) rotate(32)">
+              {/* Recessed Slider Track */}
+              <rect x="-4" y="-12" width="9" height="24" rx="2.5" fill={theme.coreDisc} stroke={theme.metalHighlight} strokeWidth="1" />
+              {/* Toggle Switch Head */}
+              <rect x="-3" y="-3" width="7" height="8" rx="1.5" fill={theme.accentGold} />
+            </g>
+            {/* Power Callout Leader */}
+            <line x1="240" y1="198" x2="278" y2="208" stroke={theme.accentGold} strokeWidth="1" strokeDasharray="2 2" />
+            <circle cx="278" cy="208" r="2" fill={theme.accentGold} />
+            <text x="284" y="211" fill="#18181b" fontSize="8.5" fontFamily="monospace" fontWeight="bold">Power / Pairing Switch</text>
+
+            {/* 4. Multi-Color LED Status Dot & Beamforming Voice Mics (Bottom-Right Curve) */}
+            <g transform="translate(199, 215) rotate(60)">
+              {/* Status LED */}
+              <circle cx="-4" cy="-4" r="2.5" fill="#10b981" className="animate-pulse" />
+              <circle cx="-4" cy="-4" r="4.5" fill="#10b981" opacity="0.3" />
+              {/* Dual Mic Micro-Ports */}
+              <circle cx="-4" cy="4" r="1.2" fill={theme.coreDisc} />
+              <circle cx="-4" cy="9" r="1.2" fill={theme.coreDisc} />
+            </g>
+            {/* Status LED Callout Leader */}
+            <line x1="208" y1="223" x2="278" y2="252" stroke={theme.accentGold} strokeWidth="1" strokeDasharray="2 2" />
+            <circle cx="278" cy="252" r="2" fill={theme.accentGold} />
+            <text x="284" y="255" fill="#18181b" fontSize="8.5" fontFamily="monospace" fontWeight="bold">Status LED & Mic Array</text>
+
+            {/* 5. Lossless USB-C & 3.5mm Port (Recessed into Bottom Apex Rim) */}
+            <g transform="translate(160, 224)">
+              {/* Machined Port Bezel Plate */}
+              <rect x="-26" y="-3" width="52" height="11" rx="3.5" fill={theme.coreDisc} stroke={theme.accentGold} strokeWidth="1" />
+              {/* USB-C Slot */}
+              <rect x="-20" y="-1" width="18" height="7" rx="3" fill="#18181b" stroke={theme.metalHighlight} strokeWidth="0.8" />
+              <rect x="-16" y="1" width="10" height="3" rx="1" fill="#d4af37" />
+
+              {/* 3.5mm Gold-Plated Audio Jack */}
+              <circle cx="12" cy="2.5" r="4.5" fill="#18181b" stroke={theme.accentGold} strokeWidth="1.2" />
+              <circle cx="12" cy="2.5" r="2.5" fill="#b8934a" />
+            </g>
+            {/* USB-C Port Callout Leader */}
+            <line x1="160" y1="234" x2="160" y2="280" stroke={theme.accentGold} strokeWidth="1" strokeDasharray="2 2" />
+            <circle cx="160" cy="280" r="2" fill={theme.accentGold} />
+            <text x="160" y="295" textAnchor="middle" fill="#18181b" fontSize="8.5" fontFamily="monospace" fontWeight="bold">Lossless USB-C & 3.5mm Analog Jack</text>
+          </svg>
+        )}
+
+        {/* 3. 90° SIDE PROFILE VIEW */}
+        {currentAngle === 'side' && (
+          <svg
+            viewBox="0 0 400 340"
+            className="w-full h-full max-h-[340px] drop-shadow-[0_16px_32px_rgba(0,0,0,0.12)] animate-in fade-in zoom-in-95 duration-500"
+            role="img"
+            aria-label={`RoH Sound in ${color} - 90 Degree Profile View`}
+          >
+            <defs>
+              <linearGradient id={`sideCupGrad-${color}`} x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor={theme.cupGradStart} />
+                <stop offset="100%" stopColor={theme.cupGradEnd} />
+              </linearGradient>
+            </defs>
+
+            {/* Profile Headband Arch (Curving down naturally from head crown) */}
+            <path
+              d="M 160 45 C 185 55, 200 90, 200 135"
+              fill="none"
+              stroke={theme.headbandStroke}
+              strokeWidth="14"
+              strokeLinecap="round"
+            />
+            {/* Inner Headband Padding Strip */}
+            <path
+              d="M 170 58 C 188 68, 196 95, 196 130"
+              fill="none"
+              stroke={theme.headbandFill}
+              strokeWidth="6"
+              strokeLinecap="round"
+            />
+
+            {/* Telescopic Adjustment Slider Sleeve */}
+            <g transform="translate(193, 125)">
+              <rect x="0" y="0" width="14" height="34" rx="3" fill={theme.metalBase} stroke={theme.metalHighlight} strokeWidth="1" />
+              {/* Laser-Etched Calibration Graduation Ticks */}
+              <line x1="3" y1="8" x2="11" y2="8" stroke={theme.accentGold} strokeWidth="1" />
+              <line x1="3" y1="14" x2="11" y2="14" stroke="#ffffff" strokeWidth="1" strokeOpacity="0.6" />
+              <line x1="3" y1="20" x2="11" y2="20" stroke="#ffffff" strokeWidth="1" strokeOpacity="0.6" />
+              <line x1="3" y1="26" x2="11" y2="26" stroke={theme.accentGold} strokeWidth="1" />
+            </g>
+
+            {/* Machined U-Yoke Gimbal Fork (Embracing Earcup from both sides) */}
+            <path
+              d="M 200 155 C 200 175, 136 185, 136 215"
+              fill="none"
+              stroke={theme.metalBase}
+              strokeWidth="5"
+              strokeLinecap="round"
+            />
+            <path
+              d="M 200 155 C 200 175, 264 185, 264 215"
+              fill="none"
+              stroke={theme.metalBase}
+              strokeWidth="5"
+              strokeLinecap="round"
+            />
+
+            {/* Memory Foam Cushion (Contoured Behind Cup Shell) */}
+            <rect x="156" y="155" width="88" height="120" rx="44" fill={theme.cushionFill} stroke={theme.cushionStroke} strokeWidth="2" />
+            {/* Cushion Inner Acoustic Depth */}
+            <ellipse cx="200" cy="215" rx="32" ry="46" fill="#09090b" opacity="0.15" />
+
+            {/* Main Anodized Aluminum Outer Plate */}
+            <circle cx="200" cy="215" r="58" fill={`url(#sideCupGrad-${color})`} stroke={theme.headbandStroke} strokeWidth="2.5" />
+
+            {/* Concentric Precision Lathe Rings */}
+            <circle cx="200" cy="215" r="48" fill="none" stroke={theme.metalHighlight} strokeWidth="1" strokeOpacity="0.4" />
+            <circle cx="200" cy="215" r="38" fill="none" stroke={theme.accentGold} strokeWidth="2" />
+            <circle cx="200" cy="215" r="28" fill="none" stroke={theme.metalHighlight} strokeWidth="1" strokeOpacity="0.4" />
+
+            {/* Peripheral Acoustic Mic Ports (8 Micro Vents) */}
+            {[0, 45, 90, 135, 180, 225, 270, 315].map((deg, i) => {
+              const rad = (deg * Math.PI) / 180;
+              const vx = 200 + 43 * Math.cos(rad);
+              const vy = 215 + 43 * Math.sin(rad);
+              return <circle key={i} cx={vx} cy={vy} r="1.8" fill={theme.coreDisc} />;
+            })}
+
+            {/* Center Monogram Core Medallion */}
+            <circle cx="200" cy="215" r="20" fill={theme.coreDisc} stroke={theme.accentGold} strokeWidth="1.5" />
+            <text x="200" y="221" textAnchor="middle" fill="#ffffff" fontSize="15" fontFamily="monospace" fontWeight="bold">R</text>
+
+            {/* Left & Right Yoke Pivot Pin Fasteners */}
+            <circle cx="136" cy="215" r="4.5" fill={theme.accentGold} stroke={theme.metalBase} strokeWidth="1" />
+            <circle cx="264" cy="215" r="4.5" fill={theme.accentGold} stroke={theme.metalBase} strokeWidth="1" />
+          </svg>
+        )}
+
+        {/* 4. EXPLODED ACOUSTIC LAYERS ANATOMY */}
+        {currentAngle === 'exploded' && (
+          <svg
+            viewBox="0 0 400 340"
+            className="w-full h-full max-h-[340px] drop-shadow-[0_16px_32px_rgba(0,0,0,0.12)] animate-in fade-in zoom-in-95 duration-500"
+            role="img"
+            aria-label={`RoH Sound in ${color} - Exploded Acoustic Transducer Anatomy`}
+          >
+            {/* Horizontal Acoustic Axis Guide Line */}
+            <line x1="30" y1="160" x2="370" y2="160" stroke={theme.accentGold} strokeWidth="1" strokeDasharray="3 3" opacity="0.3" />
+
+            {/* Layer 01: Outer CNC Anodized Aluminum Cup Shell */}
+            <g transform="translate(56, 160)">
+              {/* Outer Shell Rim */}
+              <ellipse cx="0" cy="0" rx="18" ry="52" fill={`url(#cupGrad-${color})`} stroke={theme.headbandStroke} strokeWidth="2.5" />
+              {/* Machined Gold Chamfer Accent */}
+              <ellipse cx="0" cy="0" rx="15" ry="46" fill="none" stroke={theme.accentGold} strokeWidth="1.5" />
+              {/* Inner Lathe Milling Reflection */}
+              <ellipse cx="-2" cy="0" rx="11" ry="36" fill="none" stroke={theme.metalHighlight} strokeWidth="1" strokeOpacity="0.4" />
+              {/* Central Monogram Core */}
+              <ellipse cx="0" cy="0" rx="5" ry="12" fill={theme.coreDisc} stroke={theme.accentGold} strokeWidth="1" />
+              <text x="0" y="3" textAnchor="middle" fill="#ffffff" fontSize="8" fontFamily="monospace" fontWeight="bold">R</text>
+
+              {/* Callout Leader (ABOVE) */}
+              <line x1="0" y1="-56" x2="0" y2="-82" stroke={theme.accentGold} strokeWidth="1" strokeDasharray="2 2" />
+              <circle cx="0" cy="-82" r="2" fill={theme.accentGold} />
+              {/* Number Pill Badge */}
+              <rect x="-14" y="-102" width="28" height="15" rx="7.5" fill="#18181b" stroke={theme.accentGold} strokeWidth="0.8" />
+              <text x="0" y="-91" textAnchor="middle" fill="#d4af37" fontSize="8" fontFamily="monospace" fontWeight="bold">01</text>
+              {/* Typography */}
+              <text x="0" y="-112" textAnchor="middle" fill="#18181b" fontSize="8.5" fontFamily="monospace" fontWeight="bold">Cup Shell</text>
+              <text x="0" y="-121" textAnchor="middle" fill="#71717a" fontSize="7" fontFamily="monospace">CNC ALLOY</text>
+            </g>
+
+            {/* Layer 02: Resonant Brass Damping Ring */}
+            <g transform="translate(126, 160)">
+              {/* Solid Brass Ring */}
+              <ellipse cx="0" cy="0" rx="13" ry="44" fill="none" stroke={theme.accentGold} strokeWidth="4.5" />
+              {/* Inner Polished Chamfer */}
+              <ellipse cx="0" cy="0" rx="9" ry="34" fill="none" stroke="#ffffff" strokeWidth="1" strokeOpacity="0.7" />
+              {/* Laser-Tuned Peripheral Damping Notches */}
+              {[-24, -14, -4, 6, 16, 26].map((y) => (
+                <line key={y} x1="-2.5" y1={y} x2="2.5" y2={y} stroke="#856404" strokeWidth="1.2" />
+              ))}
+
+              {/* Callout Leader (BELOW) */}
+              <line x1="0" y1="48" x2="0" y2="75" stroke={theme.accentGold} strokeWidth="1" strokeDasharray="2 2" />
+              <circle cx="0" cy="75" r="2" fill={theme.accentGold} />
+              {/* Number Pill Badge */}
+              <rect x="-14" y="80" width="28" height="15" rx="7.5" fill="#18181b" stroke={theme.accentGold} strokeWidth="0.8" />
+              <text x="0" y="91" textAnchor="middle" fill="#d4af37" fontSize="8" fontFamily="monospace" fontWeight="bold">02</text>
+              {/* Typography */}
+              <text x="0" y="106" textAnchor="middle" fill="#18181b" fontSize="8.5" fontFamily="monospace" fontWeight="bold">Resonant Ring</text>
+              <text x="0" y="115" textAnchor="middle" fill="#71717a" fontSize="7" fontFamily="monospace">BRASS DAMPING</text>
+            </g>
+
+            {/* Layer 03: 45mm Titanium-Graphene Transducer Diaphragm (Acoustic Core) */}
+            <g transform="translate(198, 160)">
+              {/* Transducer Frame */}
+              <ellipse cx="0" cy="0" rx="17" ry="50" fill={theme.coreDisc} stroke={theme.accentGold} strokeWidth="2" />
+              {/* Micro-Ribbed Graphene Damping Matrix */}
+              <ellipse cx="0" cy="0" rx="13" ry="40" fill="none" stroke="#d4af37" strokeWidth="1.2" strokeDasharray="3 2" />
+              <ellipse cx="0" cy="0" rx="8" ry="26" fill="none" stroke="#eab308" strokeWidth="1" />
+              {/* Gold Voice-Coil Dome */}
+              <ellipse cx="0" cy="0" rx="4" ry="12" fill="#d4af37" stroke="#ffffff" strokeWidth="1" />
+
+              {/* Callout Leader (ABOVE) */}
+              <line x1="0" y1="-54" x2="0" y2="-82" stroke={theme.accentGold} strokeWidth="1" strokeDasharray="2 2" />
+              <circle cx="0" cy="-82" r="2" fill={theme.accentGold} />
+              {/* Number Pill Badge */}
+              <rect x="-14" y="-102" width="28" height="15" rx="7.5" fill="#18181b" stroke={theme.accentGold} strokeWidth="0.8" />
+              <text x="0" y="-91" textAnchor="middle" fill="#d4af37" fontSize="8" fontFamily="monospace" fontWeight="bold">03</text>
+              {/* Typography */}
+              <text x="0" y="-112" textAnchor="middle" fill="#18181b" fontSize="8.5" fontFamily="monospace" fontWeight="bold">45mm Driver</text>
+              <text x="0" y="-121" textAnchor="middle" fill="#71717a" fontSize="7" fontFamily="monospace">TI-GRAPHENE</text>
+            </g>
+
+            {/* Layer 04: Dual Neodymium N52 Magnetic Flux Array */}
+            <g transform="translate(270, 160)">
+              {/* Magnetic Housing */}
+              <ellipse cx="0" cy="0" rx="13" ry="42" fill={theme.metalBase} stroke={theme.metalHighlight} strokeWidth="1.8" />
+              {/* Dual Magnetic Pole Pieces */}
+              <ellipse cx="0" cy="-14" rx="9" ry="14" fill={theme.coreDisc} stroke={theme.accentGold} strokeWidth="1" />
+              <ellipse cx="0" cy="14" rx="9" ry="14" fill={theme.coreDisc} stroke={theme.accentGold} strokeWidth="1" />
+              {/* High-Flux Center Gap */}
+              <line x1="-8" y1="0" x2="8" y2="0" stroke="#d4af37" strokeWidth="2" />
+
+              {/* Callout Leader (BELOW) */}
+              <line x1="0" y1="46" x2="0" y2="75" stroke={theme.accentGold} strokeWidth="1" strokeDasharray="2 2" />
+              <circle cx="0" cy="75" r="2" fill={theme.accentGold} />
+              {/* Number Pill Badge */}
+              <rect x="-14" y="80" width="28" height="15" rx="7.5" fill="#18181b" stroke={theme.accentGold} strokeWidth="0.8" />
+              <text x="0" y="91" textAnchor="middle" fill="#d4af37" fontSize="8" fontFamily="monospace" fontWeight="bold">04</text>
+              {/* Typography */}
+              <text x="0" y="106" textAnchor="middle" fill="#18181b" fontSize="8.5" fontFamily="monospace" fontWeight="bold">Dual N52 Magnet</text>
+              <text x="0" y="115" textAnchor="middle" fill="#71717a" fontSize="7" fontFamily="monospace">1.5 TESLA FLUX</text>
+            </g>
+
+            {/* Layer 05: Protein Leather Acoustic Cushion */}
+            <g transform="translate(340, 160)">
+              {/* Ergonomic Cushion Contour */}
+              <ellipse cx="0" cy="0" rx="18" ry="52" fill={theme.cushionFill} stroke={theme.cushionStroke} strokeWidth="2.5" />
+              {/* Acoustic Ear Cavity */}
+              <ellipse cx="0" cy="0" rx="10" ry="34" fill="#09090b" opacity="0.35" />
+              {/* Acoustically Transparent Micro-Mesh */}
+              <ellipse cx="0" cy="0" rx="6" ry="20" fill="none" stroke={theme.accentGold} strokeWidth="1" strokeDasharray="2 2" />
+
+              {/* Callout Leader (ABOVE) */}
+              <line x1="0" y1="-56" x2="0" y2="-82" stroke={theme.accentGold} strokeWidth="1" strokeDasharray="2 2" />
+              <circle cx="0" cy="-82" r="2" fill={theme.accentGold} />
+              {/* Number Pill Badge */}
+              <rect x="-14" y="-102" width="28" height="15" rx="7.5" fill="#18181b" stroke={theme.accentGold} strokeWidth="0.8" />
+              <text x="0" y="-91" textAnchor="middle" fill="#d4af37" fontSize="8" fontFamily="monospace" fontWeight="bold">05</text>
+              {/* Typography */}
+              <text x="0" y="-112" textAnchor="middle" fill="#18181b" fontSize="8.5" fontFamily="monospace" fontWeight="bold">Ear Cushion</text>
+              <text x="0" y="-121" textAnchor="middle" fill="#71717a" fontSize="7" fontFamily="monospace">MEMORY FOAM</text>
+            </g>
+          </svg>
+        )}
+      </div>
+
+      {/* Modern Minimalistic Perspective Selector Bar */}
+      <div className="w-full flex flex-col items-center gap-2 mt-4 px-1 sm:px-2">
+        {/* Responsive 4-Column Grid-Aligned Segmented Switcher */}
+        <div className="w-full grid grid-cols-4 gap-1 p-1 bg-zinc-100/90 backdrop-blur-md rounded-full border border-black/[0.04] shadow-2xs">
+          {PERSPECTIVES.map((tab) => {
+            const Icon = tab.icon;
+            const isSelected = currentAngle === tab.id || (tab.id === 'controls' && currentAngle === 'angle');
+
+            return (
+              <button
+                key={tab.id}
+                type="button"
+                onClick={() => handleSelectAngle(tab.id)}
+                className={`flex items-center justify-center gap-1 sm:gap-1.5 py-1.5 px-1 sm:px-2 rounded-full text-[11px] sm:text-xs font-mono transition-all duration-200 cursor-pointer active:scale-95 ${
+                  isSelected
+                    ? 'bg-zinc-950 text-white shadow-xs font-medium'
+                    : 'text-zinc-500 hover:text-zinc-900 hover:bg-white/60'
+                }`}
+              >
+                <Icon className={`w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0 ${isSelected ? 'text-[#d4af37]' : 'text-zinc-400'}`} />
+                <span className="truncate">{tab.label}</span>
+              </button>
+            );
+          })}
         </div>
 
-        <div className="hidden sm:flex items-center gap-1 text-[10px] font-mono text-zinc-400 bg-white/60 backdrop-blur-md px-2 py-1 rounded-full border border-black/[0.04]">
-          <Sparkles className="w-2.5 h-2.5 text-[#d4af37]" />
-          <span>WebGL PBR</span>
-        </div>
+        {/* Auto-Tour Mode Sub-Pill */}
+        <button
+          type="button"
+          onClick={() => setIsAutoTour(!isAutoTour)}
+          aria-label={isAutoTour ? 'Pause studio tour' : 'Start studio perspective tour'}
+          className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono border transition-all cursor-pointer active:scale-95 ${
+            isAutoTour
+              ? 'bg-[#fafaf9] border-[#b8934a]/60 text-zinc-950 shadow-xs'
+              : 'bg-white/80 border-black/[0.06] text-zinc-500 hover:text-zinc-950 hover:bg-zinc-50'
+          }`}
+        >
+          {isAutoTour ? (
+            <>
+              <Pause className="w-3 h-3 text-[#b8934a]" />
+              <span>Pause Tour</span>
+            </>
+          ) : (
+            <>
+              <Play className="w-3 h-3 text-[#b8934a] fill-[#b8934a]" />
+              <span>Auto-Tour</span>
+            </>
+          )}
+        </button>
       </div>
     </div>
   );

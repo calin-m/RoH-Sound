@@ -8,7 +8,7 @@ describe('HeadphoneVisualizer', () => {
     vi.restoreAllMocks();
   });
 
-  it('renders with 3D canvas viewport and default front angle', () => {
+  it('renders with vector SVG viewport and default front angle', () => {
     const { unmount } = render(
       <HeadphoneVisualizer
         color="midnight"
@@ -19,44 +19,42 @@ describe('HeadphoneVisualizer', () => {
 
     const visualizer = screen.getByTestId('headphone-visualizer');
     expect(visualizer).toBeInTheDocument();
-
-    const viewport = screen.getByTestId('turntable-viewport');
-    expect(viewport).toBeInTheDocument();
-
-    act(() => {
-      window.dispatchEvent(new Event('resize'));
-    });
+    expect(screen.getByRole('img', { name: /Front Symmetrical Perspective/i })).toBeInTheDocument();
 
     unmount();
   });
 
-  it('defaults to 360° auto-orbit on load and toggles pause/resume', () => {
+  it('allows selecting perspectives and calls onAngleChange callback', () => {
+    const onAngleChangeMock = vi.fn();
     render(
       <HeadphoneVisualizer
         color="titanium"
         angle="front"
         isPlayingDemo={false}
+        onAngleChange={onAngleChangeMock}
       />
     );
 
-    // Initial state is auto-orbiting
-    expect(screen.getByText(/360° Studio View/i)).toBeInTheDocument();
-    const pauseBtn = screen.getByRole('button', { name: /Pause auto-orbit/i });
-    expect(pauseBtn).toBeInTheDocument();
+    // Click Controls angle
+    const controlsBtn = screen.getByRole('button', { name: /^Controls$/i });
+    fireEvent.click(controlsBtn);
+    expect(onAngleChangeMock).toHaveBeenCalledWith('controls');
 
-    // Pause orbit
-    fireEvent.click(pauseBtn);
-    expect(screen.getByText(/Orbit Paused/i)).toBeInTheDocument();
-    const resumeBtn = screen.getByRole('button', { name: /Resume auto-orbit/i });
-    expect(resumeBtn).toBeInTheDocument();
+    // Click Profile
+    const profileBtn = screen.getByRole('button', { name: /^Profile$/i });
+    fireEvent.click(profileBtn);
+    expect(onAngleChangeMock).toHaveBeenCalledWith('side');
 
-    // Resume orbit
-    fireEvent.click(resumeBtn);
-    expect(screen.getByText(/360° Studio View/i)).toBeInTheDocument();
+    // Click Anatomy
+    const anatomyBtn = screen.getByRole('button', { name: /^Anatomy$/i });
+    fireEvent.click(anatomyBtn);
+    expect(onAngleChangeMock).toHaveBeenCalledWith('exploded');
   });
 
-  it('handles pointer drag interaction and calls onAngleChange on release', () => {
+  it('toggles automated studio perspective tour', () => {
+    vi.useFakeTimers();
     const onAngleChangeMock = vi.fn();
+
     render(
       <HeadphoneVisualizer
         color="emerald"
@@ -66,43 +64,70 @@ describe('HeadphoneVisualizer', () => {
       />
     );
 
-    const viewport = screen.getByTestId('turntable-viewport');
+    const tourBtn = screen.getByRole('button', { name: /Start studio perspective tour/i });
+    fireEvent.click(tourBtn);
 
-    // Pointer down
-    fireEvent.pointerDown(viewport, {
-      clientX: 100,
-      pointerId: 1,
-      target: { setPointerCapture: vi.fn() },
+    // Advance timer by 3800ms
+    act(() => {
+      vi.advanceTimersByTime(3800);
     });
 
-    // Pointer move (drag ~70px)
-    fireEvent.pointerMove(viewport, {
-      clientX: 170,
-      pointerId: 1,
-    });
+    expect(onAngleChangeMock).toHaveBeenCalledWith('controls');
 
-    // Pointer up
-    fireEvent.pointerUp(viewport, {
-      pointerId: 1,
-      target: { releasePointerCapture: vi.fn() },
-    });
+    // Pause tour
+    const pauseBtn = screen.getByRole('button', { name: /Pause studio tour/i });
+    fireEvent.click(pauseBtn);
 
-    expect(onAngleChangeMock).toHaveBeenCalled();
+    vi.useRealTimers();
   });
 
-  it('renders all colorways correctly and updates angle prop', () => {
+  it('handles mobile touch swipe gestures navigation', () => {
+    const onAngleChangeMock = vi.fn();
+    const { container } = render(
+      <HeadphoneVisualizer
+        color="silver"
+        isPlayingDemo={false}
+        onAngleChange={onAngleChangeMock}
+      />
+    );
+
+    const touchArea = container.querySelector('[class*="h-[320px]"]');
+    expect(touchArea).toBeTruthy();
+
+    if (touchArea) {
+      // 1. Simulate left swipe (advances from front -> controls)
+      fireEvent.touchStart(touchArea, {
+        touches: [{ clientX: 200, clientY: 100 }],
+      });
+      fireEvent.touchEnd(touchArea, {
+        changedTouches: [{ clientX: 100, clientY: 100 }],
+      });
+      expect(onAngleChangeMock).toHaveBeenLastCalledWith('controls');
+
+      // 2. Simulate right swipe (advances back from controls -> front)
+      fireEvent.touchStart(touchArea, {
+        touches: [{ clientX: 100, clientY: 100 }],
+      });
+      fireEvent.touchEnd(touchArea, {
+        changedTouches: [{ clientX: 200, clientY: 100 }],
+      });
+      expect(onAngleChangeMock).toHaveBeenLastCalledWith('front');
+    }
+  });
+
+  it('renders all colorways and perspectives with live demo soundwaves', () => {
     const { rerender } = render(
       <HeadphoneVisualizer color="midnight" angle="front" isPlayingDemo={false} />
     );
     expect(screen.getByTestId('headphone-visualizer')).toBeInTheDocument();
 
-    rerender(<HeadphoneVisualizer color="silver" angle="angle" isPlayingDemo={false} />);
-    expect(screen.getByTestId('headphone-visualizer')).toBeInTheDocument();
+    rerender(<HeadphoneVisualizer color="silver" angle="controls" isPlayingDemo={false} />);
+    expect(screen.getByRole('img', { name: /Tactile Controls and Ports Perspective/i })).toBeInTheDocument();
 
     rerender(<HeadphoneVisualizer color="titanium" angle="side" isPlayingDemo={false} />);
-    expect(screen.getByTestId('headphone-visualizer')).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: /90 Degree Profile View/i })).toBeInTheDocument();
 
-    rerender(<HeadphoneVisualizer color="emerald" angle="front" isPlayingDemo={true} />);
-    expect(screen.getByTestId('headphone-visualizer')).toBeInTheDocument();
+    rerender(<HeadphoneVisualizer color="emerald" angle="exploded" isPlayingDemo={true} />);
+    expect(screen.getByRole('img', { name: /Anatomy/i })).toBeInTheDocument();
   });
 });

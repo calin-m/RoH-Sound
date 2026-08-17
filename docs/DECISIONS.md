@@ -6,6 +6,7 @@ This document tracks all foundational architecture decisions for the enterprise 
 - [ADR-001: Enterprise Tech Stack Selection (Next.js 15, MSW v2, Zustand, TanStack Query, Vitest)](#adr-001-enterprise-tech-stack-selection)
 - [ADR-002: Closed-Loop Quality & 7-Gateway Verification Engine Architecture](#adr-002-closed-loop-quality--7-gateway-verification-engine-architecture)
 - [ADR-003: Procedural WebGL 3D Headphone Model Engine using Three.js](#adr-003-procedural-webgl-3d-headphone-model-engine-using-threejs)
+- [ADR-004: Transition to Multi-Perspective Vector SVG Showcase for Mobile Optimization](#adr-004-transition-to-multi-perspective-vector-svg-showcase-for-mobile-optimization)
 
 ---
 
@@ -29,8 +30,8 @@ We standardize on the following technology foundation:
 6. **Testing & Coverage:** Vitest with `jsdom`, `@testing-library/react`, `@testing-library/jest-dom`, and `@vitest/coverage-v8` enforcing >= 85% code coverage.
 
 ### Consequences
-- **Positive:** Uniform architecture patterns across teams; zero environment divergence in testing; high test speed.
-- **Negative:** Requires team adherence to App Router client/server boundaries and MSW request handler conventions.
+- **Positive:** Zero developer drift, unified component patterns, automated quality verification, and sub-second test runtimes.
+- **Negative:** Strict adherence required across all PRs.
 
 ---
 
@@ -42,28 +43,28 @@ We standardize on the following technology foundation:
 - **Deciders:** Core Engineering Team
 
 ### Context
-Enterprise systems frequently suffer from documentation drift, silent test regressions, dead code accumulation, and accidental secret leakage. We require an automated, closed-loop verification pipeline running prior to git commits and CI/CD promotion.
+Modern enterprise web projects suffer from architectural drift, stale documentation, untested edge cases, secret exposure, and dead code accumulation.
 
 ### Decision
-We implement the 7-Gateway Quality Engine (`scripts/verify-build.js` executed via `npm run verify` and `.husky/pre-commit`):
-- **Pass 0.5 (Pre-Commit Secret Scanner):** Scans the repository for leaked API keys, tokens, and private credentials.
-- **Pass 1 (TypeScript Strict Typecheck):** Verifies type safety with `tsc --noEmit`.
-- **Pass 2 (Vitest MSW & Data Queries Pass):** Validates network mocking and query hook state transitions.
-- **Pass 3 (Vitest Client UI & Primitives Pass):** Executes unit/integration test suites and asserts >= 85% code coverage.
-- **Pass 4 (Living Architecture & Quality Sync):** Auto-generates C4 Level 1-3 diagrams in `ARCHITECTURE.md`, compiles `docs/QUALITY_AUDIT_REPORT.md`, and updates `CHANGELOG.md` via AST introspection.
-- **Pass 5 (ADR Ledger Validation):** Asserts sequential numbering, required sections, and schema integrity for `docs/DECISIONS.md`.
-- **Pass 6 (Code Quality & Dead-Code Audit):** Executes ESLint and Knip dead-code analysis.
-- **Pass 7 (Production Build Compilation):** Compiles the Next.js bundle with `next build`.
+We introduce the **7-Gateway Quality Verification Engine** (`npm run verify`):
+- **Pass 0.5:** Pattern-matching secret scanning against high-entropy credentials.
+- **Pass 1:** Strict TypeScript compiler verification (`tsc --noEmit`).
+- **Pass 2:** Vitest server-side mock validation with MSW v2.
+- **Pass 3:** Vitest client component and store test suite asserting $\ge 85\%$ coverage.
+- **Pass 4:** AST-driven living documentation compiler (`docs:sync`).
+- **Pass 5:** Architecture Decision Record (ADR) sequential schema and status validation.
+- **Pass 6:** Zero-lint (`eslint`) and zero dead-code (`knip`) verification.
+- **Pass 7:** Production Next.js bundle compilation.
 
 ### Consequences
-- **Positive:** Zero documentation drift, guaranteed minimum 85% test coverage, immediate discovery of dead code or leaked secrets.
-- **Negative:** Verification gate must pass completely before commit creation.
+- **Positive:** Guarantees zero regression, automated document sync, and bulletproof production deployment readiness.
+- **Negative:** Build verification requires ~25-35s execution.
 
 ---
 
 ## ADR-003: Procedural WebGL 3D Headphone Model Engine using Three.js
 
-- **Status:** Accepted
+- **Status:** Superseded by ADR-004
 - **Date:** 2026-08-16
 - **Authors:** Enterprise Solutions Architect & Staff Engineer
 - **Deciders:** Core Engineering Team
@@ -81,3 +82,30 @@ We adopt **Three.js** (`three`, `@types/three`) to construct a **pure procedural
 ### Consequences
 - **Positive:** Authentic 3D spatial fidelity, $<5\text{ms}$ initialization with 0 asset network downloads, seamless real-time material swapping, and silky smooth 360° rotational physics.
 - **Negative:** Introduces `three` dependency (~150KB gzip) which is dynamically bundled on the client.
+
+---
+
+## ADR-004: Transition to Multi-Perspective Vector SVG Showcase for Mobile Optimization
+
+- **Status:** Accepted
+- **Date:** 2026-08-17
+- **Authors:** Enterprise Solutions Architect & Staff Engineer
+- **Deciders:** Core Engineering Team
+
+### Context
+While the Three.js WebGL procedural visualizer provided continuous 360° rotation, mobile devices benefit from completely passive DOM elements with zero GPU rendering loops, zero WebGL context overhead, and instant 4K Retina vector fidelity. Removing WebGL also eliminates the `three` dependency (~150KB gzip).
+
+### Decision
+We transition the Hero Studio Showcase to a **High-Precision Multi-Perspective Vector SVG Architecture**:
+1. **Curated Architectural Perspectives:** Implement 4 vector perspectives:
+   - `front`: Symmetrical elevation (0°) with inner foam contours and gimbal yoke forks.
+   - `angle`: Dynamic 45° studio perspective showing outer shell chamfers and headband curvature.
+   - `side`: 90° profile view with concentric CNC radial grooves and acoustic venting ports.
+   - `exploded`: Layered acoustic anatomy showing outer shell, damping ring, 45mm driver, and cushion.
+2. **Dynamic Finish Palettes:** Vector linear gradients dynamically styled per active colorway (*Obsidian Midnight, Alabaster Silver, Champagne Titanium, Forest Emerald*).
+3. **Mobile Touch Swiping & Segmented Controls:** Seamless perspective pill buttons and touch swipe gestures.
+4. **Dependency Removal:** Completely remove `three` and `@types/three` dependencies.
+
+### Consequences
+- **Positive:** 100% passive DOM rendering (0 battery/GPU overhead), ~150KB smaller bundle size, pixel-perfect 4K Retina clarity, seamless mobile touch swiping, and cleaner native DOM testing.
+- **Negative:** Replaces continuous 360° decimal mouse-drag with 4 curated architectural perspectives.

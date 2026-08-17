@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef, useState, useCallback } from 'react';
-import { Volume2, Radio, Move } from 'lucide-react';
+import { Radio, Move } from 'lucide-react';
 
 export interface SpatialRadarProps {
   angle: number; // 0 to 360 degrees

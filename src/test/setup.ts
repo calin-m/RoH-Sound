@@ -57,27 +57,7 @@ if (typeof window !== 'undefined') {
   }
 }
 
-// 2. Mock Three.js WebGLRenderer for Headless DOM
-vi.mock('three', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('three')>();
-
-  class MockWebGLRenderer {
-    domElement = typeof document !== 'undefined' ? document.createElement('canvas') : {};
-    setSize = vi.fn();
-    setPixelRatio = vi.fn();
-    render = vi.fn();
-    dispose = vi.fn();
-    toneMapping = 0;
-    toneMappingExposure = 1;
-  }
-
-  return {
-    ...actual,
-    WebGLRenderer: MockWebGLRenderer,
-  };
-});
-
-// 3. MSW Lifecycle Hooks
+// 2. MSW Lifecycle Hooks
 beforeAll(() => {
   server.listen({ onUnhandledRequest: 'error' });
 });

@@ -7,13 +7,13 @@
 [![Next.js 15](https://img.shields.io/badge/Next.js-15.0-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![React 19](https://img.shields.io/badge/React-19.0-blue?style=for-the-badge&logo=react)](https://react.dev/)
 [![TypeScript 5](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
-[![Three.js](https://img.shields.io/badge/Three.js-WebGL_3D-000000?style=for-the-badge&logo=three.js)](https://threejs.org/)
+[![Vector SVG](https://img.shields.io/badge/Vector_SVG-Multi--Perspective-000000?style=for-the-badge&logo=svg)](https://www.w3.org/Graphics/SVG/)
 [![Tailwind CSS v4](https://img.shields.io/badge/Tailwind_CSS-v4.0-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
-[![Vitest Coverage](https://img.shields.io/badge/Vitest-109%2F109_Passed_(94.76%25)-green?style=for-the-badge&logo=vitest)](https://vitest.dev/)
+[![Vitest Coverage](https://img.shields.io/badge/Vitest-110%2F110_Passed_(95.86%25)-green?style=for-the-badge&logo=vitest)](https://vitest.dev/)
 [![MSW v2](https://img.shields.io/badge/MSW-v2.0-E35555?style=for-the-badge&logo=mockserviceworker)](https://mswjs.io/)
 [![Quality Gateways](https://img.shields.io/badge/7--Gateway-Verified-emerald?style=for-the-badge&logo=shield)](./DEVELOPMENT.md)
 
-An ultra-refined, high-performance **Product Presentation Single Page Application** for **RoH Sound** (*"Pure Acoustic Architecture. Zero Distortion."*). Engineered with a **Light Modern Minimalistic Sleek Atelier** design aesthetic, Next.js 15 App Router, procedural Three.js WebGL 3D turntable, precision HRTF vector spatial audio ray-tracing, lightweight Zustand reactive state, and the deterministic 7-Gateway Quality Engine.
+An ultra-refined, high-performance **Product Presentation Single Page Application** for **RoH Sound** (*"Pure Acoustic Architecture. Zero Distortion."*). Engineered with a **Light Modern Minimalistic Sleek Atelier** design aesthetic, Next.js 15 App Router, High-Precision Multi-Perspective Vector SVG Showcase, precision HRTF vector spatial audio ray-tracing, lightweight Zustand reactive state, and the deterministic 7-Gateway Quality Engine.
 
 > 🌐 **Live Demo:** [https://roh-sound.vercel.app/](https://roh-sound.vercel.app/)  
 > 📦 **GitHub Repository:** [https://github.com/calin-m/RoH-Sound](https://github.com/calin-m/RoH-Sound)
@@ -24,7 +24,7 @@ An ultra-refined, high-performance **Product Presentation Single Page Applicatio
 
 This project is a **high-end front-end product presentation, marketing showcase, and interactive modern minimalistic demo** engineered to demonstrate modern, production-grade web architecture, creative procedural animations, and seamless responsive design:
 
-- **Interactive Atelier Showcase:** Features a procedural Three.js WebGL 3D model turntable with smart gesture angle disambiguation (`touch-pan-y` vertical page scroll vs. horizontal 3D rotation), dynamic finish shader switching with specular metallic sweeps, and interactive benchmark matrices.
+- **Interactive Atelier Showcase:** Features a High-Precision Multi-Perspective Vector SVG visualizer (Front 0°, Controls & Ports, 90° Profile View, and Exploded Transducer Anatomy) with smooth perspective switching, dynamic finish colorways with specular metallic sweeps, touch swipe navigation, calm 3-second ambient breathing animations, and interactive benchmark matrices.
 - **Acoustic Visual Simulations:** Showcases real-time visual and mathematical models of acoustic principles, including autonomous 60fps traveling sinusoidal waves for Active Noise Cancellation and an interactive 360° HRTF Binaural Soundstage with vector ray-tracing and Interaural Level Difference (ILD) ear gain calculations.
 - **Simulated Reservation Flow:** Includes a slide-over pre-order reservation drawer with live CNC laser engraving preview, dynamic warranty recalculation, and simulated order dispatch codes powered by Mock Service Worker (MSW v2) and Next.js App Router API handlers.
 - **Scope Boundary:** This codebase is intentionally designed as a **presentation and portfolio demonstration web application**. It is not a hardware companion utility (e.g. firmware or physical Bluetooth headphone control) or a live payment-processing e-commerce backend.
@@ -56,8 +56,8 @@ flowchart TD
     subgraph ClientApp ["RoH Sound Next.js 15 SPA (src/app/page.tsx)"]
         Nav["Acoustic Nav Bar (Navbar.tsx)"]
         Hero["Hero Section (HeroSection.tsx)"]
-        ThreeCanvas["Three.js 3D WebGL Canvas (HeadphoneVisualizer.tsx)"]
-        OrbitIndicator["360° Turntable Indicator (ModelOrbitIndicator.tsx)"]
+        VectorVisualizer["Multi-Perspective Vector Visualizer (HeadphoneVisualizer.tsx)"]
+        OrbitIndicator["Perspective Mode Indicator (ModelOrbitIndicator.tsx)"]
         SoundLab["Sound Experience Lab (SoundExperience.tsx)"]
         HRTFRadar["HRTF Binaural Soundstage (SpatialRadar.tsx)"]
         Bento["Acoustic Bento Matrix (AcousticBento.tsx)"]
@@ -73,8 +73,8 @@ flowchart TD
         QueryHooks["🔄 React Query Hooks (useProductData.ts)\n• useProductData()\n• useReviewsData()\n• usePreorderMutation()"]
         
         Nav -->|Navigates / Pre-order| Store
-        Hero --> ThreeCanvas
-        ThreeCanvas <--> OrbitIndicator
+        Hero --> VectorVisualizer
+        VectorVisualizer <--> OrbitIndicator
         Hero --> Store
         SoundLab --> HRTFRadar
         SoundLab --> Store
@@ -211,7 +211,7 @@ graph TD
 | # | Section | Key Features & Engineering Highlights |
 | :-: | :--- | :--- |
 | **01** | **Atelier Capsule Navbar** | Brand monogram `[R]` with animated speaker transducer cone excursion and hover volume dampening, split-letter wave elevation (`translateY(-3.5px)`) staggered by $24\text{ms}$ with spring physics, responsive `lg` breakpoint (1024px), adaptive Pre-Order pill (`Pre-Order` on mobile $\rightarrow$ `Pre-Order • $399` on desktop), animated mobile drawer with tap-outside backdrop, `Escape` key dismissal, and `Close [ESC] [X]` header bar. |
-| **02** | **Acoustic Hero & 3D Turntable** | Procedural WebGL Three.js studio model with multi-mesh materials, default 360° continuous auto-orbit, drag interaction with unsnapped continuous resumption, smart touch angle disambiguation (`touch-pan-y` vertical scroll vs horizontal 3D rotation), responsive mobile canvas scaling, soft ambient bottom gradient lighting fade (`[mask-image]`), floating status pill indicator, permanent ambient circular acoustic soundwave rings ($0.7\times$ intensity), and singular Grounded Pre-Order CTA with interactive magnetic cursor tracking and periodic soundwave typography. |
+| **02** | **Acoustic Hero & Studio Showcase** | High-Precision Multi-Perspective Vector SVG visualizer with 4 architectural viewpoints (**Front 0°**, **Controls with Tangent-Docked Buttons & Ports**, **Profile 90° View**, and **Anatomy Exploded Transducer Assembly**), responsive 4-column perspective grid switcher, mobile touch swipe gesture support, automated tour mode, calm 3-second ambient breathing glow, and Grounded Pre-Order CTA with interactive magnetic cursor tracking and soundwave typography. |
 | **03** | **Interactive Sound Lab** | Triple-mode Active Noise Cancellation simulator (Transparency, Balanced, Ultra 48dB) with **autonomous 60fps pure traveling sinusoidal waves** (solid obsidian acoustic signal + synchronized 180° gold dashed anti-phase cancellation wave) and decibel attenuation ripples, plus a 360° HRTF Binaural Soundstage with **direct-drag pointer capture orbit**, listener anatomy, left/right driver energy glow, and real-time acoustic vector ray-tracing. |
 | **04** | **Acoustic Bento Matrix** | Asymmetric bento grid with corner light refraction sweeps and acoustic transducer diaphragm hover auras, showcasing the 45mm Custom Graphene Driver, Aerospace Titanium chassis, 65-Hour Extended Battery, and Lossless 24-bit/192kHz LDAC Bluetooth 5.4. |
 | **05** | **Color Studio** | Interactive finish atelier featuring Midnight Obsidian, Champagne Platinum, Raw Titanium, and Forest Emerald with live metallurgical shader sync and **specular metallic sheen light sweeps** on selection. |
@@ -251,7 +251,7 @@ npm run dev:all
 | `npm run dev:open` | **Dev Server + Browser** | Launches dev server and auto-opens browser |
 | `npm run dev:all` | **Full Dev Environment** | Runs Next.js dev server alongside CLI terminal test watcher |
 | `npm run verify` | **Master 7-Gateway Gatekeeper** | Runs full closed-loop audit: Secrets, Types, Tests, Living Docs, ADRs, Lint, Knip, Build |
-| `npm test` | **Vitest Test Suite** | Runs all 86 test suites (109 tests) with v8 code coverage reporting |
+| `npm test` | **Vitest Test Suite** | Runs all 86 test suites (110 tests) with v8 code coverage reporting |
 | `npm run test:ui` | **Vitest Graphical UI** | Interactive browser-based test suite visualizer & debugger |
 | `npm run test:watch` | **Test Watcher** | Fast continuous test execution during active coding |
 | `npm run typecheck` | **TypeScript Typecheck** | Strict typecheck across all `.ts` and `.tsx` source files (`0 compile errors`) |
@@ -286,7 +286,7 @@ Every contribution is validated through 7 deterministic quality gateways, execut
 1. **Pass 0.5 (Secret Scanner):** Scans all codebase files for private keys, AWS/GCP tokens, or exposed API credentials.
 2. **Pass 1 (TypeScript Strict Typecheck):** Verifies 0 compile errors via `tsc --noEmit`.
 3. **Pass 2 (Vitest MSW Server & Queries):** Validates network mocking and query hook state transitions.
-4. **Pass 3 (Vitest Client UI & Primitives):** Executes all test suites and asserts **≥ 85% code coverage** (*current: 94.76%*).
+4. **Pass 3 (Vitest Client UI & Primitives):** Executes all test suites and asserts **≥ 85% code coverage** (*current: 95.86%*).
 5. **Pass 4 (Living Architecture & Quality Sync):** Auto-generates C4 matrices in `ARCHITECTURE.md`, compiles `docs/QUALITY_AUDIT_REPORT.md`, and syncs `CHANGELOG.md`.
 6. **Pass 5 (ADR Decision Ledger Validation):** Verifies sequential numbering and schema conformance in `docs/DECISIONS.md`.
 7. **Pass 6 (ESLint & Knip Audit):** Validates 0 lint errors and 0 dead code/unused exports.

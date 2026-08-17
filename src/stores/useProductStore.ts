@@ -4,7 +4,7 @@ export type ProductColorway = 'midnight' | 'silver' | 'titanium' | 'emerald';
 export type Colorway = ProductColorway;
 export type AncMode = 'transparency' | 'balanced' | 'ultra';
 export type ANCMode = AncMode;
-export type ViewAngle = 'front' | 'angle' | 'side';
+export type ViewAngle = 'front' | 'controls' | 'side' | 'exploded' | 'angle';
 
 export interface ColorwayDetail {
   id: ProductColorway;
