@@ -74,12 +74,19 @@ export const ColorStudio: React.FC = () => {
               <MotionReveal key={finish.id} direction="up" delay={idx * 75} className="flex">
                 <div
                   onClick={() => setSelectedColor(finish.id)}
-                  className={`w-full cursor-pointer rounded-3xl p-6 border transition-all duration-300 flex flex-col justify-between ${
+                  className={`w-full cursor-pointer rounded-3xl p-6 border transition-all duration-300 flex flex-col justify-between relative overflow-hidden group ${
                     isSelected
-                      ? 'bg-[#fafaf9] border-zinc-950 shadow-md ring-1 ring-zinc-950/10'
+                      ? 'bg-[#fafaf9] border-[#b8934a]/60 shadow-md ring-1 ring-[#b8934a]/20 scale-[1.01]'
                       : 'bg-white border-black/[0.06] hover:border-black/20 hover:shadow-sm'
                   }`}
                 >
+                  {/* Specular Light Refraction Sheen Sweep on Selection */}
+                  {isSelected && (
+                    <div
+                      key={finish.id}
+                      className="absolute inset-0 pointer-events-none w-[60%] h-[200%] bg-gradient-to-r from-transparent via-white/50 to-transparent -top-1/2 animate-metallic-sheen"
+                    />
+                  )}
                   <div>
                     {/* Swatch & Checkmark */}
                     <div className="flex items-center justify-between mb-6">

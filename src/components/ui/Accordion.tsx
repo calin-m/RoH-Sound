@@ -20,7 +20,9 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
 }) => {
   return (
     <div
-      className={`border-b border-black/[0.06] transition-colors ${className}`}
+      className={`border-b border-black/[0.06] transition-all duration-300 ${
+        isOpen ? 'border-l-2 border-l-[#b8934a] pl-4 sm:pl-5 bg-[#fafaf9]/80 rounded-2xl my-2 border-b-transparent shadow-2xs' : ''
+      } ${className}`}
       data-testid={`accordion-item-${id}`}
     >
       <button
@@ -29,19 +31,19 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
         aria-expanded={isOpen}
         aria-controls={`accordion-content-${id}`}
         id={`accordion-header-${id}`}
-        className="w-full py-6 flex items-center justify-between text-left group cursor-pointer focus:outline-hidden"
+        className="w-full py-5 flex items-center justify-between text-left group cursor-pointer focus:outline-hidden"
       >
         <span
           className={`text-base sm:text-lg font-light transition-colors ${
-            isOpen ? 'text-zinc-950 font-normal' : 'text-zinc-700 group-hover:text-zinc-950'
+            isOpen ? 'text-zinc-950 font-medium' : 'text-zinc-700 group-hover:text-zinc-950'
           }`}
         >
           {title}
         </span>
         <div
-          className={`w-8 h-8 rounded-full flex items-center justify-center border transition-all duration-300 ${
+          className={`w-8 h-8 rounded-full flex items-center justify-center border transition-all duration-300 shrink-0 ml-4 ${
             isOpen
-              ? 'bg-zinc-950 text-white border-zinc-950 rotate-180'
+              ? 'bg-zinc-950 text-white border-zinc-950 rotate-180 shadow-xs ring-2 ring-[#b8934a]/30'
               : 'bg-white text-zinc-400 border-black/[0.06] group-hover:border-black/[0.15] group-hover:text-zinc-950'
           }`}
         >
@@ -54,10 +56,10 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
         role="region"
         aria-labelledby={`accordion-header-${id}`}
         className={`grid transition-all duration-300 ease-in-out ${
-          isOpen ? 'grid-rows-[1fr] opacity-100 pb-6' : 'grid-rows-[0fr] opacity-0 pb-0 pointer-events-none'
+          isOpen ? 'grid-rows-[1fr] opacity-100 pb-5' : 'grid-rows-[0fr] opacity-0 pb-0 pointer-events-none'
         }`}
       >
-        <div className="overflow-hidden text-sm font-light text-zinc-600 leading-relaxed pr-6">
+        <div className="overflow-hidden text-sm font-light text-zinc-600 leading-relaxed pr-4">
           {children}
         </div>
       </div>

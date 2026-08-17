@@ -34,11 +34,17 @@ export const LaserEngravingPreview: React.FC<LaserEngravingPreviewProps> = ({
       />
 
       {value && (
-        <div className="mt-2 p-2 bg-white rounded-lg border border-black/[0.06] text-center">
-          <span className="text-[10px] font-mono text-zinc-400 block">Preview on Gimbal:</span>
-          <span className="text-xs font-mono font-bold tracking-widest text-[#b8934a]">
-            &ldquo;{value.toUpperCase()}&rdquo;
-          </span>
+        <div className="mt-2.5 p-2.5 bg-gradient-to-b from-[#fafaf9] to-white rounded-xl border border-[#b8934a]/30 text-center shadow-2xs relative overflow-hidden">
+          <span className="text-[10px] font-mono text-zinc-400 block mb-0.5">CNC Laser Etch Preview:</span>
+          <div className="inline-flex items-center justify-center">
+            <span className="text-xs font-mono font-bold tracking-widest text-[#b8934a]">
+              &ldquo;{value.toUpperCase()}&rdquo;
+            </span>
+            <span
+              className="inline-block w-1.5 h-1.5 rounded-full bg-[#d4af37] animate-spark-glow ml-1.5"
+              title="Laser Focal Beam"
+            />
+          </div>
         </div>
       )}
     </div>

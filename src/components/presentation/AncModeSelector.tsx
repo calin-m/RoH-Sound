@@ -57,15 +57,20 @@ export const AncModeSelector: React.FC<AncModeSelectorProps> = ({
             <div className="text-xs font-semibold text-zinc-900">{mode.name}</div>
             <div className="text-xs text-zinc-500 font-light mt-0.5">{mode.desc}</div>
           </div>
-          <span
-            className={`font-mono text-[11px] px-2 py-0.5 rounded-md shrink-0 ml-2 ${
-              currentMode === mode.id
-                ? 'bg-zinc-950 text-white font-medium'
-                : 'bg-zinc-100 text-zinc-600'
-            }`}
-          >
-            {mode.id === 'ultra' ? '-48dB' : mode.id === 'balanced' ? '-25dB' : '0dB'}
-          </span>
+          <div className="relative shrink-0 ml-2">
+            {currentMode === mode.id && (
+              <span className="absolute -inset-0.5 rounded-lg bg-[#b8934a]/25 animate-ping pointer-events-none" />
+            )}
+            <span
+              className={`relative font-mono text-[11px] px-2.5 py-0.5 rounded-md transition-all duration-300 ${
+                currentMode === mode.id
+                  ? 'bg-zinc-950 text-white font-medium shadow-xs border border-[#b8934a]/40'
+                  : 'bg-zinc-100 text-zinc-600'
+              }`}
+            >
+              {mode.id === 'ultra' ? '-48dB' : mode.id === 'balanced' ? '-25dB' : '0dB'}
+            </span>
+          </div>
         </button>
       ))}
     </div>

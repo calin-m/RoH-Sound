@@ -1,19 +1,24 @@
 'use client';
 
-import React from 'react';
-import { Volume2, Radio } from 'lucide-react';
+import React, { useRef, useState, useCallback } from 'react';
+import { Volume2, Radio, Move } from 'lucide-react';
 
 export interface SpatialRadarProps {
   angle: number; // 0 to 360 degrees
   isSpatialActive?: boolean;
+  onAngleChange?: (angle: number) => void;
   className?: string;
 }
 
 export const SpatialRadar: React.FC<SpatialRadarProps> = ({
   angle,
   isSpatialActive = true,
+  onAngleChange,
   className = '',
 }) => {
+  const svgRef = useRef<SVGSVGElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+
   // Center coordinates & orbital radius
   const cx = 150;
   const cy = 110;
@@ -50,6 +55,49 @@ export const SpatialRadar: React.FC<SpatialRadarProps> = ({
 
   const sectorLabel = getSectorLabel(angle);
 
+  const updateAngleFromEvent = useCallback(
+    (clientX: number, clientY: number) => {
+      if (!svgRef.current || !onAngleChange) return;
+      const rect = svgRef.current.getBoundingClientRect();
+      const svgCenterX = rect.left + (cx / 300) * rect.width;
+      const svgCenterY = rect.top + (cy / 220) * rect.height;
+      const dx = clientX - svgCenterX;
+      const dy = clientY - svgCenterY;
+
+      let deg = Math.round((Math.atan2(dy, dx) * 180) / Math.PI + 90);
+      if (deg < 0) deg += 360;
+      if (deg >= 360) deg -= 360;
+      onAngleChange(deg);
+    },
+    [onAngleChange, cx, cy]
+  );
+
+  const handlePointerDown = (e: React.PointerEvent<SVGSVGElement>) => {
+    if (!onAngleChange) return;
+    setIsDragging(true);
+    try {
+      e.currentTarget?.setPointerCapture?.(e.pointerId);
+    } catch {
+      // Non-supporting or jsdom environments
+    }
+    updateAngleFromEvent(e.clientX, e.clientY);
+  };
+
+  const handlePointerMove = (e: React.PointerEvent<SVGSVGElement>) => {
+    if (!isDragging) return;
+    updateAngleFromEvent(e.clientX, e.clientY);
+  };
+
+  const handlePointerUp = (e: React.PointerEvent<SVGSVGElement>) => {
+    if (!isDragging) return;
+    setIsDragging(false);
+    try {
+      e.currentTarget?.releasePointerCapture?.(e.pointerId);
+    } catch {
+      // Ignored
+    }
+  };
+
   return (
     <div
       className={`relative w-full bg-white rounded-2xl border border-black/[0.06] p-4 sm:p-5 flex flex-col items-center justify-center overflow-hidden shadow-xs select-none ${className}`}
@@ -74,10 +122,18 @@ export const SpatialRadar: React.FC<SpatialRadarProps> = ({
 
       {/* SVG HRTF Soundstage Vector Canvas */}
       <svg
+        ref={svgRef}
         viewBox="0 0 300 220"
-        className="w-full max-w-[340px] h-[190px] overflow-visible"
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerUp}
+        onPointerCancel={handlePointerUp}
+        className={`w-full max-w-[340px] h-[190px] overflow-visible touch-none ${
+          onAngleChange ? (isDragging ? 'cursor-grabbing' : 'cursor-grab') : ''
+        }`}
         aria-label="360 Degree Spatial Audio Soundstage Radar"
       >
+        <title>Click or drag beacon around the stage to rotate audio azimuth in 360°</title>
         <defs>
           {/* Radial Glow Filter for Emitter */}
           <radialGradient id="emitterGlow" cx="50%" cy="50%" r="50%">
@@ -196,8 +252,8 @@ export const SpatialRadar: React.FC<SpatialRadarProps> = ({
               x2={leftSpeakerX}
               y2={leftSpeakerY}
               stroke="#b8934a"
-              strokeWidth={(leftGain / 100) * 2 + 0.5}
-              strokeOpacity={(leftGain / 100) * 0.75 + 0.2}
+              strokeWidth={(leftGain / 100) * 2 + (isDragging ? 1.2 : 0.5)}
+              strokeOpacity={(leftGain / 100) * 0.75 + (isDragging ? 0.35 : 0.2)}
               strokeDasharray="4 2"
               className="transition-all duration-150"
             />
@@ -208,8 +264,8 @@ export const SpatialRadar: React.FC<SpatialRadarProps> = ({
               x2={rightSpeakerX}
               y2={rightSpeakerY}
               stroke="#b8934a"
-              strokeWidth={(rightGain / 100) * 2 + 0.5}
-              strokeOpacity={(rightGain / 100) * 0.75 + 0.2}
+              strokeWidth={(rightGain / 100) * 2 + (isDragging ? 1.2 : 0.5)}
+              strokeOpacity={(rightGain / 100) * 0.75 + (isDragging ? 0.35 : 0.2)}
               strokeDasharray="4 2"
               className="transition-all duration-150"
             />
@@ -217,7 +273,6 @@ export const SpatialRadar: React.FC<SpatialRadarProps> = ({
         )}
 
         {/* 3. Central Headphone & Listener Graphic */}
-        {/* Headphone Arch (Connecting L & R Earcups) */}
         <path
           d={`M ${leftSpeakerX} ${leftSpeakerY} Q ${cx} ${cy - 38} ${rightSpeakerX} ${rightSpeakerY}`}
           fill="none"
@@ -250,9 +305,7 @@ export const SpatialRadar: React.FC<SpatialRadarProps> = ({
 
         {/* Left Headphone Speaker / Earcup */}
         <g data-testid="left-speaker">
-          {/* Driver Energy Glow */}
           <circle cx={leftSpeakerX} cy={leftSpeakerY} r="18" fill="url(#leftGlow)" />
-          {/* Outer Earcup Chassis */}
           <rect
             x={leftSpeakerX - 6}
             y={leftSpeakerY - 14}
@@ -263,7 +316,6 @@ export const SpatialRadar: React.FC<SpatialRadarProps> = ({
             stroke="#52525b"
             strokeWidth="1.2"
           />
-          {/* Gold Acoustic Diaphragm Strip */}
           <rect
             x={leftSpeakerX - 2}
             y={leftSpeakerY - 9}
@@ -273,7 +325,6 @@ export const SpatialRadar: React.FC<SpatialRadarProps> = ({
             fill={isSpatialActive ? '#d4af37' : '#71717a'}
             opacity={(leftGain / 100) * 0.7 + 0.3}
           />
-          {/* Speaker L Tag */}
           <text
             x={leftSpeakerX}
             y={leftSpeakerY + 3.5}
@@ -286,9 +337,7 @@ export const SpatialRadar: React.FC<SpatialRadarProps> = ({
 
         {/* Right Headphone Speaker / Earcup */}
         <g data-testid="right-speaker">
-          {/* Driver Energy Glow */}
           <circle cx={rightSpeakerX} cy={rightSpeakerY} r="18" fill="url(#rightGlow)" />
-          {/* Outer Earcup Chassis */}
           <rect
             x={rightSpeakerX - 6}
             y={rightSpeakerY - 14}
@@ -299,7 +348,6 @@ export const SpatialRadar: React.FC<SpatialRadarProps> = ({
             stroke="#52525b"
             strokeWidth="1.2"
           />
-          {/* Gold Acoustic Diaphragm Strip */}
           <rect
             x={rightSpeakerX - 2}
             y={rightSpeakerY - 9}
@@ -309,7 +357,6 @@ export const SpatialRadar: React.FC<SpatialRadarProps> = ({
             fill={isSpatialActive ? '#d4af37' : '#71717a'}
             opacity={(rightGain / 100) * 0.7 + 0.3}
           />
-          {/* Speaker R Tag */}
           <text
             x={rightSpeakerX}
             y={rightSpeakerY + 3.5}
@@ -332,44 +379,52 @@ export const SpatialRadar: React.FC<SpatialRadarProps> = ({
               <circle
                 cx={emitterX}
                 cy={emitterY}
-                r="18"
+                r={isDragging ? 24 : 18}
                 fill="none"
                 stroke="#d4af37"
-                strokeWidth="1"
-                opacity="0.3"
+                strokeWidth={isDragging ? 1.5 : 1}
+                opacity={isDragging ? 0.5 : 0.3}
+                className="transition-all duration-200"
               />
               <circle
                 cx={emitterX}
                 cy={emitterY}
-                r="10"
+                r={isDragging ? 14 : 10}
                 fill="none"
                 stroke="#b8934a"
-                strokeWidth="1.2"
-                opacity="0.6"
+                strokeWidth={isDragging ? 1.8 : 1.2}
+                opacity={isDragging ? 0.8 : 0.6}
+                className="transition-all duration-200"
               />
             </>
           )}
 
           {/* Emitter Ambient Aura */}
-          <circle cx={emitterX} cy={emitterY} r="14" fill="url(#emitterGlow)" />
+          <circle
+            cx={emitterX}
+            cy={emitterY}
+            r={isDragging ? 18 : 14}
+            fill="url(#emitterGlow)"
+            className="transition-all duration-200"
+          />
 
           {/* Emitter Central Beacon */}
           <circle
             cx={emitterX}
             cy={emitterY}
-            r="6.5"
+            r={isDragging ? 8 : 6.5}
             fill="#b8934a"
             stroke="#ffffff"
             strokeWidth="1.8"
-            className="shadow-sm"
+            className="shadow-sm transition-all duration-200"
           />
         </g>
       </svg>
 
-      {/* Bottom Sub-label */}
+      {/* Bottom Sub-label with Drag Cue */}
       <div className="mt-1 text-[10px] font-mono text-zinc-400 uppercase tracking-wider flex items-center gap-1.5">
-        <Volume2 className="w-3 h-3 text-[#b8934a]" />
-        <span>Binaural HRTF Soundstage Vector Engine</span>
+        <Move className="w-3 h-3 text-[#b8934a]" />
+        <span>Drag Beacon to Orbit • 360° HRTF Engine</span>
       </div>
     </div>
   );

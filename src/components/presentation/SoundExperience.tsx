@@ -82,10 +82,11 @@ export const SoundExperience: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Orbital Radar Sub-Component */}
+                {/* Orbital Radar Sub-Component with Direct 360° Drag */}
                 <SpatialRadar
                   angle={spatialAngle}
                   isSpatialActive={isSpatialActive}
+                  onAngleChange={setSpatialAngle}
                   className="mb-6"
                 />
 
