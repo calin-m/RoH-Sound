@@ -89,7 +89,9 @@ export const HeadphoneVisualizer: React.FC<HeadphoneVisualizerProps> = ({
   const wasAutoRotatingRef = useRef(true);
   const isDraggingRef = useRef(false);
   const dragStartXRef = useRef(0);
+  const dragStartYRef = useRef(0);
   const dragStartYawRef = useRef(0);
+  const gestureIntentRef = useRef<'none' | 'pending' | 'horizontal' | 'vertical'>('none');
 
   // Three.js object refs
   const sceneRef = useRef<THREE.Scene | null>(null);
@@ -121,8 +123,8 @@ export const HeadphoneVisualizer: React.FC<HeadphoneVisualizerProps> = ({
     let animId: number;
 
     try {
-      const width = container.clientWidth || 380;
-      const height = container.clientHeight || 380;
+      const width = container.clientWidth || 340;
+      const height = container.clientHeight || 340;
 
       // 1. Scene & Camera
       const scene = new THREE.Scene();
@@ -322,28 +324,74 @@ export const HeadphoneVisualizer: React.FC<HeadphoneVisualizerProps> = ({
     }
   }, [color]);
 
-  // Pointer Drag Handlers for 360 Turntable
+  // Pointer Drag Handlers with Smart Gesture Angle Disambiguation
   const handlePointerDown = (e: React.PointerEvent) => {
-    setIsDragging(true);
     isDraggingRef.current = true;
-    wasAutoRotatingRef.current = isAutoRotatingRef.current;
-    isAutoRotatingRef.current = false;
     dragStartXRef.current = e.clientX;
+    dragStartYRef.current = e.clientY;
     dragStartYawRef.current = targetYawRef.current;
-    (e.target as HTMLElement).setPointerCapture(e.pointerId);
+    gestureIntentRef.current = e.pointerType === 'mouse' ? 'horizontal' : 'pending';
+
+    if (e.pointerType === 'mouse') {
+      setIsDragging(true);
+      wasAutoRotatingRef.current = isAutoRotatingRef.current;
+      isAutoRotatingRef.current = false;
+      try {
+        (e.target as HTMLElement).setPointerCapture(e.pointerId);
+      } catch {
+        // Fallback safely
+      }
+    }
   };
 
   const handlePointerMove = (e: React.PointerEvent) => {
     if (!isDraggingRef.current) return;
-    const deltaX = e.clientX - dragStartXRef.current;
-    // 1px drag = ~0.009 radians
-    targetYawRef.current = dragStartYawRef.current + deltaX * 0.009;
+
+    // Disambiguate touch gesture direction on mobile
+    if (gestureIntentRef.current === 'pending') {
+      const dx = Math.abs(e.clientX - dragStartXRef.current);
+      const dy = Math.abs(e.clientY - dragStartYRef.current);
+
+      if (dx < 6 && dy < 6) {
+        return; // Wait for clear movement delta
+      }
+
+      if (dy > dx) {
+        // Vertical swipe detected -> allow default browser page scroll
+        gestureIntentRef.current = 'vertical';
+        isDraggingRef.current = false;
+        return;
+      }
+
+      // Horizontal swipe detected -> engage 3D turntable rotation
+      gestureIntentRef.current = 'horizontal';
+      setIsDragging(true);
+      wasAutoRotatingRef.current = isAutoRotatingRef.current;
+      isAutoRotatingRef.current = false;
+      try {
+        (e.target as HTMLElement).setPointerCapture(e.pointerId);
+      } catch {
+        // Fallback safely
+      }
+    }
+
+    if (gestureIntentRef.current === 'horizontal') {
+      const deltaX = e.clientX - dragStartXRef.current;
+      // 1px drag = ~0.009 radians
+      targetYawRef.current = dragStartYawRef.current + deltaX * 0.009;
+    }
   };
 
   const handlePointerUp = useCallback((e: React.PointerEvent) => {
-    if (!isDraggingRef.current) return;
+    if (!isDraggingRef.current && gestureIntentRef.current !== 'horizontal') {
+      gestureIntentRef.current = 'none';
+      return;
+    }
+
     setIsDragging(false);
     isDraggingRef.current = false;
+    gestureIntentRef.current = 'none';
+
     try {
       (e.target as HTMLElement).releasePointerCapture(e.pointerId);
     } catch {
@@ -382,7 +430,7 @@ export const HeadphoneVisualizer: React.FC<HeadphoneVisualizerProps> = ({
 
   return (
     <div
-      className={`relative w-full aspect-square max-w-[460px] mx-auto flex flex-col items-center justify-center select-none group touch-none ${className}`}
+      className={`relative w-full aspect-square max-w-[320px] sm:max-w-[420px] md:max-w-[460px] mx-auto flex flex-col items-center justify-center select-none group touch-pan-y ${className}`}
       data-testid="headphone-visualizer"
     >
       {/* Atelier 360° Turntable Status & Controls Pill */}
@@ -408,16 +456,16 @@ export const HeadphoneVisualizer: React.FC<HeadphoneVisualizerProps> = ({
         style={{ backgroundColor: activeTheme.glow }}
       />
 
-      {/* WebGL 3D Canvas Container - Razor Sharp Native Resolution */}
+      {/* WebGL 3D Canvas Container with Bottom Gradient Lighting Fade */}
       <div
         ref={mountRef}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerUp}
-        className="relative w-full h-[380px] flex items-center justify-center cursor-grab active:cursor-grabbing z-10"
+        className="relative w-full h-[280px] sm:h-[340px] md:h-[380px] flex items-center justify-center cursor-grab active:cursor-grabbing z-10 [mask-image:linear-gradient(to_bottom,black_82%,transparent_100%)]"
         data-testid="turntable-viewport"
-        title="Click and drag to rotate in 3D"
+        title="Swipe horizontally to rotate in 3D, swipe vertically to scroll"
       />
 
       {/* Subtle Studio Footer Tags */}

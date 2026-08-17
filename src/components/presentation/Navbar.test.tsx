@@ -40,6 +40,41 @@ describe('Navbar', () => {
     expect(useProductStore.getState().isDrawerOpen).toBe(true);
   });
 
+  it('closes mobile menu when clicking the backdrop overlay', () => {
+    render(<Navbar />);
+    const menuToggle = screen.getByRole('button', { name: /Toggle menu/i });
+    fireEvent.click(menuToggle);
+
+    const backdrop = screen.getByTestId('mobile-menu-backdrop');
+    expect(backdrop).toBeInTheDocument();
+
+    fireEvent.click(backdrop);
+    expect(screen.queryByTestId('mobile-menu-backdrop')).not.toBeInTheDocument();
+  });
+
+  it('closes mobile menu when pressing Escape key', () => {
+    render(<Navbar />);
+    const menuToggle = screen.getByRole('button', { name: /Toggle menu/i });
+    fireEvent.click(menuToggle);
+
+    expect(screen.getByTestId('mobile-menu-drawer')).toBeInTheDocument();
+
+    fireEvent.keyDown(window, { key: 'Escape' });
+    expect(screen.queryByTestId('mobile-menu-drawer')).not.toBeInTheDocument();
+  });
+
+  it('closes mobile menu when clicking the close button inside drawer', () => {
+    render(<Navbar />);
+    const menuToggle = screen.getByRole('button', { name: /Toggle menu/i });
+    fireEvent.click(menuToggle);
+
+    const closeBtn = screen.getByRole('button', { name: /Close navigation menu/i });
+    expect(closeBtn).toBeInTheDocument();
+
+    fireEvent.click(closeBtn);
+    expect(screen.queryByTestId('mobile-menu-drawer')).not.toBeInTheDocument();
+  });
+
   it('handles scroll event without throwing', () => {
     render(<Navbar />);
     window.scrollY = 100;
