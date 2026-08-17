@@ -13,9 +13,9 @@ describe('Footer', () => {
     expect(screen.getAllByText(/RoH/i).length).toBeGreaterThan(0);
     expect(screen.getAllByText(/Pure Acoustic Architecture/i).length).toBeGreaterThan(0);
     expect(screen.getByRole('link', { name: /Titanium Transducers/i })).toHaveAttribute('href', '#acoustic');
-    expect(screen.getByRole('link', { name: /RoH Sound Laboratories AG/i })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: /Calin M/i })).toHaveAttribute(
       'href',
-      'https://github.com/calin-m/RoH-Sound'
+      'https://github.com/calin-m'
     );
   });
 

@@ -70,12 +70,12 @@ export const Footer: React.FC = () => {
             <div>
               © {new Date().getFullYear()}{' '}
               <a
-                href="https://github.com/calin-m/RoH-Sound"
+                href="https://github.com/calin-m"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-zinc-950 transition-colors underline decoration-black/20 underline-offset-4"
               >
-                RoH Sound Laboratories AG
+                Calin M
               </a>
               . All rights reserved.
             </div>
