@@ -1,13 +1,13 @@
 /**
  * Central Motion Design Configuration
- * Single source of truth for luxury animations across the entire application.
+ * Single source of truth for modern minimalistic animations across the entire application.
  * Edit properties here to adjust easing, timing, distances, and replay behavior globally.
  */
 
 export interface MotionConfig {
   /** Animation duration in milliseconds */
   duration: number;
-  /** Luxury cubic-bezier easing curve for mechanical deceleration */
+  /** Modern minimalistic cubic-bezier easing curve for mechanical deceleration */
   easing: string;
   /** Initial offset distance in pixels */
   distance: number;
@@ -24,7 +24,7 @@ export interface MotionConfig {
 
 export const MOTION_CONFIG: MotionConfig = {
   duration: 700,
-  easing: 'cubic-bezier(0.16, 1, 0.3, 1)', // Luxury editorial ease-out
+  easing: 'cubic-bezier(0.16, 1, 0.3, 1)', // Modern minimalistic editorial ease-out
   distance: 24,
   staggerInterval: 75,
   threshold: 0.1,

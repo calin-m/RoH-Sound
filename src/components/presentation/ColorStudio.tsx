@@ -60,7 +60,7 @@ export const ColorStudio: React.FC = () => {
             step="04"
             eyebrow="Material Atelier"
             title="Four Iconic Finishes"
-            subtitle="Each colorway is treated with specialized metallurgical coatings for exceptional scratch resistance and tactile luxury."
+            subtitle="Each colorway is treated with specialized metallurgical coatings for exceptional scratch resistance and tactile refinement."
             className="mb-12"
           />
         </MotionReveal>

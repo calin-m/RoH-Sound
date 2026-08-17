@@ -69,7 +69,7 @@ We implement the 7-Gateway Quality Engine (`scripts/verify-build.js` executed vi
 - **Deciders:** Core Engineering Team
 
 ### Context
-Static 2D illustrations and CSS flat-plane 3D transforms cannot faithfully represent multi-axis volumetric geometry, PBR studio specular highlights, or authentic 360-degree rotational viewing required for luxury audiophile product presentations. Furthermore, downloading heavy external `.glb` binary assets introduces network latency and bundle bloat.
+Static 2D illustrations and CSS flat-plane 3D transforms cannot faithfully represent multi-axis volumetric geometry, PBR studio specular highlights, or authentic 360-degree rotational viewing required for modern minimalistic audiophile product presentations. Furthermore, downloading heavy external `.glb` binary assets introduces network latency and bundle bloat.
 
 ### Decision
 We adopt **Three.js** (`three`, `@types/three`) to construct a **pure procedural WebGL 3D Headphone Model**:

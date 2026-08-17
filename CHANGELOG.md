@@ -26,6 +26,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ---
 
 ### Recent Git Commit History
+- `d4b37fd` - **perf(mobile): persist UI visibility on scroll, prevent iOS zoom, and optimize touch responsiveness** (2026-08-17)
 - `752a3a7` - **perf(mobile): auto-pause off-screen WebGL and waveform loops with 94.8% test coverage** (2026-08-17)
 - `af9ff7d` - **refactor(checkout): rename extended warranty label in drawer and confirmation card** (2026-08-17)
 - `e83e530` - **fix(mobile): center 3D model framing and fix ANC matrix tabs scroll reveal** (2026-08-17)

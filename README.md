@@ -13,7 +13,7 @@
 [![MSW v2](https://img.shields.io/badge/MSW-v2.0-E35555?style=for-the-badge&logo=mockserviceworker)](https://mswjs.io/)
 [![Quality Gateways](https://img.shields.io/badge/7--Gateway-Verified-emerald?style=for-the-badge&logo=shield)](./DEVELOPMENT.md)
 
-An ultra-refined, high-performance **Product Presentation Single Page Application** for **RoH Sound** (*"Pure Acoustic Architecture. Zero Distortion."*). Engineered with a **Light Minimalistic Sleek Atelier Luxury** design aesthetic, Next.js 15 App Router, procedural Three.js WebGL 3D turntable, precision HRTF vector spatial audio ray-tracing, lightweight Zustand reactive state, and the deterministic 7-Gateway Quality Engine.
+An ultra-refined, high-performance **Product Presentation Single Page Application** for **RoH Sound** (*"Pure Acoustic Architecture. Zero Distortion."*). Engineered with a **Light Modern Minimalistic Sleek Atelier** design aesthetic, Next.js 15 App Router, procedural Three.js WebGL 3D turntable, precision HRTF vector spatial audio ray-tracing, lightweight Zustand reactive state, and the deterministic 7-Gateway Quality Engine.
 
 > 🌐 **Live Demo:** [https://roh-sound.vercel.app/](https://roh-sound.vercel.app/)  
 > 📦 **GitHub Repository:** [https://github.com/calin-m/RoH-Sound](https://github.com/calin-m/RoH-Sound)
@@ -22,7 +22,7 @@ An ultra-refined, high-performance **Product Presentation Single Page Applicatio
 
 ## 🎯 Project Scope & Demonstration Intent
 
-This project is a **high-end front-end product presentation, marketing showcase, and interactive luxury demo** engineered to demonstrate modern, production-grade web architecture, creative procedural animations, and seamless responsive design:
+This project is a **high-end front-end product presentation, marketing showcase, and interactive modern minimalistic demo** engineered to demonstrate modern, production-grade web architecture, creative procedural animations, and seamless responsive design:
 
 - **Interactive Atelier Showcase:** Features a procedural Three.js WebGL 3D model turntable with smart gesture angle disambiguation (`touch-pan-y` vertical page scroll vs. horizontal 3D rotation), dynamic finish shader switching with specular metallic sweeps, and interactive benchmark matrices.
 - **Acoustic Visual Simulations:** Showcases real-time visual and mathematical models of acoustic principles, including autonomous 60fps traveling sinusoidal waves for Active Noise Cancellation and an interactive 360° HRTF Binaural Soundstage with vector ray-tracing and Interaural Level Difference (ILD) ear gain calculations.
@@ -217,7 +217,7 @@ graph TD
 | **05** | **Color Studio** | Interactive finish atelier featuring Midnight Obsidian, Champagne Platinum, Raw Titanium, and Forest Emerald with live metallurgical shader sync and **specular metallic sheen light sweeps** on selection. |
 | **06** | **Technical Architecture** | Complete laboratory metrics with animated category tabs and spec row hover illumination, frequency response curves ($4\text{Hz} - 48\text{kHz}$), desktop 4-column side-by-side benchmark table, and mobile-native **Interactive Versus Switcher** (`[ vs Brand S ]` | `[ vs Brand B ]`) with stacked advantage cards. |
 | **07** | **Customer Reviews** | Acclaimed customer feedback from verified sound engineers and mastering specialists with star ratings and verified buyer credentials. |
-| **08** | **Concierge & FAQ** | Accordion-based inquiry hub with smooth height expansion, $180^\circ$ rotating luxury chevrons, and illuminated champagne gold margin draws. |
+| **08** | **Concierge & FAQ** | Accordion-based inquiry hub with smooth height expansion, $180^\circ$ rotating precision chevrons, and illuminated champagne gold margin draws. |
 | **09** | **Slide-Over Checkout Drawer** | Hardware-accelerated 400ms slide-in/out cubic-bezier drawer with backdrop tap/click outside dismissal, Escape key handling, live personalized laser engraving with **animated CNC laser spark focal indicator**, warranty selection, and instant reservation code dispatch. |
 | **10** | **Atelier Footer & Floating Back to Top** | Direct hyperlink for Calin M to the GitHub profile, alongside a glassmorphic floating **Back to Top** pill with smooth scroll physics. |
 

@@ -14,8 +14,8 @@
   --accent-brass: #b8934a;
   --accent-brass-light: #d4af37;
 
-  /* Luxury Motion Easing Curves */
-  --ease-luxury: cubic-bezier(0.16, 1, 0.3, 1);
+  /* Modern Minimalistic Motion Easing Curves */
+  --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
@@ -148,7 +148,7 @@ body {
 .animate-acoustic-dance {
   --dance-scale: 1;
   animation: acousticDance 3.4s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
-  transition: --dance-scale 0.4s var(--ease-luxury);
+  transition: --dance-scale 0.4s var(--ease-smooth);
   will-change: transform;
 }
 
@@ -210,7 +210,7 @@ body {
 .animate-speaker-pulse {
   --speaker-pulse-scale: 1;
   animation: speakerExcursion 1.8s cubic-bezier(0.25, 1, 0.5, 1) infinite;
-  transition: --speaker-pulse-scale 0.4s var(--ease-luxury);
+  transition: --speaker-pulse-scale 0.4s var(--ease-smooth);
   will-change: transform, box-shadow;
 }
 
