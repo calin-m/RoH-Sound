@@ -23,7 +23,7 @@ export const Navbar: React.FC = () => {
     { name: 'Experience', href: '#experience' },
     { name: 'Acoustic', href: '#acoustic' },
     { name: 'Finishes', href: '#studio' },
-    { name: 'Tech Specs', href: '#specs' },
+    { name: 'Specs', href: '#specs' },
     { name: 'Reviews', href: '#reviews' },
     { name: 'FAQ', href: '#faq' },
   ];

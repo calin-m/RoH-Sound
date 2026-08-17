@@ -84,15 +84,18 @@ body {
 
 @keyframes rippleExpand {
   0% {
-    transform: scale(0.85);
-    opacity: 0.8;
+    transform: scale(0.6);
+    opacity: 0.7;
+    box-shadow: 0 0 18px rgba(184, 147, 74, 0.32), inset 0 0 10px rgba(212, 175, 55, 0.18);
   }
-  50% {
-    opacity: 0.4;
+  40% {
+    opacity: 0.48;
+    box-shadow: 0 0 32px rgba(184, 147, 74, 0.24), inset 0 0 18px rgba(212, 175, 55, 0.14);
   }
   100% {
-    transform: scale(1.4);
+    transform: scale(1.75);
     opacity: 0;
+    box-shadow: 0 0 60px rgba(184, 147, 74, 0), inset 0 0 30px rgba(212, 175, 55, 0);
   }
 }
 
@@ -154,15 +157,19 @@ body {
 }
 
 .animate-ripple-1 {
-  animation: rippleExpand 3s var(--ease-luxury) infinite;
+  animation: rippleExpand 3.2s cubic-bezier(0.1, 0.8, 0.3, 1) infinite;
 }
 
 .animate-ripple-2 {
-  animation: rippleExpand 3s var(--ease-luxury) infinite 1s;
+  animation: rippleExpand 3.2s cubic-bezier(0.1, 0.8, 0.3, 1) infinite 0.8s;
 }
 
 .animate-ripple-3 {
-  animation: rippleExpand 3s var(--ease-luxury) infinite 2s;
+  animation: rippleExpand 3.2s cubic-bezier(0.1, 0.8, 0.3, 1) infinite 1.6s;
+}
+
+.animate-ripple-4 {
+  animation: rippleExpand 3.2s cubic-bezier(0.1, 0.8, 0.3, 1) infinite 2.4s;
 }
 
 @property --speaker-pulse-scale {

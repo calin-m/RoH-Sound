@@ -9,7 +9,7 @@ import { MotionReveal } from '../motion/MotionReveal';
 import { MagneticButton } from '../motion/MagneticButton';
 import { AcousticRipple } from '../motion/AcousticRipple';
 import { AcousticTextWave } from '../motion/AcousticTextWave';
-import { Play, Pause, ShieldCheck, Sparkles, CheckCircle2 } from 'lucide-react';
+import { ShieldCheck, Sparkles, CheckCircle2 } from 'lucide-react';
 
 export const HeroSection: React.FC = () => {
   const {
@@ -17,8 +17,6 @@ export const HeroSection: React.FC = () => {
     setSelectedColor,
     viewAngle,
     setViewAngle,
-    isPlayingDemo,
-    toggleDemoPlayback,
     setDrawerOpen,
   } = useProductStore();
 
@@ -77,35 +75,18 @@ export const HeroSection: React.FC = () => {
               </div>
             </MotionReveal>
 
-            {/* CTA Actions */}
+            {/* Primary Pre-Order Hero CTA */}
             <MotionReveal direction="up" delay={400} duration={700}>
-              <div className="mt-9 flex flex-row flex-wrap sm:flex-nowrap items-center gap-3.5">
+              <div className="mt-9 flex items-center">
                 <MagneticButton strength={0.15}>
                   <button
                     onClick={() => setDrawerOpen(true)}
-                    className="flex items-center gap-2.5 bg-zinc-950 hover:bg-zinc-900 text-white rounded-full px-6 sm:px-7 py-3.5 text-xs font-semibold tracking-widest uppercase transition-all duration-300 shadow-md hover:shadow-[0_10px_28px_rgba(184,147,74,0.2)] border border-white/10 hover:border-[#b8934a]/40 active:scale-98 shrink-0 cursor-pointer"
+                    className="flex items-center gap-2.5 bg-zinc-950 hover:bg-zinc-900 text-white rounded-full px-7 sm:px-8 py-4 text-xs font-semibold tracking-widest uppercase transition-all duration-300 shadow-md hover:shadow-[0_10px_28px_rgba(184,147,74,0.2)] border border-white/10 hover:border-[#b8934a]/40 active:scale-98 cursor-pointer"
                   >
                     <Sparkles className="w-4 h-4 text-[#d4af37]" />
                     <AcousticTextWave text="Pre-Order RoH Sound • $399" />
                   </button>
                 </MagneticButton>
-
-                <button
-                  onClick={toggleDemoPlayback}
-                  className="flex items-center justify-center gap-2 bg-white hover:bg-zinc-50 text-zinc-800 border border-black/[0.08] rounded-full px-5 py-3.5 text-xs font-medium tracking-wider uppercase transition-all shadow-xs hover:shadow shrink-0 min-w-[130px] cursor-pointer"
-                >
-                  {isPlayingDemo ? (
-                    <>
-                      <Pause className="w-3.5 h-3.5 text-[#b8934a]" />
-                      <span>Stop Demo</span>
-                    </>
-                  ) : (
-                    <>
-                      <Play className="w-3.5 h-3.5 text-[#b8934a] fill-[#b8934a]" />
-                      <span>Play Demo</span>
-                    </>
-                  )}
-                </button>
               </div>
             </MotionReveal>
 
@@ -123,18 +104,18 @@ export const HeroSection: React.FC = () => {
             </MotionReveal>
           </div>
 
-          {/* Right Column: Studio Lighting Vector Showcase with Motion & Ripples */}
+          {/* Right Column: Studio Lighting Vector Showcase with Ambient Soundwaves */}
           <div className="lg:col-span-6 flex flex-col items-center justify-center relative">
-            {/* Acoustic Wave Ripple Backing */}
-            <AcousticRipple active={isPlayingDemo} />
+            {/* Permanent Ambient Acoustic Soundwave Backing */}
+            <AcousticRipple active={true} />
 
             {/* Dynamic Headphone Visualizer with Atelier 360° Turntable Indicator */}
-            <MotionReveal direction="none" delay={200} duration={800} className="w-full flex justify-center py-4">
+            <MotionReveal direction="none" delay={200} duration={800} className="w-full flex justify-center py-4 relative z-10">
               <HeadphoneVisualizer
                 color={selectedColor}
                 angle={viewAngle}
                 onAngleChange={setViewAngle}
-                isPlayingDemo={isPlayingDemo}
+                isPlayingDemo={false}
               />
             </MotionReveal>
           </div>

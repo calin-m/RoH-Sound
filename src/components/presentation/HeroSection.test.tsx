@@ -23,13 +23,6 @@ describe('HeroSection', () => {
     expect(useProductStore.getState().selectedColor).toBe('emerald');
   });
 
-  it('toggles audio preview demo mode on CTA click', () => {
-    render(<HeroSection />);
-    const demoBtn = screen.getByRole('button', { name: /Play Demo/i });
-    fireEvent.click(demoBtn);
-    expect(useProductStore.getState().isPlayingDemo).toBe(true);
-  });
-
   it('opens checkout drawer when pre-order is clicked', () => {
     render(<HeroSection />);
     const buyBtn = screen.getByRole('button', { name: /Pre-Order RoH Sound • \$399/i });

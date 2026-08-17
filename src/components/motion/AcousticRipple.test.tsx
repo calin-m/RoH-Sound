@@ -9,8 +9,8 @@ describe('AcousticRipple', () => {
     expect(container.firstChild).toBeNull();
   });
 
-  it('renders concentric ripple rings when active is true', () => {
-    render(<AcousticRipple active={true} />);
+  it('renders concentric ripple rings by default without explicit active prop', () => {
+    render(<AcousticRipple />);
     expect(screen.getByTestId('acoustic-ripple')).toBeInTheDocument();
   });
 });

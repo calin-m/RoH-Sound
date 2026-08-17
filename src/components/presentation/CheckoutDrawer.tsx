@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useProductStore } from '@/stores/useProductStore';
 import { usePreorderMutation } from '@/hooks/queries/useProductData';
 import { ColorwaySelector } from './ColorwaySelector';
@@ -34,6 +34,30 @@ export const CheckoutDrawer: React.FC = () => {
   const warrantyPrice = hasExtendedWarranty ? 49 : 0;
   const totalPrice = basePrice + warrantyPrice;
 
+  const handleClose = () => {
+    setDrawerOpen(false);
+    setOrderSuccessData(null);
+  };
+
+  // Body scroll lock & Escape key listener
+  useEffect(() => {
+    if (isDrawerOpen) {
+      document.body.style.overflow = 'hidden';
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+          handleClose();
+        }
+      };
+      window.addEventListener('keydown', handleKeyDown);
+      return () => {
+        document.body.style.overflow = '';
+        window.removeEventListener('keydown', handleKeyDown);
+      };
+    } else {
+      document.body.style.overflow = '';
+    }
+  }, [isDrawerOpen]);
+
   const handleSubmitPreorder = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!customerEmail || !customerName) return;
@@ -59,23 +83,31 @@ export const CheckoutDrawer: React.FC = () => {
     }
   };
 
-  const handleClose = () => {
-    setDrawerOpen(false);
-    setOrderSuccessData(null);
-  };
-
-  if (!isDrawerOpen) return null;
-
   return (
-    <div className="fixed inset-0 z-50 overflow-hidden" data-testid="checkout-drawer">
-      {/* Backdrop Blur */}
+    <div
+      className={`fixed inset-0 z-50 overflow-hidden transition-all duration-400 ${
+        isDrawerOpen ? 'pointer-events-auto' : 'pointer-events-none'
+      }`}
+      aria-hidden={!isDrawerOpen}
+      data-testid="checkout-drawer"
+    >
+      {/* Backdrop Blur & Dismissal */}
       <div
         onClick={handleClose}
-        className="fixed inset-0 bg-black/40 backdrop-blur-xs transition-opacity duration-300"
+        onTouchEnd={handleClose}
+        data-testid="drawer-backdrop"
+        className={`fixed inset-0 bg-black/40 backdrop-blur-xs transition-opacity duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          isDrawerOpen ? 'opacity-100' : 'opacity-0'
+        }`}
       />
 
       <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
-        <div className="w-screen max-w-md bg-white shadow-2xl flex flex-col justify-between border-l border-black/[0.06] transform transition-transform duration-300 ease-in-out">
+        <div
+          data-testid="drawer-panel"
+          className={`w-screen max-w-md bg-white shadow-2xl flex flex-col justify-between border-l border-black/[0.06] transform transition-transform duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+            isDrawerOpen ? 'translate-x-0' : 'translate-x-full'
+          }`}
+        >
           {/* Header */}
           <div className="p-6 border-b border-black/[0.06] flex items-center justify-between bg-[#fafaf9]">
             <div>

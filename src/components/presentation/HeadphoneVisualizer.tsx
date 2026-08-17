@@ -398,7 +398,7 @@ export const HeadphoneVisualizer: React.FC<HeadphoneVisualizerProps> = ({
         className="absolute bottom-6 w-3/4 h-10 rounded-full blur-xl transition-all duration-300 pointer-events-none"
         style={{
           background: `radial-gradient(ellipse at center, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.03) 60%, transparent 80%)`,
-          transform: isPlayingDemo ? 'scale(1.1)' : 'scale(1)',
+          transform: isPlayingDemo ? 'scale(1.18)' : 'scale(1)',
         }}
       />
 
@@ -408,14 +408,14 @@ export const HeadphoneVisualizer: React.FC<HeadphoneVisualizerProps> = ({
         style={{ backgroundColor: activeTheme.glow }}
       />
 
-      {/* WebGL 3D Canvas Container */}
+      {/* WebGL 3D Canvas Container - Razor Sharp Native Resolution */}
       <div
         ref={mountRef}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerUp}
-        className="relative w-full h-[380px] flex items-center justify-center cursor-grab active:cursor-grabbing"
+        className="relative w-full h-[380px] flex items-center justify-center cursor-grab active:cursor-grabbing z-10"
         data-testid="turntable-viewport"
         title="Click and drag to rotate in 3D"
       />

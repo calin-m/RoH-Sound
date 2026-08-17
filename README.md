@@ -5,7 +5,7 @@
 [![TypeScript 5](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 [![Three.js](https://img.shields.io/badge/Three.js-WebGL_3D-000000?style=for-the-badge&logo=three.js)](https://threejs.org/)
 [![Tailwind CSS v4](https://img.shields.io/badge/Tailwind_CSS-v4.0-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
-[![Vitest Coverage](https://img.shields.io/badge/Vitest-101%2F101_Passed_(95.92%25)-green?style=for-the-badge&logo=vitest)](https://vitest.dev/)
+[![Vitest Coverage](https://img.shields.io/badge/Vitest-104%2F104_Passed_(95.86%25)-green?style=for-the-badge&logo=vitest)](https://vitest.dev/)
 [![MSW v2](https://img.shields.io/badge/MSW-v2.0-E35555?style=for-the-badge&logo=mockserviceworker)](https://mswjs.io/)
 [![Quality Gateways](https://img.shields.io/badge/7--Gateway-Verified-emerald?style=for-the-badge&logo=shield)](./DEVELOPMENT.md)
 
@@ -192,15 +192,15 @@ graph TD
 
 | # | Section | Key Features & Engineering Highlights |
 | :-: | :--- | :--- |
-| **01** | **Atelier Capsule Navbar** | Split-letter wave elevation (`translateY(-3.5px)`) staggered by $24\text{ms}$ with spring physics, gold hairline sweeps, mobile menu drawer, and active colorway cart indicator. |
-| **02** | **Acoustic Hero & 3D Turntable** | Procedural WebGL Three.js studio model with multi-mesh materials, default 360° continuous auto-orbit, drag interaction with unsnapped continuous resumption, floating status pill indicator, and 2D acoustic dance CTA button with continuous 0.35x hover dampening. |
+| **01** | **Atelier Capsule Navbar** | Brand monogram `[R]` with animated speaker transducer cone excursion and hover volume dampening, split-letter wave elevation (`translateY(-3.5px)`) staggered by $24\text{ms}$ with spring physics, gold hairline sweeps, mobile menu drawer, and active colorway cart indicator. |
+| **02** | **Acoustic Hero & 3D Turntable** | Procedural WebGL Three.js studio model with multi-mesh materials, default 360° continuous auto-orbit, drag interaction with unsnapped continuous resumption, floating status pill indicator, permanent ambient circular acoustic soundwave rings ($0.7\times$ intensity), and singular Grounded Pre-Order CTA with interactive magnetic cursor tracking and periodic soundwave typography. |
 | **03** | **Interactive Sound Lab** | Triple-mode Active Noise Cancellation simulator (Transparency, Balanced, Ultra 48dB) with real-time waveform physics, plus a 360° HRTF Binaural Soundstage with listener anatomy, left/right driver energy glow, orbiting sound emitter, and acoustic ray-tracing. |
-| **04** | **Engineering Bento Matrix** | Asymmetric bento grid showcasing the 45mm Custom Graphene Driver, Aerospace Titanium chassis, 65-Hour Extended Battery, and Lossless 24-bit/192kHz LDAC Bluetooth 5.4. |
+| **04** | **Acoustic Bento Matrix** | Asymmetric bento grid showcasing the 45mm Custom Graphene Driver, Aerospace Titanium chassis, 65-Hour Extended Battery, and Lossless 24-bit/192kHz LDAC Bluetooth 5.4. |
 | **05** | **Color Studio** | Interactive finish atelier featuring Midnight Obsidian, Champagne Platinum, Raw Titanium, and Frosted Alpine with live metallurgical shader sync. |
 | **06** | **Technical Architecture** | Complete laboratory metrics, frequency response curves ($4\text{Hz} - 48\text{kHz}$), and side-by-side benchmark table comparing RoH Sound against legacy flagships. |
 | **07** | **Customer Reviews** | Acclaimed customer feedback from verified sound engineers and mastering specialists with star ratings and verified buyer credentials. |
 | **08** | **Concierge & FAQ** | Accordion-based inquiry hub detailing the 30-Day Audition Policy, 3-Year Platinum Warranty, and Global Concierge Desk. |
-| **09** | **Slide-Over Checkout Drawer** | Real-time interactive pre-order flow with live personalized laser engraving deboss preview, warranty selection, and instant reservation code dispatch. |
+| **09** | **Slide-Over Checkout Drawer** | Hardware-accelerated 400ms slide-in/out cubic-bezier drawer with backdrop tap/click outside dismissal, Escape key handling, live personalized laser engraving deboss preview, warranty selection, and instant reservation code dispatch. |
 | **10** | **Floating Back to Top Pill** | Glassmorphic floating **Back to Top** pill positioned in the bottom-right corner when scrolling down past the hero section. |
 
 ---
@@ -233,7 +233,7 @@ npm run dev:all
 | `npm run dev:open` | **Dev Server + Browser** | Launches dev server and auto-opens browser |
 | `npm run dev:all` | **Full Dev Environment** | Runs Next.js dev server alongside CLI terminal test watcher |
 | `npm run verify` | **Master 7-Gateway Gatekeeper** | Runs full closed-loop audit: Secrets, Types, Tests, Living Docs, ADRs, Lint, Knip, Build |
-| `npm test` | **Vitest Test Suite** | Runs all 84 test suites (101 tests) with v8 code coverage reporting |
+| `npm test` | **Vitest Test Suite** | Runs all 86 test suites (104 tests) with v8 code coverage reporting |
 | `npm run test:ui` | **Vitest Graphical UI** | Interactive browser-based test suite visualizer & debugger |
 | `npm run test:watch` | **Test Watcher** | Fast continuous test execution during active coding |
 | `npm run typecheck` | **TypeScript Typecheck** | Strict typecheck across all `.ts` and `.tsx` source files (`0 compile errors`) |
@@ -268,7 +268,7 @@ Every contribution is validated through 7 deterministic quality gateways:
 1. **Pass 0.5 (Secret Scanner):** Scans all codebase files for private keys, AWS/GCP tokens, or exposed API credentials.
 2. **Pass 1 (TypeScript Strict Typecheck):** Verifies 0 compile errors via `tsc --noEmit`.
 3. **Pass 2 (Vitest MSW Server & Queries):** Validates network mocking and query hook state transitions.
-4. **Pass 3 (Vitest Client UI & Primitives):** Executes all test suites and asserts **≥ 85% code coverage** (*current: 95.92%*).
+4. **Pass 3 (Vitest Client UI & Primitives):** Executes all test suites and asserts **≥ 85% code coverage** (*current: 95.86%*).
 5. **Pass 4 (Living Architecture & Quality Sync):** Auto-generates C4 matrices in `ARCHITECTURE.md`, compiles `docs/QUALITY_AUDIT_REPORT.md`, and syncs `CHANGELOG.md`.
 6. **Pass 5 (ADR Decision Ledger Validation):** Verifies sequential numbering and schema conformance in `docs/DECISIONS.md`.
 7. **Pass 6 (ESLint & Knip Audit):** Validates 0 lint errors and 0 dead code/unused exports.

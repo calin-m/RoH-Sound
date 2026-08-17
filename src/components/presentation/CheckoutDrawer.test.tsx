@@ -19,9 +19,48 @@ describe('CheckoutDrawer', () => {
     useProductStore.getState().resetProductStore();
   });
 
-  it('renders nothing when drawer is closed', () => {
-    const { container } = renderWithClient(<CheckoutDrawer />);
-    expect(container.firstChild).toBeNull();
+  it('renders closed state with off-screen transform and pointer-events-none', () => {
+    renderWithClient(<CheckoutDrawer />);
+    const drawerRoot = screen.getByTestId('checkout-drawer');
+    expect(drawerRoot).toHaveClass('pointer-events-none');
+    expect(drawerRoot).toHaveAttribute('aria-hidden', 'true');
+
+    const panel = screen.getByTestId('drawer-panel');
+    expect(panel).toHaveClass('translate-x-full');
+
+    const backdrop = screen.getByTestId('drawer-backdrop');
+    expect(backdrop).toHaveClass('opacity-0');
+  });
+
+  it('slides in when open and allows closing via backdrop click, tap, and close button', () => {
+    useProductStore.getState().setDrawerOpen(true);
+    renderWithClient(<CheckoutDrawer />);
+
+    const drawerRoot = screen.getByTestId('checkout-drawer');
+    expect(drawerRoot).toHaveClass('pointer-events-auto');
+
+    const panel = screen.getByTestId('drawer-panel');
+    expect(panel).toHaveClass('translate-x-0');
+
+    const backdrop = screen.getByTestId('drawer-backdrop');
+    expect(backdrop).toHaveClass('opacity-100');
+
+    // Click outside on backdrop
+    fireEvent.click(backdrop);
+    expect(useProductStore.getState().isDrawerOpen).toBe(false);
+
+    // Reopen and test tap outside (touchEnd)
+    useProductStore.getState().setDrawerOpen(true);
+    fireEvent.touchEnd(backdrop);
+    expect(useProductStore.getState().isDrawerOpen).toBe(false);
+  });
+
+  it('closes when Escape key is pressed', () => {
+    useProductStore.getState().setDrawerOpen(true);
+    renderWithClient(<CheckoutDrawer />);
+
+    fireEvent.keyDown(window, { key: 'Escape' });
+    expect(useProductStore.getState().isDrawerOpen).toBe(false);
   });
 
   it('renders order form and allows customizing colorway, engraving, and warranty when open', () => {

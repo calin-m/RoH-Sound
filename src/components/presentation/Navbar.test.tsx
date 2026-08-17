@@ -15,7 +15,7 @@ describe('Navbar', () => {
     expect(screen.getByRole('link', { name: /^RoH$/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /Experience/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /^Acoustic$/i })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /Tech Specs/i })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /^Specs$/i })).toBeInTheDocument();
 
     const monogram = screen.getByTestId('brand-monogram');
     expect(monogram).toHaveClass('animate-speaker-pulse');
