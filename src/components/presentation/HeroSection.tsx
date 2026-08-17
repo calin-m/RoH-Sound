@@ -92,13 +92,13 @@ export const HeroSection: React.FC = () => {
 
             {/* Reassurance Micro-Copy */}
             <MotionReveal direction="up" delay={500} duration={700}>
-              <div className="mt-7 flex items-center gap-6 text-xs text-zinc-500 font-mono">
+              <div className="mt-7 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-zinc-500 font-mono">
                 <span className="flex items-center gap-1.5">
-                  <ShieldCheck className="w-3.5 h-3.5 text-zinc-700" /> 3-Year Precision Warranty
+                  <ShieldCheck className="w-3.5 h-3.5 text-zinc-700 shrink-0" /> 3-Year Precision Warranty
                 </span>
-                <span>•</span>
+                <span className="text-zinc-300 hidden sm:inline">•</span>
                 <span>30-Day In-Home Audition</span>
-                <span>•</span>
+                <span className="text-zinc-300 hidden sm:inline">•</span>
                 <span>Free Express Shipping</span>
               </div>
             </MotionReveal>

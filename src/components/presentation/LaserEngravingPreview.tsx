@@ -30,7 +30,7 @@ export const LaserEngravingPreview: React.FC<LaserEngravingPreviewProps> = ({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder="e.g. MASTERING LAB 01"
-        className="w-full bg-[#fafaf9] border border-black/[0.08] rounded-xl px-3.5 py-2.5 text-xs font-mono uppercase text-zinc-950 focus:outline-none focus:ring-1 focus:ring-zinc-950"
+        className="w-full bg-[#fafaf9] border border-black/[0.08] rounded-xl px-3.5 py-2.5 text-base sm:text-xs font-mono uppercase text-zinc-950 focus:outline-none focus:ring-1 focus:ring-zinc-950"
       />
 
       {value && (

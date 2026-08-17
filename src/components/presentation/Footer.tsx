@@ -12,7 +12,7 @@ export const Footer: React.FC = () => {
       // Show Back to Top button once scrolled down past hero section
       setShowBackToTop(window.scrollY > 400);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 

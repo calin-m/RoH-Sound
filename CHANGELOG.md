@@ -26,6 +26,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ---
 
 ### Recent Git Commit History
+- `752a3a7` - **perf(mobile): auto-pause off-screen WebGL and waveform loops with 94.8% test coverage** (2026-08-17)
 - `af9ff7d` - **refactor(checkout): rename extended warranty label in drawer and confirmation card** (2026-08-17)
 - `e83e530` - **fix(mobile): center 3D model framing and fix ANC matrix tabs scroll reveal** (2026-08-17)
 - `0792aad` - **feat(mobile): refine navbar drawer controls, 3D gesture isolation, and benchmark switcher** (2026-08-17)

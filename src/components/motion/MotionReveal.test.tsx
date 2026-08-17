@@ -149,7 +149,7 @@ describe('MotionReveal', () => {
     });
 
     render(
-      <MotionReveal direction="up">
+      <MotionReveal direction="up" once={false}>
         <span>Tab Switching Content</span>
       </MotionReveal>
     );

@@ -30,7 +30,7 @@ export const BentoCard: React.FC<BentoCardProps> = ({
 }) => {
   return (
     <div
-      className={`w-full bg-white rounded-3xl p-8 border border-black/[0.06] shadow-sm flex flex-col justify-between group hover:border-[#b8934a]/30 hover:shadow-md transition-all duration-300 relative overflow-hidden ${className}`}
+      className={`w-full bg-white rounded-3xl p-6 sm:p-8 border border-black/[0.06] shadow-sm flex flex-col justify-between group hover:border-[#b8934a]/30 hover:shadow-md transition-all duration-300 relative overflow-hidden ${className}`}
       data-testid="bento-card"
     >
       {/* Subtle corner light refraction on hover */}
@@ -62,13 +62,13 @@ export const BentoCard: React.FC<BentoCardProps> = ({
       </div>
 
       {stats && stats.length > 0 && (
-        <div className={`grid grid-cols-${stats.length} gap-4 mt-8 pt-6 border-t border-black/[0.06]`}>
+        <div className="grid grid-cols-3 gap-2 sm:gap-4 mt-8 pt-6 border-t border-black/[0.06]">
           {stats.map((stat, i) => (
             <div key={i}>
-              <span className="block font-mono text-xl sm:text-2xl font-medium text-zinc-950">
+              <span className="block font-mono text-base sm:text-2xl font-medium text-zinc-950">
                 {stat.value}
               </span>
-              <span className="text-[11px] text-zinc-400 font-mono uppercase">
+              <span className="text-[10px] sm:text-[11px] text-zinc-400 font-mono uppercase block mt-0.5">
                 {stat.label}
               </span>
             </div>

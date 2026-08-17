@@ -101,7 +101,7 @@ export const CheckoutDrawer: React.FC = () => {
         }`}
       />
 
-      <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
+      <div className="fixed inset-y-0 right-0 max-w-full flex pl-0 sm:pl-10">
         <div
           data-testid="drawer-panel"
           className={`w-screen max-w-md bg-white shadow-2xl flex flex-col justify-between border-l border-black/[0.06] transform transition-transform duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] ${
