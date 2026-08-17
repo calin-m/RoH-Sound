@@ -19,7 +19,8 @@
     "verify": "node scripts/verify-build.js",
     "report": "node scripts/generate-quality-report.js",
     "docs:sync": "node scripts/generate-architecture-matrix.js && node scripts/generate-quality-report.js && node scripts/generate-changelog.js",
-    "adr:new": "node scripts/new-adr.js"
+    "adr:new": "node scripts/new-adr.js",
+    "prepare": "husky"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.101.4",

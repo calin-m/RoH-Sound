@@ -255,7 +255,7 @@ npm run dev:all
 
 ## 🛡️ The 7-Gateway Quality Engine
 
-Every contribution is validated through 7 deterministic quality gateways:
+Every contribution is validated through 7 deterministic quality gateways, executed automatically via **Git Pre-Commit Hook (`.husky/pre-commit`)** and on every push via **GitHub Actions CI (`.github/workflows/ci.yml`)**:
 
 ```
 +-----------------------------------------------------------------------------+
@@ -280,6 +280,8 @@ Every contribution is validated through 7 deterministic quality gateways:
 6. **Pass 5 (ADR Decision Ledger Validation):** Verifies sequential numbering and schema conformance in `docs/DECISIONS.md`.
 7. **Pass 6 (ESLint & Knip Audit):** Validates 0 lint errors and 0 dead code/unused exports.
 8. **Pass 7 (Production Build Compilation):** Validates compilation of the production Next.js 15 bundle.
+
+> 🔒 **Pre-Commit Enforcement:** Any failure in Passes 0.5 through 7 immediately halts execution, outputs exact error telemetry to the terminal, and automatically blocks the commit from being created.
 
 ---
 
