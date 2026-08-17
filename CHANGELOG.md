@@ -26,6 +26,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ---
 
 ### Recent Git Commit History
+- `69c7553` - **fix(ci): polyfill browser observers and anchor vitest ESM paths for Linux CI** (2026-08-17)
+- `17efc54` - **ci(github): add 7-Gateway automated CI workflow and status badge** (2026-08-17)
 - `9aa7382` - **docs(meta): add MIT license, repository links, and footer attribution** (2026-08-17)
 - `ced6d34` - **feat(ui): orchestrate actionable micro-animations across all presentation sections** (2026-08-17)
 - `8d95ff7` - **feat(presentation): add drawer slide motion, permanent ambient soundwaves, and streamlined hero cta** (2026-08-17)

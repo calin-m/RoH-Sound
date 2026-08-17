@@ -8,9 +8,9 @@ function generateChangelog() {
 
   let gitCommits = [];
   try {
-    const gitLog = execSync('git log --pretty=format:"%h%x09%an%x09%ad%x09%s" --date=short -n 50 2>nul', {
+    const gitLog = execSync('git log --pretty=format:"%h%x09%an%x09%ad%x09%s" --date=short -n 50', {
       encoding: 'utf-8',
-      stdio: ['pipe', 'pipe', 'ignore'],
+      stdio: ['pipe', 'pipe', 'pipe'],
     }).trim();
     if (gitLog) {
       gitCommits = gitLog.split('\n').map((line) => {
