@@ -31,9 +31,16 @@ function logFail(msg) {
   console.error(`${colors.red}✖ [FAIL]${colors.reset} ${msg}`);
 }
 
-function runCommand(command) {
+function runCommand(command, inheritStdio = false) {
   try {
     console.log(`${colors.dim}Executing: ${command}${colors.reset}`);
+    if (inheritStdio) {
+      execSync(command, {
+        cwd: rootDir,
+        stdio: 'inherit',
+      });
+      return { success: true, stdout: '' };
+    }
     const stdout = execSync(command, {
       cwd: rootDir,
       stdio: 'pipe',
@@ -125,13 +132,12 @@ function pass2And3VitestTestsAndCoverage() {
   logHeader('Pass 2 & 3: Vitest MSW & UI Test Execution + Coverage Verification');
   
   const result = runCommand(
-    `${npxCmd} vitest run --coverage --reporter=default --reporter=json --outputFile=docs/test-results.json`
+    `${npxCmd} vitest run --coverage`,
+    true
   );
 
   if (!result.success) {
-    logFail('Vitest tests failed:');
-    console.error(result.stdout);
-    console.error(result.stderr);
+    logFail('Vitest tests failed.');
     return false;
   }
 
