@@ -13,6 +13,10 @@ describe('Footer', () => {
     expect(screen.getAllByText(/RoH/i).length).toBeGreaterThan(0);
     expect(screen.getAllByText(/Pure Acoustic Architecture/i).length).toBeGreaterThan(0);
     expect(screen.getByRole('link', { name: /Titanium Transducers/i })).toHaveAttribute('href', '#acoustic');
+    expect(screen.getByRole('link', { name: /RoH Sound Laboratories AG/i })).toHaveAttribute(
+      'href',
+      'https://github.com/calin-m/RoH-Sound'
+    );
   });
 
   it('shows floating Back to Top button on scroll down and triggers smooth scroll', () => {

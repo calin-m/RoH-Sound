@@ -26,6 +26,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ---
 
 ### Recent Git Commit History
+- `ced6d34` - **feat(ui): orchestrate actionable micro-animations across all presentation sections** (2026-08-17)
 - `8d95ff7` - **feat(presentation): add drawer slide motion, permanent ambient soundwaves, and streamlined hero cta** (2026-08-17)
 - `a088076` - **feat(presentation): add speaker transducer emblem and periodic acoustic text wave CTA** (2026-08-17)
 - `18bc6ee` - **feat(docs): modernize README diagrams, add floating back-to-top, and standardize reviews** (2026-08-17)

@@ -1,5 +1,8 @@
 # RoH Sound — Flagship Product Presentation SPA
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](./LICENSE)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Vercel_Deployment-000000?style=for-the-badge&logo=vercel)](https://ro-h-sound.vercel.app/)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github)](https://github.com/calin-m/RoH-Sound)
 [![Next.js 15](https://img.shields.io/badge/Next.js-15.0-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![React 19](https://img.shields.io/badge/React-19.0-blue?style=for-the-badge&logo=react)](https://react.dev/)
 [![TypeScript 5](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
@@ -10,6 +13,9 @@
 [![Quality Gateways](https://img.shields.io/badge/7--Gateway-Verified-emerald?style=for-the-badge&logo=shield)](./DEVELOPMENT.md)
 
 An ultra-refined, high-performance **Product Presentation Single Page Application** for **RoH Sound** (*"Pure Acoustic Architecture. Zero Distortion."*). Engineered with a **Light Minimalistic Sleek Atelier Luxury** design aesthetic, Next.js 15 App Router, procedural Three.js WebGL 3D turntable, precision HRTF vector spatial audio ray-tracing, lightweight Zustand reactive state, and the deterministic 7-Gateway Quality Engine.
+
+> 🌐 **Live Demo:** [https://ro-h-sound.vercel.app/](https://ro-h-sound.vercel.app/)  
+> 📦 **GitHub Repository:** [https://github.com/calin-m/RoH-Sound](https://github.com/calin-m/RoH-Sound)
 
 ---
 
@@ -286,3 +292,10 @@ Every contribution is validated through 7 deterministic quality gateways:
 - **CI/CD Pipeline Guide:** [`docs/PIPELINE_GUIDE.md`](./docs/PIPELINE_GUIDE.md)
 - **Developer Maintenance Hub:** [`DEVELOPMENT.md`](./DEVELOPMENT.md)
 - **Semantic Release Changelog:** [`CHANGELOG.md`](./CHANGELOG.md)
+
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](./LICENSE) — Copyright © 2026 RoH Sound Laboratories AG / calin-m.
+
