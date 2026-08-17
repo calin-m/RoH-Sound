@@ -47,8 +47,8 @@ export const FAQSection: React.FC = () => {
   };
 
   return (
-    <section id="faq" className="py-24 px-4 sm:px-8 bg-[#fafaf9]">
-      <div className="max-w-4xl mx-auto">
+    <section id="faq" className="py-24 px-4 sm:px-8 bg-canvas">
+      <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <MotionReveal direction="up">
           <SectionHeader
@@ -61,7 +61,7 @@ export const FAQSection: React.FC = () => {
         </MotionReveal>
 
         {/* Accordion List with Staggered Entrance */}
-        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-black/[0.06] shadow-xs">
+        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-hairline shadow-xs">
           <Accordion>
             <StaggerGroup staggerInterval={60} direction="up">
               {faqs.map((faq) => (

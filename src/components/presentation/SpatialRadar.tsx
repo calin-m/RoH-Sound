@@ -100,13 +100,13 @@ export const SpatialRadar: React.FC<SpatialRadarProps> = ({
 
   return (
     <div
-      className={`relative w-full bg-white rounded-2xl border border-black/[0.06] p-4 sm:p-5 flex flex-col items-center justify-center overflow-hidden shadow-xs select-none ${className}`}
+      className={`relative w-full bg-white rounded-2xl border border-hairline p-4 sm:p-5 flex flex-col items-center justify-center overflow-hidden shadow-xs select-none ${className}`}
       data-testid="spatial-radar"
     >
       {/* Top Header Readout Strip */}
       <div className="w-full flex items-center justify-between mb-2 z-10 text-[11px] font-mono">
         <div className="flex items-center gap-1.5 text-zinc-500">
-          <Radio className="w-3 h-3 text-[#b8934a] animate-pulse" />
+          <Radio className="w-3 h-3 text-brass animate-pulse" />
           <span className="font-semibold text-zinc-900">{sectorLabel}</span>
         </div>
         <div className="flex items-center gap-3 text-zinc-500">
@@ -423,7 +423,7 @@ export const SpatialRadar: React.FC<SpatialRadarProps> = ({
 
       {/* Bottom Sub-label with Drag Cue */}
       <div className="mt-1 text-[10px] font-mono text-zinc-400 uppercase tracking-wider flex items-center gap-1.5">
-        <Move className="w-3 h-3 text-[#b8934a]" />
+        <Move className="w-3 h-3 text-brass" />
         <span>Drag Beacon to Orbit • 360° HRTF Engine</span>
       </div>
     </div>

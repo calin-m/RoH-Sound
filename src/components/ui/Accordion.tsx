@@ -20,8 +20,8 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
 }) => {
   return (
     <div
-      className={`border-b border-black/[0.06] transition-all duration-300 ${
-        isOpen ? 'border-l-2 border-l-[#b8934a] px-4 sm:px-5 bg-[#fafaf9]/80 rounded-2xl my-2 border-b-transparent shadow-2xs' : 'px-1'
+      className={`border-b border-hairline transition-all duration-300 ${
+        isOpen ? 'border-l-2 border-l-brass px-4 sm:px-5 bg-canvas/80 rounded-2xl my-2 border-b-transparent shadow-2xs' : 'px-1'
       } ${className}`}
       data-testid={`accordion-item-${id}`}
     >
@@ -43,8 +43,8 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
         <div
           className={`w-8 h-8 rounded-full flex items-center justify-center border transition-all duration-300 shrink-0 mt-0.5 sm:mt-0 ${
             isOpen
-              ? 'bg-zinc-950 text-white border-zinc-950 rotate-180 shadow-xs ring-2 ring-[#b8934a]/30'
-              : 'bg-white text-zinc-400 border-black/[0.06] group-hover:border-black/[0.15] group-hover:text-zinc-950'
+              ? 'bg-zinc-950 text-white border-zinc-950 rotate-180 shadow-xs ring-2 ring-brass/30'
+              : 'bg-white text-zinc-400 border-hairline group-hover:border-black/[0.15] group-hover:text-zinc-950'
           }`}
         >
           <ChevronDown className="w-4 h-4" />
@@ -74,7 +74,7 @@ export interface AccordionProps {
 
 export const Accordion: React.FC<AccordionProps> = ({ children, className = '' }) => {
   return (
-    <div className={`divide-y divide-black/[0.06] ${className}`} data-testid="accordion">
+    <div className={`divide-y divide-hairline ${className}`} data-testid="accordion">
       {children}
     </div>
   );

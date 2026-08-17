@@ -184,8 +184,8 @@ export const HeadphoneVisualizer: React.FC<HeadphoneVisualizerProps> = ({
         {/* Dynamic Acoustic Soundwave Emitters on Live Demo */}
         {isPlayingDemo && (
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <div className="w-56 h-56 rounded-full border border-[#b8934a]/30 animate-ping" />
-            <div className="w-72 h-72 rounded-full border border-[#b8934a]/20 animate-ambient-breathe" />
+            <div className="w-56 h-56 rounded-full border border-brass/30 animate-ping" />
+            <div className="w-72 h-72 rounded-full border border-brass/20 animate-ambient-breathe" />
           </div>
         )}
 
@@ -590,7 +590,7 @@ export const HeadphoneVisualizer: React.FC<HeadphoneVisualizerProps> = ({
       {/* Modern Minimalistic Perspective Selector Bar */}
       <div className="w-full flex flex-col items-center gap-2 mt-4 px-1 sm:px-2">
         {/* Responsive 4-Column Grid-Aligned Segmented Switcher */}
-        <div className="w-full grid grid-cols-4 gap-1 p-1 bg-zinc-100/90 backdrop-blur-md rounded-full border border-black/[0.04] shadow-2xs">
+        <div className="w-full grid grid-cols-4 gap-1 p-1 bg-zinc-100/90 backdrop-blur-md rounded-full border border-hairline-subtle shadow-2xs">
           {PERSPECTIVES.map((tab) => {
             const Icon = tab.icon;
             const isSelected = currentAngle === tab.id || (tab.id === 'controls' && currentAngle === 'angle');
@@ -606,7 +606,7 @@ export const HeadphoneVisualizer: React.FC<HeadphoneVisualizerProps> = ({
                     : 'text-zinc-500 hover:text-zinc-900 hover:bg-white/60'
                 }`}
               >
-                <Icon className={`w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0 ${isSelected ? 'text-[#d4af37]' : 'text-zinc-400'}`} />
+                <Icon className={`w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0 ${isSelected ? 'text-brass-light' : 'text-zinc-400'}`} />
                 <span className="truncate">{tab.label}</span>
               </button>
             );
@@ -620,18 +620,18 @@ export const HeadphoneVisualizer: React.FC<HeadphoneVisualizerProps> = ({
           aria-label={isAutoTour ? 'Pause studio tour' : 'Start studio perspective tour'}
           className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono border transition-all cursor-pointer active:scale-95 ${
             isAutoTour
-              ? 'bg-[#fafaf9] border-[#b8934a]/60 text-zinc-950 shadow-xs'
-              : 'bg-white/80 border-black/[0.06] text-zinc-500 hover:text-zinc-950 hover:bg-zinc-50'
+              ? 'bg-canvas border-brass/60 text-zinc-950 shadow-xs'
+              : 'bg-white/80 border-hairline text-zinc-500 hover:text-zinc-950 hover:bg-zinc-50'
           }`}
         >
           {isAutoTour ? (
             <>
-              <Pause className="w-3 h-3 text-[#b8934a]" />
+              <Pause className="w-3 h-3 text-brass" />
               <span>Pause Tour</span>
             </>
           ) : (
             <>
-              <Play className="w-3 h-3 text-[#b8934a] fill-[#b8934a]" />
+              <Play className="w-3 h-3 text-brass fill-brass" />
               <span>Auto-Tour</span>
             </>
           )}

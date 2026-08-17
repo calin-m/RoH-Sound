@@ -23,7 +23,7 @@ export const SoundExperience: React.FC = () => {
   const activeAnc = ancModesList.find((m) => m.id === ancMode);
 
   return (
-    <section id="experience" className="py-24 px-4 sm:px-8 bg-white border-y border-black/[0.06]">
+    <section id="experience" className="py-24 px-4 sm:px-8 bg-white border-y border-hairline">
       <div className="max-w-6xl mx-auto">
         {/* Section Header with Reveal */}
         <MotionReveal direction="up">
@@ -32,10 +32,10 @@ export const SoundExperience: React.FC = () => {
             eyebrow="Interactive Sound Lab"
             title="Acoustic Isolation & Soundstage"
             subtitle="Test RoH Sound's adaptive neural cancellation curves and calibrate the 360-degree binaural spatial audio engine in real time."
-            className="pb-10 border-b border-black/[0.06]"
+            className="pb-10 border-b border-hairline"
           >
-            <div className="flex items-center gap-2 bg-[#fafaf9] px-4 py-2 rounded-full border border-black/[0.06] text-xs font-mono text-zinc-600">
-              <Radio className="w-3.5 h-3.5 text-[#b8934a] animate-pulse" />
+            <div className="flex items-center gap-2 bg-canvas px-4 py-2 rounded-full border border-hairline text-xs font-mono text-zinc-600">
+              <Radio className="w-3.5 h-3.5 text-brass animate-pulse" />
               <span>Neural DSP Engine: Active (24ms)</span>
             </div>
           </SectionHeader>
@@ -45,11 +45,11 @@ export const SoundExperience: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-10">
           {/* Module 1: ANC Simulator */}
           <MotionReveal direction="up" delay={100} once={true} className="lg:col-span-6 flex">
-            <div className="w-full bg-[#fafaf9] rounded-3xl p-6 sm:p-8 border border-black/[0.06] flex flex-col justify-between shadow-sm">
+            <div className="w-full bg-canvas rounded-3xl p-6 sm:p-8 border border-hairline flex flex-col justify-between shadow-sm">
               <div>
                 <div className="flex items-center justify-between mb-6">
                   <div className="flex items-center gap-2 text-zinc-900 font-medium text-sm tracking-wide">
-                    <Sliders className="w-4 h-4 text-[#b8934a]" />
+                    <Sliders className="w-4 h-4 text-brass" />
                     <span>Active Noise Cancellation Matrix</span>
                   </div>
                   <span className="font-mono text-xs text-zinc-500">
@@ -68,11 +68,11 @@ export const SoundExperience: React.FC = () => {
 
           {/* Module 2: 360° Spatial Audio Soundstage */}
           <MotionReveal direction="up" delay={200} once={true} className="lg:col-span-6 flex">
-            <div className="w-full bg-[#fafaf9] rounded-3xl p-6 sm:p-8 border border-black/[0.06] flex flex-col justify-between shadow-sm">
+            <div className="w-full bg-canvas rounded-3xl p-6 sm:p-8 border border-hairline flex flex-col justify-between shadow-sm">
               <div>
                 <div className="flex items-center justify-between mb-6">
                   <div className="flex items-center gap-2 text-zinc-900 font-medium text-sm tracking-wide">
-                    <Compass className="w-4 h-4 text-[#b8934a]" />
+                    <Compass className="w-4 h-4 text-brass" />
                     <span>360° Spatial Audio Orbit</span>
                   </div>
                   <div className="flex items-center gap-2">

@@ -33,7 +33,7 @@ export const SpecComparisonTable: React.FC<SpecComparisonTableProps> = ({
   return (
     <div className={`mt-16 ${className}`} data-testid="spec-comparison-table">
       <div className="flex items-center gap-2 mb-6">
-        <Layers className="w-4 h-4 text-[#b8934a]" />
+        <Layers className="w-4 h-4 text-brass" />
         <h3 className="text-xl font-light text-zinc-950">
           Direct Benchmark Comparison
         </h3>
@@ -74,16 +74,16 @@ export const SpecComparisonTable: React.FC<SpecComparisonTableProps> = ({
             return (
               <div
                 key={idx}
-                className="bg-white rounded-2xl border border-black/[0.06] p-4 shadow-xs flex flex-col gap-2.5"
+                className="bg-white rounded-2xl border border-hairline p-4 shadow-xs flex flex-col gap-2.5"
               >
                 <div className="text-xs font-medium text-zinc-500 font-sans tracking-wide">
                   {row.feature}
                 </div>
 
                 {/* RoH Sound Advantage Highlight */}
-                <div className="flex items-center justify-between bg-zinc-50/90 rounded-xl px-3.5 py-2.5 border border-black/[0.04]">
+                <div className="flex items-center justify-between bg-zinc-50/90 rounded-xl px-3.5 py-2.5 border border-hairline-subtle">
                   <span className="flex items-center gap-1.5 text-xs font-semibold text-zinc-950">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-[#b8934a] shrink-0" />
+                    <CheckCircle2 className="w-3.5 h-3.5 text-brass shrink-0" />
                     RoH Sound
                   </span>
                   <span className="text-xs font-bold text-zinc-950 font-mono">
@@ -103,26 +103,26 @@ export const SpecComparisonTable: React.FC<SpecComparisonTableProps> = ({
       </div>
 
       {/* Desktop 4-Column Matrix (>= md) */}
-      <div className="hidden md:block bg-white rounded-3xl border border-black/[0.06] shadow-sm overflow-x-auto">
+      <div className="hidden md:block bg-white rounded-3xl border border-hairline shadow-sm overflow-x-auto">
         <table className="w-full text-left text-sm border-collapse min-w-[580px]">
           <thead>
-            <tr className="border-b border-black/[0.06] bg-zinc-50/50 font-mono text-xs text-zinc-500 uppercase">
+            <tr className="border-b border-hairline bg-zinc-50/50 font-mono text-xs text-zinc-500 uppercase">
               <th className="p-5 pl-8 font-medium">Specification</th>
-              <th className="p-5 font-bold text-zinc-950 bg-[#fafaf9]">
+              <th className="p-5 font-bold text-zinc-950 bg-canvas">
                 <span className="inline-flex items-center gap-1.5 text-zinc-950">
-                  RoH Sound <span className="text-[#b8934a]">★</span>
+                  RoH Sound <span className="text-brass">★</span>
                 </span>
               </th>
               <th className="p-5 font-normal text-zinc-500">Brand S Flagship</th>
               <th className="p-5 pr-8 font-normal text-zinc-500">Brand B Studio</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-black/[0.04] font-mono text-xs">
+          <tbody className="divide-y divide-hairline-subtle font-mono text-xs">
             {rows.map((row, idx) => (
               <tr key={idx} className="hover:bg-zinc-50/50 transition-colors">
                 <td className="p-5 pl-8 font-sans font-medium text-zinc-900">{row.feature}</td>
-                <td className="p-5 font-bold text-zinc-950 bg-[#fafaf9] flex items-center gap-1.5">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#b8934a] inline shrink-0" />
+                <td className="p-5 font-bold text-zinc-950 bg-canvas flex items-center gap-1.5">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-brass inline shrink-0" />
                   <span>{row.roh}</span>
                 </td>
                 <td className="p-5 text-zinc-600 font-normal">{row.brandS}</td>

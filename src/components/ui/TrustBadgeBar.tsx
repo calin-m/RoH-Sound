@@ -32,7 +32,7 @@ export const TrustBadgeBar: React.FC<TrustBadgeBarProps> = ({
 }) => {
   return (
     <div
-      className={`p-6 bg-[#fafaf9] rounded-2xl border border-black/[0.06] flex flex-wrap items-center justify-around gap-6 text-xs text-zinc-600 font-mono ${className}`}
+      className={`p-6 bg-canvas rounded-2xl border border-hairline flex flex-wrap items-center justify-around gap-6 text-xs text-zinc-600 font-mono ${className}`}
       data-testid="trust-badge-bar"
     >
       {items.map((badge, idx) => (

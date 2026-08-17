@@ -52,7 +52,7 @@ export const ColorStudio: React.FC = () => {
   const { selectedColor, setSelectedColor } = useProductStore();
 
   return (
-    <section id="studio" className="py-24 px-4 sm:px-8 bg-white border-y border-black/[0.06]">
+    <section id="studio" className="py-24 px-4 sm:px-8 bg-white border-y border-hairline">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <MotionReveal direction="up">
@@ -76,8 +76,8 @@ export const ColorStudio: React.FC = () => {
                   onClick={() => setSelectedColor(finish.id)}
                   className={`w-full cursor-pointer rounded-3xl p-6 border transition-all duration-300 flex flex-col justify-between relative overflow-hidden group ${
                     isSelected
-                      ? 'bg-[#fafaf9] border-[#b8934a]/60 shadow-md ring-1 ring-[#b8934a]/20 scale-[1.01]'
-                      : 'bg-white border-black/[0.06] hover:border-black/20 hover:shadow-sm'
+                      ? 'bg-canvas border-brass/60 shadow-md ring-1 ring-brass/20 scale-[1.01]'
+                      : 'bg-white border-hairline hover:border-black/20 hover:shadow-sm'
                   }`}
                 >
                   {/* Specular Light Refraction Sheen Sweep on Selection */}
@@ -98,7 +98,7 @@ export const ColorStudio: React.FC = () => {
                       </div>
 
                       {isSelected && (
-                        <span className="flex items-center gap-1 text-[11px] font-mono text-[#b8934a] font-semibold">
+                        <span className="flex items-center gap-1 text-[11px] font-mono text-brass font-semibold">
                           <Sparkles className="w-3 h-3" /> Selected
                         </span>
                       )}
@@ -111,7 +111,7 @@ export const ColorStudio: React.FC = () => {
                     </p>
                   </div>
 
-                  <div className="mt-6 pt-4 border-t border-black/[0.06] text-[11px] font-mono text-zinc-400">
+                  <div className="mt-6 pt-4 border-t border-hairline text-[11px] font-mono text-zinc-400">
                     {finish.material}
                   </div>
                 </div>

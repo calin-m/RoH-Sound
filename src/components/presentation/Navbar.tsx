@@ -47,8 +47,8 @@ export const Navbar: React.FC = () => {
         <div
           className={`w-full max-w-6xl rounded-full transition-all duration-300 flex items-center justify-between px-5 sm:px-7 py-2.5 ${
             isScrolled
-              ? 'glass-crystal shadow-[0_12px_30px_rgba(0,0,0,0.04)] border border-black/[0.06]'
-              : 'bg-white/60 backdrop-blur-md border border-black/[0.04]'
+              ? 'glass-crystal shadow-[0_12px_30px_rgba(0,0,0,0.04)] border border-hairline'
+              : 'bg-white/60 backdrop-blur-md border border-hairline-subtle'
           }`}
         >
           {/* Brand Monogram */}
@@ -56,7 +56,7 @@ export const Navbar: React.FC = () => {
             <div className="relative flex items-center justify-center">
               {/* Ambient Acoustic Wave Ring */}
               <div
-                className="absolute -inset-1 rounded-full border border-[#b8934a]/30 animate-ping opacity-20 pointer-events-none"
+                className="absolute -inset-1 rounded-full border border-brass/30 animate-ping opacity-20 pointer-events-none"
                 style={{ animationDuration: '3.2s' }}
               />
               {/* Vibrating Speaker Transducer Cone */}
@@ -68,7 +68,7 @@ export const Navbar: React.FC = () => {
               </div>
             </div>
             <span className="font-sans text-sm font-semibold tracking-[0.2em] text-zinc-900 uppercase">
-              RoH<span className="text-[#b8934a] font-normal ml-0.5">·</span>SOUND
+              RoH<span className="text-brass font-normal ml-0.5">·</span>SOUND
             </span>
           </a>
 
@@ -88,7 +88,7 @@ export const Navbar: React.FC = () => {
               aria-label="Pre-Order • $399"
               className="flex items-center gap-1.5 sm:gap-2 bg-zinc-950 hover:bg-zinc-800 text-white rounded-full px-3 py-1 sm:px-4 sm:py-1.5 text-[11px] sm:text-xs font-medium tracking-wider uppercase transition-all duration-200 hover:shadow-md active:scale-98 cursor-pointer shrink-0"
             >
-              <Sparkles className="w-3 h-3 text-[#d4af37] shrink-0" />
+              <Sparkles className="w-3 h-3 text-brass-light shrink-0" />
               <span>
                 Pre-Order<span className="hidden sm:inline"> • $399</span>
               </span>
@@ -121,10 +121,10 @@ export const Navbar: React.FC = () => {
       {mobileMenuOpen && (
         <div
           data-testid="mobile-menu-drawer"
-          className="lg:hidden fixed inset-x-4 top-18 bg-white/95 backdrop-blur-2xl rounded-3xl border border-black/[0.08] p-6 shadow-2xl z-50 transition-all duration-300 animate-in fade-in zoom-in-95 slide-in-from-top-3"
+          className="lg:hidden fixed inset-x-4 top-18 bg-white/95 backdrop-blur-2xl rounded-3xl border border-hairline-strong p-6 shadow-2xl z-50 transition-all duration-300 animate-in fade-in zoom-in-95 slide-in-from-top-3"
         >
           {/* Mobile Drawer Header with Close & ESC Indicator */}
-          <div className="flex items-center justify-between pb-3 mb-2 border-b border-black/[0.06]">
+          <div className="flex items-center justify-between pb-3 mb-2 border-b border-hairline">
             <span className="text-[11px] font-mono uppercase tracking-widest text-zinc-400">
               Navigation
             </span>
@@ -150,7 +150,7 @@ export const Navbar: React.FC = () => {
                 {link.name}
               </a>
             ))}
-            <div className="pt-3 border-t border-black/[0.06]">
+            <div className="pt-3 border-t border-hairline">
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);

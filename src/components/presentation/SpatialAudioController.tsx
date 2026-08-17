@@ -19,9 +19,9 @@ export const SpatialAudioController: React.FC<SpatialAudioControllerProps> = ({
   return (
     <div className={`space-y-4 ${className}`} data-testid="spatial-audio-controller">
       {/* Toggle Bar */}
-      <div className="flex items-center justify-between p-3.5 bg-white rounded-2xl border border-black/[0.06]">
+      <div className="flex items-center justify-between p-3.5 bg-white rounded-2xl border border-hairline">
         <div className="flex items-center gap-2">
-          <Compass className="w-4 h-4 text-[#b8934a]" />
+          <Compass className="w-4 h-4 text-brass" />
           <div>
             <div className="text-xs font-semibold text-zinc-900">Dynamic Head Tracking</div>
             <div className="text-[11px] text-zinc-500 font-light">
@@ -47,7 +47,7 @@ export const SpatialAudioController: React.FC<SpatialAudioControllerProps> = ({
       </div>
 
       {/* Manual Radial Angle Slider */}
-      <div className="p-4 bg-white rounded-2xl border border-black/[0.06] space-y-2">
+      <div className="p-4 bg-white rounded-2xl border border-hairline space-y-2">
         <div className="flex items-center justify-between text-xs font-mono">
           <span className="text-zinc-500">Virtual Emitter Position</span>
           <span className="text-zinc-950 font-bold">{angle}° Azimuth</span>

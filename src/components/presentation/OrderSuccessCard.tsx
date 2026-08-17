@@ -33,7 +33,7 @@ export const OrderSuccessCard: React.FC<OrderSuccessCardProps> = ({
         Thank you, <strong className="text-zinc-900">{customerName}</strong>. Your custom RoH Sound set is scheduled for precision calibration.
       </p>
 
-      <div className="p-4 bg-[#fafaf9] rounded-2xl border border-black/[0.06] text-left space-y-2 font-mono text-xs">
+      <div className="p-4 bg-canvas rounded-2xl border border-hairline text-left space-y-2 font-mono text-xs">
         <div className="flex justify-between">
           <span className="text-zinc-500">Reservation Code:</span>
           <span className="font-bold text-zinc-950">{reservationCode}</span>
@@ -45,7 +45,7 @@ export const OrderSuccessCard: React.FC<OrderSuccessCardProps> = ({
         {engravingText && (
           <div className="flex justify-between">
             <span className="text-zinc-500">Engraving:</span>
-            <span className="text-[#b8934a] font-bold">&ldquo;{engravingText}&rdquo;</span>
+            <span className="text-brass font-bold">&ldquo;{engravingText}&rdquo;</span>
           </div>
         )}
         <div className="flex justify-between">
@@ -54,7 +54,7 @@ export const OrderSuccessCard: React.FC<OrderSuccessCardProps> = ({
             {hasExtendedWarranty ? '5 Years Extended' : '1 Year Standard'}
           </span>
         </div>
-        <div className="flex justify-between pt-2 border-t border-black/[0.06]">
+        <div className="flex justify-between pt-2 border-t border-hairline">
           <span className="text-zinc-500">Estimated Dispatch:</span>
           <span className="text-emerald-600 font-semibold">{estimatedShipDate}</span>
         </div>

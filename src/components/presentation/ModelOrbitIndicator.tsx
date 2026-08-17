@@ -18,20 +18,20 @@ export const ModelOrbitIndicator: React.FC<ModelOrbitIndicatorProps> = ({
 }) => {
   return (
     <div
-      className={`inline-flex items-center gap-3 bg-white/85 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-black/[0.06] shadow-xs select-none ${className}`}
+      className={`inline-flex items-center gap-3 bg-white/85 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-hairline shadow-xs select-none ${className}`}
       data-testid="model-orbit-indicator"
     >
       {/* 3D Interaction Status */}
       <div className="flex items-center gap-1.5 text-xs font-mono text-zinc-600">
         {isDragging ? (
           <>
-            <MoveHorizontal className="w-3.5 h-3.5 text-[#b8934a] animate-pulse" />
+            <MoveHorizontal className="w-3.5 h-3.5 text-brass animate-pulse" />
             <span className="text-zinc-950 font-medium tracking-wide">360° Free Orbit</span>
           </>
         ) : (
           <>
             <RotateCw
-              className={`w-3.5 h-3.5 text-[#b8934a] ${
+              className={`w-3.5 h-3.5 text-brass ${
                 isAutoRotating ? 'animate-[spin_4s_linear_infinite]' : ''
               }`}
             />
@@ -44,7 +44,7 @@ export const ModelOrbitIndicator: React.FC<ModelOrbitIndicatorProps> = ({
       </div>
 
       {/* Vertical Hairline Divider */}
-      <div className="w-[1px] h-3.5 bg-black/[0.08]" aria-hidden="true" />
+      <div className="w-[1px] h-3.5 bg-hairline" aria-hidden="true" />
 
       {/* Orbit Pause/Play Toggle Button */}
       <button
@@ -60,7 +60,7 @@ export const ModelOrbitIndicator: React.FC<ModelOrbitIndicatorProps> = ({
           </>
         ) : (
           <>
-            <Play className="w-2.5 h-2.5 text-[#b8934a] fill-[#b8934a]" />
+            <Play className="w-2.5 h-2.5 text-brass fill-brass" />
             <span>Orbit</span>
           </>
         )}

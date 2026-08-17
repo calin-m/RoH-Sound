@@ -11,7 +11,7 @@ export interface ReviewCardProps {
 export const ReviewCard: React.FC<ReviewCardProps> = ({ review, className = '' }) => {
   return (
     <div
-      className={`w-full bg-[#fafaf9] rounded-3xl p-7 border border-black/[0.06] flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow ${className}`}
+      className={`w-full bg-canvas rounded-3xl p-7 border border-hairline flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow ${className}`}
       data-testid={`review-card-${review.id}`}
     >
       <div>
@@ -20,7 +20,7 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ review, className = '' }
           <StarRating rating={review.rating} />
 
           {review.verified && (
-            <span className="inline-flex items-center gap-1 text-[10px] font-mono text-zinc-500 bg-white px-2 py-0.5 rounded-full border border-black/[0.06]">
+            <span className="inline-flex items-center gap-1 text-[10px] font-mono text-zinc-500 bg-white px-2 py-0.5 rounded-full border border-hairline">
               <ShieldCheck className="w-3 h-3 text-emerald-600" /> Verified
             </span>
           )}
@@ -31,7 +31,7 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ review, className = '' }
         </p>
       </div>
 
-      <div className="mt-6 pt-4 border-t border-black/[0.06] flex items-center justify-between">
+      <div className="mt-6 pt-4 border-t border-hairline flex items-center justify-between">
         <div>
           <span className="block text-xs font-semibold text-zinc-950">{review.author}</span>
           <span className="text-[11px] text-zinc-400 font-light">{review.role}</span>

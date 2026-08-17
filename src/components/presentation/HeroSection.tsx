@@ -31,7 +31,7 @@ export const HeroSection: React.FC = () => {
         {/* Section Header & Rating Badge */}
         <MotionReveal direction="down" duration={600}>
           <SectionHeader step="01" eyebrow="Acoustic Architecture" className="!mb-6">
-            <div className="flex items-center gap-2 bg-white/80 backdrop-blur-md px-3.5 py-1 rounded-full border border-black/[0.06] text-xs font-medium text-zinc-600 shadow-xs">
+            <div className="flex items-center gap-2 bg-white/80 backdrop-blur-md px-3.5 py-1 rounded-full border border-hairline text-xs font-medium text-zinc-600 shadow-xs">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
               <span>4.9 / 5.0 Rating • 1,240+ Sound Engineers</span>
             </div>
@@ -57,7 +57,7 @@ export const HeroSection: React.FC = () => {
 
             {/* Colorway Switcher */}
             <MotionReveal direction="up" delay={300} duration={700}>
-              <div className="mt-8 pt-6 border-t border-black/[0.06]">
+              <div className="mt-8 pt-6 border-t border-hairline">
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-xs uppercase tracking-widest text-zinc-500 font-mono">
                     Finish: <strong className="text-zinc-950 capitalize">{selectedColor}</strong>
@@ -81,9 +81,9 @@ export const HeroSection: React.FC = () => {
                 <MagneticButton strength={0.15}>
                   <button
                     onClick={() => setDrawerOpen(true)}
-                    className="flex items-center gap-2.5 bg-zinc-950 hover:bg-zinc-900 text-white rounded-full px-7 sm:px-8 py-4 text-xs font-semibold tracking-widest uppercase transition-all duration-300 shadow-md hover:shadow-[0_10px_28px_rgba(184,147,74,0.2)] border border-white/10 hover:border-[#b8934a]/40 active:scale-98 cursor-pointer"
+                    className="flex items-center gap-2.5 bg-zinc-950 hover:bg-zinc-900 text-white rounded-full px-7 sm:px-8 py-4 text-xs font-semibold tracking-widest uppercase transition-all duration-300 shadow-md hover:shadow-[0_10px_28px_rgba(184,147,74,0.2)] border border-white/10 hover:border-brass/40 active:scale-98 cursor-pointer"
                   >
-                    <Sparkles className="w-4 h-4 text-[#d4af37]" />
+                    <Sparkles className="w-4 h-4 text-brass-light" />
                     <AcousticTextWave text="Pre-Order RoH Sound • $399" />
                   </button>
                 </MagneticButton>

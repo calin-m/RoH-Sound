@@ -30,11 +30,11 @@ export const BentoCard: React.FC<BentoCardProps> = ({
 }) => {
   return (
     <div
-      className={`w-full bg-white rounded-3xl p-6 sm:p-8 border border-black/[0.06] shadow-sm flex flex-col justify-between group hover:border-[#b8934a]/30 hover:shadow-md transition-all duration-300 relative overflow-hidden ${className}`}
+      className={`w-full bg-white rounded-3xl p-6 sm:p-8 border border-hairline shadow-sm flex flex-col justify-between group hover:border-brass/30 hover:shadow-md transition-all duration-300 relative overflow-hidden ${className}`}
       data-testid="bento-card"
     >
       {/* Subtle corner light refraction on hover */}
-      <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#b8934a]/[0.06] to-transparent rounded-bl-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-brass/[0.06] to-transparent rounded-bl-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
       <div>
         <div className="flex items-start justify-between">
@@ -52,7 +52,7 @@ export const BentoCard: React.FC<BentoCardProps> = ({
           </div>
 
           {topRightIcon && (
-            <div className="w-12 h-12 rounded-2xl bg-zinc-50 border border-black/[0.06] flex items-center justify-center text-zinc-900 group-hover:scale-110 group-hover:border-[#b8934a]/40 group-hover:bg-[#b8934a]/[0.05] group-hover:text-[#b8934a] transition-all duration-300 shrink-0 ml-4 shadow-2xs">
+            <div className="w-12 h-12 rounded-2xl bg-zinc-50 border border-hairline flex items-center justify-center text-zinc-900 group-hover:scale-110 group-hover:border-brass/40 group-hover:bg-brass/[0.05] group-hover:text-brass transition-all duration-300 shrink-0 ml-4 shadow-2xs">
               {topRightIcon}
             </div>
           )}
@@ -62,7 +62,7 @@ export const BentoCard: React.FC<BentoCardProps> = ({
       </div>
 
       {stats && stats.length > 0 && (
-        <div className="grid grid-cols-3 gap-2 sm:gap-4 mt-8 pt-6 border-t border-black/[0.06]">
+        <div className="grid grid-cols-3 gap-2 sm:gap-4 mt-8 pt-6 border-t border-hairline">
           {stats.map((stat, i) => (
             <div key={i}>
               <span className="block font-mono text-base sm:text-2xl font-medium text-zinc-950">
@@ -77,7 +77,7 @@ export const BentoCard: React.FC<BentoCardProps> = ({
       )}
 
       {footer && (
-        <div className="mt-6 pt-4 border-t border-black/[0.06]">
+        <div className="mt-6 pt-4 border-t border-hairline">
           {footer}
         </div>
       )}

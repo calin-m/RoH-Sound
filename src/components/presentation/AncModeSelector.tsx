@@ -49,7 +49,7 @@ export const AncModeSelector: React.FC<AncModeSelectorProps> = ({
           className={`w-full text-left p-3.5 rounded-2xl border transition-all duration-200 flex items-start justify-between cursor-pointer ${
             currentMode === mode.id
               ? 'bg-white border-zinc-950 shadow-xs ring-1 ring-zinc-950/10'
-              : 'bg-white border-black/[0.08] shadow-xs hover:border-black/[0.15]'
+              : 'bg-white border-hairline shadow-xs hover:border-black/[0.15]'
           }`}
           aria-pressed={currentMode === mode.id}
         >
@@ -59,12 +59,12 @@ export const AncModeSelector: React.FC<AncModeSelectorProps> = ({
           </div>
           <div className="relative shrink-0 ml-2">
             {currentMode === mode.id && (
-              <span className="absolute -inset-0.5 rounded-lg bg-[#b8934a]/25 animate-ping pointer-events-none" />
+              <span className="absolute -inset-0.5 rounded-lg bg-brass/25 animate-ping pointer-events-none" />
             )}
             <span
               className={`relative font-mono text-[11px] px-2.5 py-0.5 rounded-md transition-all duration-300 ${
                 currentMode === mode.id
-                  ? 'bg-zinc-950 text-white font-medium shadow-xs border border-[#b8934a]/40'
+                  ? 'bg-zinc-950 text-white font-medium shadow-xs border border-brass/40'
                   : 'bg-zinc-100 text-zinc-600'
               }`}
             >

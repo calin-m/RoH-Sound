@@ -64,7 +64,7 @@ flowchart TD
         Studio["Material Studio (ColorStudio.tsx)"]
         Specs["Technical Architecture (TechnicalSpecs.tsx)"]
         Reviews["Verified Reviews (ReviewsSection.tsx)"]
-        FAQ["Concierge & FAQ (FAQSection.tsx)"]
+        FAQ["Inquiries & FAQ (FAQSection.tsx)"]
         Drawer["Slide-Over Checkout (CheckoutDrawer.tsx)"]
         LaserEngrave["Live Laser Preview (LaserEngravingPreview.tsx)"]
         FloatingTop["Floating Back to Top Pill (Footer.tsx)"]

@@ -37,7 +37,7 @@ export const PreorderForm: React.FC<PreorderFormProps> = ({
           placeholder="Jane Doe"
           value={customerName}
           onChange={(e) => onNameChange(e.target.value)}
-          className="w-full bg-[#fafaf9] border border-black/[0.08] rounded-xl px-3.5 py-2.5 text-base sm:text-xs text-zinc-950 focus:outline-none focus:ring-1 focus:ring-zinc-950"
+          className="w-full bg-canvas border border-hairline rounded-xl px-3.5 py-2.5 text-base sm:text-xs text-zinc-950 focus:outline-none focus:ring-1 focus:ring-zinc-950"
         />
       </div>
 
@@ -52,7 +52,7 @@ export const PreorderForm: React.FC<PreorderFormProps> = ({
           placeholder="jane@studio.com"
           value={customerEmail}
           onChange={(e) => onEmailChange(e.target.value)}
-          className="w-full bg-[#fafaf9] border border-black/[0.08] rounded-xl px-3.5 py-2.5 text-base sm:text-xs text-zinc-950 focus:outline-none focus:ring-1 focus:ring-zinc-950"
+          className="w-full bg-canvas border border-hairline rounded-xl px-3.5 py-2.5 text-base sm:text-xs text-zinc-950 focus:outline-none focus:ring-1 focus:ring-zinc-950"
         />
       </div>
 
@@ -69,12 +69,12 @@ export const PreorderForm: React.FC<PreorderFormProps> = ({
       >
         {isPending ? (
           <>
-            <Loader2 className="w-4 h-4 animate-spin text-[#d4af37]" />
+            <Loader2 className="w-4 h-4 animate-spin text-brass-light" />
             <span>Reserving Serial Number...</span>
           </>
         ) : (
           <>
-            <Sparkles className="w-4 h-4 text-[#d4af37]" />
+            <Sparkles className="w-4 h-4 text-brass-light" />
             <span>Reserve for ${totalPrice}</span>
           </>
         )}

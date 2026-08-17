@@ -8,7 +8,7 @@ import { Cpu, BatteryCharging, Zap, Feather, Waves, Bluetooth } from 'lucide-rea
 
 export const AcousticBento: React.FC = () => {
   return (
-    <section id="acoustic" className="py-24 px-4 sm:px-8 bg-[#fafaf9]">
+    <section id="acoustic" className="py-24 px-4 sm:px-8 bg-canvas">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <MotionReveal direction="up">
@@ -26,11 +26,11 @@ export const AcousticBento: React.FC = () => {
           {/* Card 1: 45mm Custom Driver (Large 8-col) */}
           <MotionReveal direction="up" delay={50} className="md:col-span-8 flex">
             <BentoCard
-              badgeIcon={<Waves className="w-3 h-3 text-[#b8934a]" />}
+              badgeIcon={<Waves className="w-3 h-3 text-brass" />}
               badgeText="Diaphragm Matrix"
               title="45mm Custom Graphene Driver"
               description="Ultralight graphene vapor-deposited on a titanium substrate delivers lightning-fast transient response and near-zero harmonic distortion (< 0.05% THD)."
-              topRightIcon={<Zap className="w-5 h-5 text-[#b8934a]" />}
+              topRightIcon={<Zap className="w-5 h-5 text-brass" />}
               stats={[
                 { value: '4Hz – 45kHz', label: 'Frequency Range' },
                 { value: '< 0.05%', label: 'Total Distortion' },
@@ -42,7 +42,7 @@ export const AcousticBento: React.FC = () => {
           {/* Card 2: Neural DSP H1 (4-col) */}
           <MotionReveal direction="up" delay={100} className="md:col-span-4 flex">
             <BentoCard
-              badgeIcon={<Cpu className="w-3 h-3 text-[#b8934a]" />}
+              badgeIcon={<Cpu className="w-3 h-3 text-brass" />}
               badgeText="Silicon Architecture"
               title="H1 Neural DSP"
               description="Dedicated dual-core digital signal processor sampling acoustic environmental feedback 50,000 times per second with ultra-low 24ms gaming latency."
@@ -90,7 +90,7 @@ export const AcousticBento: React.FC = () => {
           {/* Card 5: Ergonomics & Weight (4-col) */}
           <MotionReveal direction="up" delay={250} className="md:col-span-4 flex">
             <BentoCard
-              badgeIcon={<Feather className="w-3 h-3 text-[#b8934a]" />}
+              badgeIcon={<Feather className="w-3 h-3 text-brass" />}
               badgeText="Ergonomics"
               title="240g Featherweight"
               description="Die-cast magnesium frame wrapped in breathable Italian protein leather memory foam cushions for fatigue-free all-day listening."

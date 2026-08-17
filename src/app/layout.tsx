@@ -32,7 +32,7 @@ export default function RootLayout({
     >
       <body
         suppressHydrationWarning
-        className="min-h-full flex flex-col bg-[#fafaf9] text-zinc-900 selection:bg-zinc-900 selection:text-white"
+        className="min-h-full flex flex-col bg-canvas text-zinc-900 selection:bg-zinc-900 selection:text-white"
       >
         <Providers>{children}</Providers>
       </body>

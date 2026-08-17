@@ -21,7 +21,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
     <div className={`mb-8 ${className}`}>
       {/* Step Badge & Eyebrow */}
       <div className="flex items-center gap-3 mb-4">
-        <span className="font-mono text-xs font-semibold tracking-widest text-[#b8934a]">
+        <span className="font-mono text-xs font-semibold tracking-widest text-brass">
           {step}
         </span>
         <span className="h-3 w-px bg-black/10" />

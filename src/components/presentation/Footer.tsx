@@ -22,7 +22,7 @@ export const Footer: React.FC = () => {
 
   return (
     <>
-      <footer className="bg-white border-t border-black/[0.06] pt-16 pb-20 px-4 sm:px-8">
+      <footer className="bg-white border-t border-hairline pt-16 pb-20 px-4 sm:px-8">
         <div className="max-w-6xl mx-auto flex flex-col justify-between gap-12">
           <MotionReveal direction="up">
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
@@ -32,7 +32,7 @@ export const Footer: React.FC = () => {
                     R
                   </div>
                   <span className="font-sans text-sm font-semibold tracking-[0.2em] text-zinc-950 uppercase">
-                    RoH<span className="text-[#b8934a] font-normal ml-0.5">·</span>SOUND
+                    RoH<span className="text-brass font-normal ml-0.5">·</span>SOUND
                   </span>
                 </div>
                 <p className="mt-4 text-xs text-zinc-500 font-light max-w-sm leading-relaxed">
@@ -66,7 +66,7 @@ export const Footer: React.FC = () => {
             </div>
           </MotionReveal>
 
-          <div className="pt-8 border-t border-black/[0.06] flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] font-mono text-zinc-400">
+          <div className="pt-8 border-t border-hairline flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] font-mono text-zinc-400">
             <div>
               © {new Date().getFullYear()}{' '}
               <a
@@ -93,7 +93,7 @@ export const Footer: React.FC = () => {
           <button
             onClick={scrollToTop}
             aria-label="Scroll back to top"
-            className="flex items-center gap-1.5 px-3.5 py-2 bg-white/95 hover:bg-white text-zinc-700 hover:text-zinc-950 text-xs font-mono rounded-full border border-black/[0.08] shadow-xl backdrop-blur-md transition-all hover:-translate-y-0.5 active:scale-95 cursor-pointer group"
+            className="flex items-center gap-1.5 px-3.5 py-2 bg-white/95 hover:bg-white text-zinc-700 hover:text-zinc-950 text-xs font-mono rounded-full border border-hairline shadow-xl backdrop-blur-md transition-all hover:-translate-y-0.5 active:scale-95 cursor-pointer group"
           >
             <ArrowUp className="w-3.5 h-3.5 text-zinc-500 group-hover:text-zinc-950 transition-transform group-hover:-translate-y-0.5 duration-200" />
             <span>Back to top</span>

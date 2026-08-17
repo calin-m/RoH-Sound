@@ -22,7 +22,7 @@ export const StarRating: React.FC<StarRatingProps> = ({
 }) => {
   return (
     <div
-      className={`flex items-center gap-1 text-[#b8934a] ${className}`}
+      className={`flex items-center gap-1 text-brass ${className}`}
       aria-label={`Rating: ${rating} out of ${maxRating} stars`}
       data-testid="star-rating"
     >
@@ -31,7 +31,7 @@ export const StarRating: React.FC<StarRatingProps> = ({
         return (
           <Star
             key={i}
-            className={`${sizeClasses[size]} ${isFilled ? 'fill-[#b8934a]' : 'text-zinc-300'}`}
+            className={`${sizeClasses[size]} ${isFilled ? 'fill-brass' : 'text-zinc-300'}`}
           />
         );
       })}

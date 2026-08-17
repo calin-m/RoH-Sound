@@ -30,7 +30,7 @@ export const AcousticNavLink: React.FC<AcousticNavLinkProps> = ({
             <span
               key={index}
               aria-hidden="true"
-              className="inline-block transition-transform duration-300 ease-[var(--ease-spring)] group-hover/navlink:-translate-y-[3.5px] group-hover/navlink:text-zinc-950 will-change-transform"
+              className="inline-block transition-transform duration-300 ease-spring group-hover/navlink:-translate-y-[3.5px] group-hover/navlink:text-zinc-950 will-change-transform"
               style={{
                 transitionDelay: `${index * 24}ms`,
               }}
@@ -44,7 +44,7 @@ export const AcousticNavLink: React.FC<AcousticNavLinkProps> = ({
       {/* Acoustic Hairline Sweep Underline */}
       <span
         aria-hidden="true"
-        className="absolute bottom-0 left-0 h-[1.5px] w-0 group-hover/navlink:w-full bg-[#b8934a] transition-all duration-300 ease-[var(--ease-smooth)] rounded-full pointer-events-none opacity-80"
+        className="absolute bottom-0 left-0 h-[1.5px] w-0 group-hover/navlink:w-full bg-brass transition-all duration-300 ease-smooth rounded-full pointer-events-none opacity-80"
       />
     </a>
   );

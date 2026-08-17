@@ -96,7 +96,7 @@ export const CheckoutDrawer: React.FC = () => {
         onClick={handleClose}
         onTouchEnd={handleClose}
         data-testid="drawer-backdrop"
-        className={`fixed inset-0 bg-black/40 backdrop-blur-xs transition-opacity duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        className={`fixed inset-0 bg-black/40 backdrop-blur-xs transition-opacity duration-400 ease-smooth ${
           isDrawerOpen ? 'opacity-100' : 'opacity-0'
         }`}
       />
@@ -104,12 +104,12 @@ export const CheckoutDrawer: React.FC = () => {
       <div className="fixed inset-y-0 right-0 max-w-full flex pl-0 sm:pl-10">
         <div
           data-testid="drawer-panel"
-          className={`w-screen max-w-md bg-white shadow-2xl flex flex-col justify-between border-l border-black/[0.06] transform transition-transform duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          className={`w-screen max-w-md bg-white shadow-2xl flex flex-col justify-between border-l border-hairline transform transition-transform duration-400 ease-smooth ${
             isDrawerOpen ? 'translate-x-0' : 'translate-x-full'
           }`}
         >
           {/* Header */}
-          <div className="p-6 border-b border-black/[0.06] flex items-center justify-between bg-[#fafaf9]">
+          <div className="p-6 border-b border-hairline flex items-center justify-between bg-canvas">
             <div>
               <span className="text-[11px] font-mono uppercase tracking-widest text-zinc-500">
                 Priority Atelier Batch 01
@@ -171,11 +171,11 @@ export const CheckoutDrawer: React.FC = () => {
                   className={`p-3.5 rounded-2xl border transition-all cursor-pointer flex items-center justify-between ${
                     hasExtendedWarranty
                       ? 'bg-zinc-950 text-white border-zinc-950 shadow-xs'
-                      : 'bg-[#fafaf9] border-black/[0.06] text-zinc-700 hover:bg-zinc-50'
+                      : 'bg-canvas border-hairline text-zinc-700 hover:bg-zinc-50'
                   }`}
                 >
                   <div className="flex items-center gap-3">
-                    <ShieldCheck className={`w-5 h-5 ${hasExtendedWarranty ? 'text-[#b8934a]' : 'text-zinc-500'}`} />
+                    <ShieldCheck className={`w-5 h-5 ${hasExtendedWarranty ? 'text-brass' : 'text-zinc-500'}`} />
                     <div>
                       <div className="text-xs font-semibold">5-Year Extended Warranty</div>
                       <div className={`text-[11px] font-light ${hasExtendedWarranty ? 'text-zinc-300' : 'text-zinc-500'}`}>
@@ -202,7 +202,7 @@ export const CheckoutDrawer: React.FC = () => {
           </div>
 
           {/* Footer Highlights */}
-          <div className="p-6 bg-[#fafaf9] border-t border-black/[0.06] space-y-2">
+          <div className="p-6 bg-canvas border-t border-hairline space-y-2">
             <div className="flex items-center gap-2 text-[11px] font-mono text-zinc-500">
               <Truck className="w-3.5 h-3.5 text-zinc-700" />
               <span>Complimentary worldwide express insured courier</span>

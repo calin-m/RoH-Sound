@@ -46,7 +46,7 @@ export const TechnicalSpecs: React.FC = () => {
   ];
 
   return (
-    <section id="specs" className="py-24 px-4 sm:px-8 bg-[#fafaf9]">
+    <section id="specs" className="py-24 px-4 sm:px-8 bg-canvas">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <MotionReveal direction="up">
@@ -61,15 +61,15 @@ export const TechnicalSpecs: React.FC = () => {
 
         {/* Tab Navigation */}
         <MotionReveal direction="up" delay={100}>
-          <div className="flex flex-wrap gap-2.5 mb-8 border-b border-black/[0.06] pb-4">
+          <div className="flex flex-wrap gap-2.5 mb-8 border-b border-hairline pb-4">
             {categories.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveCategory(tab.id)}
                 className={`px-5 py-2.5 rounded-full text-xs font-medium uppercase tracking-wider transition-all duration-300 cursor-pointer ${
                   activeCategory === tab.id
-                    ? 'bg-zinc-950 text-white shadow-md ring-1 ring-[#b8934a]/30 scale-[1.03]'
-                    : 'bg-white text-zinc-600 border border-black/[0.06] hover:bg-zinc-50 hover:text-zinc-950 hover:scale-[1.01]'
+                    ? 'bg-zinc-950 text-white shadow-md ring-1 ring-brass/30 scale-[1.03]'
+                    : 'bg-white text-zinc-600 border border-hairline hover:bg-zinc-50 hover:text-zinc-950 hover:scale-[1.01]'
                 }`}
               >
                 {tab.label}
@@ -80,11 +80,11 @@ export const TechnicalSpecs: React.FC = () => {
 
         {/* Spec Matrix List */}
         <MotionReveal direction="up" delay={200}>
-          <div className="bg-white rounded-3xl border border-black/[0.06] divide-y divide-black/[0.04] shadow-sm mb-16 overflow-hidden">
+          <div className="bg-white rounded-3xl border border-hairline divide-y divide-hairline-subtle shadow-sm mb-16 overflow-hidden">
             {specsData[activeCategory].map((spec, index) => (
               <div
                 key={index}
-                className="p-6 sm:px-8 flex flex-col sm:flex-row sm:items-center justify-between gap-2 hover:bg-zinc-50/75 transition-all border-l-2 border-transparent hover:border-[#b8934a] hover:pl-7 sm:hover:pl-9"
+                className="p-6 sm:px-8 flex flex-col sm:flex-row sm:items-center justify-between gap-2 hover:bg-zinc-50/75 transition-all border-l-2 border-transparent hover:border-brass hover:pl-7 sm:hover:pl-9"
               >
                 <div>
                   <span className="text-sm font-medium text-zinc-950">{spec.label}</span>

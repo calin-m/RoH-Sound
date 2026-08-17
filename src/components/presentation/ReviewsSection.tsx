@@ -11,7 +11,7 @@ export const ReviewsSection: React.FC = () => {
   const { data: reviews, isLoading } = useReviewsData();
 
   return (
-    <section id="reviews" className="py-24 px-4 sm:px-8 bg-white border-y border-black/[0.06]">
+    <section id="reviews" className="py-24 px-4 sm:px-8 bg-white border-y border-hairline">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <MotionReveal direction="up">

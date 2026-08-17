@@ -38,7 +38,7 @@ export const ColorwaySelector: React.FC<ColorwaySelectorProps> = ({
             className={`flex items-center gap-2.5 p-2.5 rounded-xl border text-xs font-medium transition-all cursor-pointer ${
               selectedColor === c.id
                 ? 'bg-zinc-950 text-white border-zinc-950 shadow-sm'
-                : 'bg-white text-zinc-700 border-black/[0.06] hover:bg-zinc-50'
+                : 'bg-white text-zinc-700 border-hairline hover:bg-zinc-50'
             }`}
             aria-label={`Switch to ${c.label}`}
           >
@@ -61,8 +61,8 @@ export const ColorwaySelector: React.FC<ColorwaySelectorProps> = ({
           onClick={() => onSelectColor(item.id)}
           className={`group relative p-1 rounded-full transition-all duration-300 cursor-pointer ${
             selectedColor === item.id
-              ? 'ring-2 ring-zinc-950 ring-offset-2 ring-offset-[#fafaf9]'
-              : 'hover:ring-1 hover:ring-zinc-400 ring-offset-1 ring-offset-[#fafaf9]'
+              ? 'ring-2 ring-zinc-950 ring-offset-2 ring-offset-canvas'
+              : 'hover:ring-1 hover:ring-zinc-400 ring-offset-1 ring-offset-canvas'
           }`}
           aria-label={`Select ${item.label}`}
         >
