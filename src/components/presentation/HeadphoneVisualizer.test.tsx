@@ -81,7 +81,7 @@ describe('HeadphoneVisualizer', () => {
     vi.useRealTimers();
   });
 
-  it('handles mobile touch swipe gestures navigation', () => {
+  it('renders passive visualizer viewport without touch event interceptors', () => {
     const onAngleChangeMock = vi.fn();
     const { container } = render(
       <HeadphoneVisualizer
@@ -91,28 +91,8 @@ describe('HeadphoneVisualizer', () => {
       />
     );
 
-    const touchArea = container.querySelector('[class*="h-[320px]"]');
-    expect(touchArea).toBeTruthy();
-
-    if (touchArea) {
-      // 1. Simulate left swipe (advances from front -> controls)
-      fireEvent.touchStart(touchArea, {
-        touches: [{ clientX: 200, clientY: 100 }],
-      });
-      fireEvent.touchEnd(touchArea, {
-        changedTouches: [{ clientX: 100, clientY: 100 }],
-      });
-      expect(onAngleChangeMock).toHaveBeenLastCalledWith('controls');
-
-      // 2. Simulate right swipe (advances back from controls -> front)
-      fireEvent.touchStart(touchArea, {
-        touches: [{ clientX: 100, clientY: 100 }],
-      });
-      fireEvent.touchEnd(touchArea, {
-        changedTouches: [{ clientX: 200, clientY: 100 }],
-      });
-      expect(onAngleChangeMock).toHaveBeenLastCalledWith('front');
-    }
+    const viewportArea = container.querySelector('[class*="h-[320px]"]');
+    expect(viewportArea).toBeTruthy();
   });
 
   it('renders all colorways and perspectives with live demo soundwaves', () => {

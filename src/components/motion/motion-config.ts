@@ -28,5 +28,5 @@ export const MOTION_CONFIG: MotionConfig = {
   distance: 24,
   staggerInterval: 75,
   threshold: 0.1,
-  once: true,
+  once: false,
 };

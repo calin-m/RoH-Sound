@@ -101,70 +101,75 @@ export const Navbar: React.FC = () => {
               aria-label={mobileMenuOpen ? 'Close menu' : 'Toggle menu'}
               aria-expanded={mobileMenuOpen}
             >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              <div className={`relative w-5 h-5 flex items-center justify-center transition-transform duration-300 ease-smooth ${mobileMenuOpen ? 'rotate-90' : 'rotate-0'}`}>
+                {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              </div>
             </button>
           </div>
         </div>
       </header>
 
-      {/* Mobile Backdrop Overlay (Tap/Click outside to dismiss) */}
-      {mobileMenuOpen && (
-        <div
-          data-testid="mobile-menu-backdrop"
-          onClick={() => setMobileMenuOpen(false)}
-          className="lg:hidden fixed inset-0 bg-black/25 backdrop-blur-xs z-40 transition-opacity duration-300 animate-in fade-in"
-          aria-hidden="true"
-        />
-      )}
+      {/* Mobile Backdrop Overlay (Tap/Click outside to dismiss with animated in/out) */}
+      <div
+        data-testid="mobile-menu-backdrop"
+        onClick={() => setMobileMenuOpen(false)}
+        aria-hidden={!mobileMenuOpen}
+        className={`lg:hidden fixed inset-0 bg-black/25 backdrop-blur-xs z-40 transition-opacity duration-300 ease-smooth ${
+          mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
+      />
 
-      {/* Mobile Drawer Dropdown with Animated Transitions */}
-      {mobileMenuOpen && (
-        <div
-          data-testid="mobile-menu-drawer"
-          className="lg:hidden fixed inset-x-4 top-18 bg-white/95 backdrop-blur-2xl rounded-3xl border border-hairline-strong p-6 shadow-2xl z-50 transition-all duration-300 animate-in fade-in zoom-in-95 slide-in-from-top-3"
-        >
-          {/* Mobile Drawer Header with Close & ESC Indicator */}
-          <div className="flex items-center justify-between pb-3 mb-2 border-b border-hairline">
-            <span className="text-[11px] font-mono uppercase tracking-widest text-zinc-400">
-              Navigation
-            </span>
-            <button
+      {/* Mobile Drawer Dropdown with Animated In/Out Transitions */}
+      <div
+        data-testid="mobile-menu-drawer"
+        aria-hidden={!mobileMenuOpen}
+        className={`lg:hidden fixed inset-x-4 top-18 bg-white/95 backdrop-blur-2xl rounded-3xl border border-hairline-strong p-6 shadow-2xl z-50 transform transition-all duration-300 ease-smooth origin-top ${
+          mobileMenuOpen
+            ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto'
+            : 'opacity-0 -translate-y-3 scale-95 pointer-events-none'
+        }`}
+      >
+        {/* Mobile Drawer Header with Close & ESC Indicator */}
+        <div className="flex items-center justify-between pb-3 mb-2 border-b border-hairline">
+          <span className="text-[11px] font-mono uppercase tracking-widest text-zinc-400">
+            Navigation
+          </span>
+          <button
+            onClick={() => setMobileMenuOpen(false)}
+            aria-label="Close navigation menu"
+            className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-zinc-100 hover:bg-zinc-200/80 text-zinc-600 hover:text-zinc-950 text-[11px] font-mono transition-all cursor-pointer group active:scale-95"
+          >
+            <span>Close</span>
+            <kbd className="text-[9px] bg-white px-1.5 py-0.5 rounded border border-black/10 text-zinc-400 group-hover:text-zinc-700">ESC</kbd>
+            <X className="w-3.5 h-3.5 text-zinc-500 group-hover:text-zinc-950" />
+          </button>
+        </div>
+
+        <div className="flex flex-col gap-2.5">
+          {navLinks.map((link) => (
+            <a
+              key={link.name}
+              href={link.href}
               onClick={() => setMobileMenuOpen(false)}
-              aria-label="Close navigation menu"
-              className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-zinc-100 hover:bg-zinc-200/80 text-zinc-600 hover:text-zinc-950 text-[11px] font-mono transition-all cursor-pointer group active:scale-95"
+              className="text-sm font-medium uppercase tracking-wider text-zinc-600 hover:text-zinc-950 py-1.5 px-2 rounded-xl hover:bg-zinc-100/60 transition-colors"
             >
-              <span>Close</span>
-              <kbd className="text-[9px] bg-white px-1.5 py-0.5 rounded border border-black/10 text-zinc-400 group-hover:text-zinc-700">ESC</kbd>
-              <X className="w-3.5 h-3.5 text-zinc-500 group-hover:text-zinc-950" />
+              {link.name}
+            </a>
+          ))}
+          <div className="pt-3 border-t border-hairline">
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                setDrawerOpen(true);
+              }}
+              className="w-full flex items-center justify-center gap-2 bg-zinc-950 hover:bg-zinc-900 text-white rounded-full py-3 text-xs font-medium uppercase tracking-widest shadow-md transition-all active:scale-98 cursor-pointer"
+            >
+              <ShoppingBag className="w-4 h-4" />
+              <span>Pre-Order RoH Sound ($399)</span>
             </button>
           </div>
-
-          <div className="flex flex-col gap-2.5">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-sm font-medium uppercase tracking-wider text-zinc-600 hover:text-zinc-950 py-1.5 px-2 rounded-xl hover:bg-zinc-100/60 transition-colors"
-              >
-                {link.name}
-              </a>
-            ))}
-            <div className="pt-3 border-t border-hairline">
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  setDrawerOpen(true);
-                }}
-                className="w-full flex items-center justify-center gap-2 bg-zinc-950 hover:bg-zinc-900 text-white rounded-full py-3 text-xs font-medium uppercase tracking-widest shadow-md transition-all active:scale-98 cursor-pointer"
-              >
-                <ShoppingBag className="w-4 h-4" />
-                <span>Pre-Order RoH Sound ($399)</span>
-              </button>
-            </div>
-          </div>
         </div>
-      )}
+      </div>
     </>
   );
 };

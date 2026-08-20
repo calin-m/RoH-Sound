@@ -46,10 +46,11 @@ describe('Navbar', () => {
     fireEvent.click(menuToggle);
 
     const backdrop = screen.getByTestId('mobile-menu-backdrop');
-    expect(backdrop).toBeInTheDocument();
+    expect(backdrop).toHaveClass('opacity-100');
 
     fireEvent.click(backdrop);
-    expect(screen.queryByTestId('mobile-menu-backdrop')).not.toBeInTheDocument();
+    expect(backdrop).toHaveClass('opacity-0');
+    expect(screen.getByTestId('mobile-menu-drawer')).toHaveClass('opacity-0');
   });
 
   it('closes mobile menu when pressing Escape key', () => {
@@ -57,10 +58,11 @@ describe('Navbar', () => {
     const menuToggle = screen.getByRole('button', { name: /Toggle menu/i });
     fireEvent.click(menuToggle);
 
-    expect(screen.getByTestId('mobile-menu-drawer')).toBeInTheDocument();
+    const drawer = screen.getByTestId('mobile-menu-drawer');
+    expect(drawer).toHaveClass('opacity-100');
 
     fireEvent.keyDown(window, { key: 'Escape' });
-    expect(screen.queryByTestId('mobile-menu-drawer')).not.toBeInTheDocument();
+    expect(drawer).toHaveClass('opacity-0');
   });
 
   it('closes mobile menu when clicking the close button inside drawer', () => {
@@ -72,7 +74,7 @@ describe('Navbar', () => {
     expect(closeBtn).toBeInTheDocument();
 
     fireEvent.click(closeBtn);
-    expect(screen.queryByTestId('mobile-menu-drawer')).not.toBeInTheDocument();
+    expect(screen.getByTestId('mobile-menu-drawer')).toHaveClass('opacity-0');
   });
 
   it('handles scroll event without throwing', () => {

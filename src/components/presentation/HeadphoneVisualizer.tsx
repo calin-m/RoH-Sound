@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ViewAngle, ProductColorway } from '@/stores/useProductStore';
-import { Layers, Eye, SlidersHorizontal, Disc, Play, Pause, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Layers, Eye, SlidersHorizontal, Disc, Play, Pause } from 'lucide-react';
 
 export interface HeadphoneVisualizerProps {
   color: ProductColorway;
@@ -70,7 +70,7 @@ const colorThemes: Record<ProductColorway, ColorPalette> = {
     cupGradStart: '#1c4b3e',
     cupGradEnd: '#14382e',
     metalBase: '#2a6b5a',
-    metalHighlight: '#3d8f7a',
+    metalHighlight: '#4e9a85',
     accentGold: '#d4af37',
     cushionFill: '#0f2922',
     cushionStroke: '#1c4b3e',
@@ -97,8 +97,6 @@ export const HeadphoneVisualizer: React.FC<HeadphoneVisualizerProps> = ({
 }) => {
   const [uncontrolledAngle, setUncontrolledAngle] = useState<ViewAngle>('front');
   const [isAutoTour, setIsAutoTour] = useState(false);
-  const touchStartXRef = useRef<number | null>(null);
-  const touchStartYRef = useRef<number | null>(null);
 
   const currentAngle = angle !== undefined ? angle : uncontrolledAngle;
   const theme = colorThemes[color] || colorThemes.midnight;
@@ -124,60 +122,16 @@ export const HeadphoneVisualizer: React.FC<HeadphoneVisualizerProps> = ({
     onAngleChange?.(newAngle);
   };
 
-  const handleNextAngle = () => {
-    const order: ViewAngle[] = ['front', 'controls', 'side', 'exploded'];
-    const activeId = currentAngle === 'angle' ? 'controls' : currentAngle;
-    const currentIndex = order.indexOf(activeId);
-    const nextIndex = (currentIndex + 1) % order.length;
-    handleSelectAngle(order[nextIndex]);
-  };
-
-  const handlePrevAngle = () => {
-    const order: ViewAngle[] = ['front', 'controls', 'side', 'exploded'];
-    const activeId = currentAngle === 'angle' ? 'controls' : currentAngle;
-    const currentIndex = order.indexOf(activeId);
-    const prevIndex = (currentIndex - 1 + order.length) % order.length;
-    handleSelectAngle(order[prevIndex]);
-  };
-
-  // Touch Swipe Gesture Disambiguation for Mobile
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartXRef.current = e.touches[0].clientX;
-    touchStartYRef.current = e.touches[0].clientY;
-  };
-
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartXRef.current === null || touchStartYRef.current === null) return;
-    const deltaX = e.changedTouches[0].clientX - touchStartXRef.current;
-    const deltaY = e.changedTouches[0].clientY - touchStartYRef.current;
-
-    // Only swipe if horizontal intent dominates vertical scroll
-    if (Math.abs(deltaX) > 40 && Math.abs(deltaX) > Math.abs(deltaY) * 1.5) {
-      if (deltaX > 0) {
-        handlePrevAngle();
-      } else {
-        handleNextAngle();
-      }
-    }
-
-    touchStartXRef.current = null;
-    touchStartYRef.current = null;
-  };
-
   return (
     <div
       className={`flex flex-col items-center justify-center w-full max-w-[460px] select-none ${className}`}
       data-testid="headphone-visualizer"
     >
-      {/* Visualizer Canvas Viewport with Touch Swipe */}
-      <div
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
-        className="relative w-full h-[320px] sm:h-[350px] flex items-center justify-center overflow-hidden"
-      >
+      {/* Visualizer Canvas Viewport */}
+      <div className="relative w-full h-[320px] sm:h-[350px] flex items-center justify-center overflow-visible">
         {/* Soft Ambient Radial Glow matched to finish (3s Calm Breathing) */}
         <div
-          className="absolute inset-0 pointer-events-none rounded-full blur-3xl opacity-60 transition-all duration-700 animate-ambient-breathe"
+          className="absolute w-[270px] h-[270px] sm:w-[310px] sm:h-[310px] pointer-events-none rounded-full blur-2xl opacity-60 transition-all duration-700 animate-ambient-breathe"
           style={{ background: theme.glowColor }}
         />
 
