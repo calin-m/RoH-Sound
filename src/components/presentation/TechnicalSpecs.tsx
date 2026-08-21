@@ -60,7 +60,7 @@ export const TechnicalSpecs: React.FC<TechnicalSpecsProps> = ({
   ];
 
   return (
-    <section id="specs" className="py-24 px-4 sm:px-8 bg-canvas">
+    <section id="specs" className={`py-24 px-4 sm:px-8 bg-canvas ${className}`}>
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <MotionReveal direction="up">

@@ -346,3 +346,36 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #a1a1aa;
 }
+
+/* Offscreen Viewport Optimization */
+.section-visibility-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 750px;
+}
+
+/* Reduced-Motion & Power Conservation Guardrails */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .animate-ambient-breathe,
+  .animate-speaker-pulse,
+  .animate-acoustic-dance,
+  .animate-ripple-1,
+  .animate-ripple-2,
+  .animate-ripple-3,
+  .animate-ripple-4,
+  .animate-spark-glow,
+  .animate-ping,
+  .animate-pulse {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+

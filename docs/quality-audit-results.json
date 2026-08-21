@@ -1,24 +1,24 @@
 {
-  "timestamp": "2026-08-21T14:44:18.356Z",
+  "timestamp": "2026-08-21T15:01:59.167Z",
   "status": "PASSED",
   "tests": {
     "suites": {
-      "total": 89,
-      "passed": 89,
+      "total": 91,
+      "passed": 91,
       "failed": 0
     },
     "cases": {
-      "total": 136,
-      "passed": 136,
+      "total": 143,
+      "passed": 143,
       "failed": 0
     },
-    "durationMs": 12299
+    "durationMs": 12062
   },
   "coverage": {
-    "lines": 96.61,
-    "statements": 95.38,
-    "functions": 96.44,
-    "branches": 91.23,
+    "lines": 96.59,
+    "statements": 95.28,
+    "functions": 96.55,
+    "branches": 89.58,
     "threshold": 85,
     "passed": true
   }
