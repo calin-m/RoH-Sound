@@ -26,6 +26,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ---
 
 ### Recent Git Commit History
+- `f0e5080` - **feat(mobile): implement optical center scroll-spy auto-activation in ColorStudio** (2026-08-21)
 - `5bb44d7` - **feat(design-system): decouple color variables, tokenize css, and enforce approval gate** (2026-08-21)
 - `39d5cee` - **feat(ui): refine floating hero showcase, mobile menu animations, and continuous motion replay** (2026-08-20)
 - `b87bd3a` - **refactor(theme): standardize design tokens, fix mobile GPU rendering, and align FAQ/footer** (2026-08-17)

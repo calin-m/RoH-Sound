@@ -11,6 +11,7 @@ function createWrapper() {
     defaultOptions: {
       queries: {
         retry: false,
+        gcTime: 0,
       },
     },
   });

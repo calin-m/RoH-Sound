@@ -21,5 +21,24 @@ describe('TechnicalSpecs', () => {
     const batteryTab = screen.getByRole('button', { name: /Power & Charging/i });
     fireEvent.click(batteryTab);
     expect(screen.getByText(/Up to 65 Hours/i)).toBeInTheDocument();
+
+    const connectivityTab = screen.getByRole('button', { name: /Wireless & Codecs/i });
+    fireEvent.click(connectivityTab);
+    expect(screen.getByText(/Bluetooth 5\.4 Class 1/i)).toBeInTheDocument();
+
+    const materialsTab = screen.getByRole('button', { name: /Materials & Ergonomics/i });
+    fireEvent.click(materialsTab);
+    expect(screen.getByText(/Memory Foam with Italian Protein Leather/i)).toBeInTheDocument();
+
+    const acousticsTab = screen.getByRole('button', { name: /Acoustics & Transducers/i });
+    fireEvent.click(acousticsTab);
+    expect(screen.getByText(/45mm Custom Titanium-Graphene/i)).toBeInTheDocument();
+  });
+
+  it('renders benchmark comparison matrix with RoH Sound acoustic advantages', () => {
+    render(<TechnicalSpecs />);
+    expect(screen.getByText(/Direct Benchmark Comparison/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/LDAC \+ USB-C Digital \(24-bit\)/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/-48dB Neural Hybrid/i).length).toBeGreaterThan(0);
   });
 });

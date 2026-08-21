@@ -83,4 +83,19 @@ describe('useProductStore', () => {
     expect(useProductStore.getState().selectedColor).toBe('titanium');
     expect(useProductStore.getState().quantity).toBe(1);
   });
+
+  it('supports alias actions for view angle, color, and warranty', () => {
+    useProductStore.getState().setSelectedColor('midnight');
+    expect(useProductStore.getState().selectedColor).toBe('midnight');
+
+    useProductStore.getState().setViewAngle('controls');
+    expect(useProductStore.getState().selectedAngle).toBe('controls');
+    expect(useProductStore.getState().viewAngle).toBe('controls');
+
+    useProductStore.getState().setHasExtendedWarranty(true);
+    expect(useProductStore.getState().hasExtendedWarranty).toBe(true);
+
+    useProductStore.getState().toggleDemoPlayback();
+    expect(useProductStore.getState().isPlayingDemo).toBe(true);
+  });
 });

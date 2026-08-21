@@ -21,4 +21,31 @@ describe('FAQSection', () => {
     expect(secondQuestionBtn).toHaveAttribute('aria-expanded', 'true');
     expect(screen.getByText(/adaptive barometric pressure equalization valve/i)).toBeInTheDocument();
   });
+
+  it('renders all 6 curated acoustic FAQ inquiries', () => {
+    render(<FAQSection />);
+    expect(screen.getByText(/What is included in the 30-day in-home audition\?/i)).toBeInTheDocument();
+    expect(screen.getByText(/How does RoH Sound achieve -48dB Active Noise Cancellation\?/i)).toBeInTheDocument();
+    expect(screen.getByText(/How does RoH Sound connect to my audio source\?/i)).toBeInTheDocument();
+    expect(screen.getByText(/Can I replace the ear cushions over time\?/i)).toBeInTheDocument();
+    expect(screen.getByText(/What is included with my pre-order package\?/i)).toBeInTheDocument();
+    expect(screen.getByText(/What warranty is included\?/i)).toBeInTheDocument();
+  });
+
+  it('allows opening and closing multiple questions independently', () => {
+    render(<FAQSection />);
+    const warrantyBtn = screen.getByRole('button', { name: /What warranty is included\?/i });
+    
+    // Initial state: collapsed
+    expect(warrantyBtn).toHaveAttribute('aria-expanded', 'false');
+
+    // Expand
+    fireEvent.click(warrantyBtn);
+    expect(warrantyBtn).toHaveAttribute('aria-expanded', 'true');
+    expect(screen.getByText(/3-Year Precision Limited Warranty/i)).toBeInTheDocument();
+
+    // Collapse again
+    fireEvent.click(warrantyBtn);
+    expect(warrantyBtn).toHaveAttribute('aria-expanded', 'false');
+  });
 });

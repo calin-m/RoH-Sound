@@ -15,45 +15,131 @@ describe('SpatialRadar', () => {
     expect(screen.getByText(/HRTF Engine/i)).toBeInTheDocument();
   });
 
-  it('updates soundstage sector and panning for different azimuth angles', () => {
-    const { rerender } = render(<SpatialRadar angle={0} isSpatialActive={true} />);
-    expect(screen.getByText(/Front Center/i)).toBeInTheDocument();
+  describe('Soundstage Azimuth Sectors', () => {
+    const sectors = [
+      { angle: 0, label: 'Front Center' },
+      { angle: 45, label: 'Front-Right Stage' },
+      { angle: 90, label: 'Direct Right (90°)' },
+      { angle: 135, label: 'Rear-Right Stage' },
+      { angle: 180, label: 'Direct Rear (180°)' },
+      { angle: 225, label: 'Rear-Left Stage' },
+      { angle: 270, label: 'Direct Left (270°)' },
+      { angle: 315, label: 'Front-Left Stage' },
+    ];
 
-    rerender(<SpatialRadar angle={180} isSpatialActive={false} />);
-    expect(screen.getByText(/Direct Rear \(180°\)/i)).toBeInTheDocument();
-    expect(screen.queryByTestId('binaural-rays')).not.toBeInTheDocument();
-
-    rerender(<SpatialRadar angle={270} isSpatialActive={true} />);
-    expect(screen.getByText(/Direct Left \(270°\)/i)).toBeInTheDocument();
+    sectors.forEach(({ angle, label }) => {
+      it(`resolves ${angle}° to "${label}" sector readout`, () => {
+        render(<SpatialRadar angle={angle} isSpatialActive={true} />);
+        expect(screen.getByText(label)).toBeInTheDocument();
+      });
+    });
   });
 
-  it('triggers onAngleChange during pointer interaction on SVG stage', () => {
-    const onAngleChangeMock = vi.fn();
-    render(<SpatialRadar angle={0} isSpatialActive={true} onAngleChange={onAngleChangeMock} />);
+  describe('Pointer Drag & Touch Interaction', () => {
+    it('manages full pointer drag cycle (pointerdown, pointermove, pointerup)', () => {
+      const onAngleChangeMock = vi.fn();
+      render(<SpatialRadar angle={0} isSpatialActive={true} onAngleChange={onAngleChangeMock} />);
 
-    const svg = screen.getByLabelText(/360 Degree Spatial Audio Soundstage Radar/i);
+      const svg = screen.getByLabelText(/360 Degree Spatial Audio Soundstage Radar/i);
 
-    // Mock getBoundingClientRect
-    vi.spyOn(svg, 'getBoundingClientRect').mockReturnValue({
-      left: 0,
-      top: 0,
-      width: 300,
-      height: 220,
-      right: 300,
-      bottom: 220,
-      x: 0,
-      y: 0,
-      toJSON: () => {},
+      vi.spyOn(svg, 'getBoundingClientRect').mockReturnValue({
+        left: 0,
+        top: 0,
+        width: 300,
+        height: 220,
+        right: 300,
+        bottom: 220,
+        x: 0,
+        y: 0,
+        toJSON: () => {},
+      });
+
+      const setPointerCaptureMock = vi.fn();
+      const releasePointerCaptureMock = vi.fn();
+
+      // 1. Pointer Down
+      fireEvent.pointerDown(svg, {
+        clientX: 230,
+        clientY: 110,
+        pointerId: 1,
+        currentTarget: { setPointerCapture: setPointerCaptureMock },
+      });
+      expect(onAngleChangeMock).toHaveBeenCalled();
+
+      // 2. Pointer Move while dragging
+      fireEvent.pointerMove(svg, {
+        clientX: 150,
+        clientY: 200,
+        pointerId: 1,
+      });
+      expect(onAngleChangeMock).toHaveBeenCalledTimes(2);
+
+      // 3. Pointer Up
+      fireEvent.pointerUp(svg, {
+        pointerId: 1,
+        currentTarget: { releasePointerCapture: releasePointerCaptureMock },
+      });
+
+      // 4. Pointer Move after drag ended -> should NOT trigger onAngleChange
+      fireEvent.pointerMove(svg, {
+        clientX: 100,
+        clientY: 50,
+        pointerId: 1,
+      });
+      expect(onAngleChangeMock).toHaveBeenCalledTimes(2);
     });
 
-    // Pointer down to the right (e.g., x=230, y=110 -> 90 deg)
-    fireEvent.pointerDown(svg, {
-      clientX: 230,
-      clientY: 110,
-      pointerId: 1,
-      currentTarget: { setPointerCapture: vi.fn() },
+    it('handles interaction safely when onAngleChange is omitted', () => {
+      render(<SpatialRadar angle={90} isSpatialActive={true} />);
+      const svg = screen.getByLabelText(/360 Degree Spatial Audio Soundstage Radar/i);
+
+      expect(() => {
+        fireEvent.pointerDown(svg, { clientX: 200, clientY: 100, pointerId: 1 });
+        fireEvent.pointerMove(svg, { clientX: 210, clientY: 110, pointerId: 1 });
+        fireEvent.pointerUp(svg, { pointerId: 1 });
+      }).not.toThrow();
     });
 
-    expect(onAngleChangeMock).toHaveBeenCalled();
+    it('correctly maps and wraps angles across all four planar quadrants', () => {
+      const onAngleChangeMock = vi.fn();
+      render(<SpatialRadar angle={0} isSpatialActive={true} onAngleChange={onAngleChangeMock} />);
+      const svg = screen.getByLabelText(/360 Degree Spatial Audio Soundstage Radar/i);
+
+      vi.spyOn(svg, 'getBoundingClientRect').mockReturnValue({
+        left: 0,
+        top: 0,
+        width: 300,
+        height: 220,
+        right: 300,
+        bottom: 220,
+        x: 0,
+        y: 0,
+        toJSON: () => {},
+      });
+
+      // Top-Left Quadrant (triggers negative atan2 angle wrapping: deg < 0 -> deg += 360)
+      fireEvent.pointerDown(svg, { clientX: 50, clientY: 50, pointerId: 1 });
+      expect(onAngleChangeMock).toHaveBeenCalled();
+
+      // Top-Right Quadrant
+      fireEvent.pointerMove(svg, { clientX: 250, clientY: 50, pointerId: 1 });
+      expect(onAngleChangeMock).toHaveBeenCalled();
+
+      // Bottom-Left Quadrant
+      fireEvent.pointerMove(svg, { clientX: 50, clientY: 180, pointerId: 1 });
+      expect(onAngleChangeMock).toHaveBeenCalled();
+
+      fireEvent.pointerUp(svg, { pointerId: 1 });
+    });
+  });
+
+  describe('Binaural Ray & Panning Visualization', () => {
+    it('hides binaural vector rays when spatial audio is deactivated', () => {
+      const { rerender } = render(<SpatialRadar angle={90} isSpatialActive={true} />);
+      expect(screen.getByTestId('binaural-rays')).toBeInTheDocument();
+
+      rerender(<SpatialRadar angle={90} isSpatialActive={false} />);
+      expect(screen.queryByTestId('binaural-rays')).not.toBeInTheDocument();
+    });
   });
 });

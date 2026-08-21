@@ -20,4 +20,33 @@ describe('AncModeSelector', () => {
     fireEvent.click(screen.getByText('Ultra Hybrid ANC'));
     expect(onSelectModeMock).toHaveBeenCalledWith('ultra');
   });
+
+  it('triggers onSelectMode for all individual ANC modes', () => {
+    const onSelectModeMock = vi.fn();
+    render(
+      <AncModeSelector
+        currentMode="ultra"
+        onSelectMode={onSelectModeMock}
+      />
+    );
+
+    fireEvent.click(screen.getByText('Natural Transparency'));
+    expect(onSelectModeMock).toHaveBeenCalledWith('transparency');
+
+    fireEvent.click(screen.getByText('Balanced Studio'));
+    expect(onSelectModeMock).toHaveBeenCalledWith('balanced');
+  });
+
+  it('displays active attenuation decibel badge for active mode', () => {
+    render(
+      <AncModeSelector
+        currentMode="ultra"
+        onSelectMode={vi.fn()}
+      />
+    );
+
+    expect(screen.getByText('-48dB')).toBeInTheDocument();
+    expect(screen.getByText('-25dB')).toBeInTheDocument();
+    expect(screen.getByText('0dB')).toBeInTheDocument();
+  });
 });
