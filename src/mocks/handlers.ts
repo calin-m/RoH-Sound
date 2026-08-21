@@ -85,6 +85,42 @@ export const mockReviewsData: ReviewItem[] = [
       'Transients in acoustic drums and orchestral strings resolve with zero overhang. At $399, it outclasses models costing twice as much.',
     avatarBg: 'bg-emerald-500',
   },
+  {
+    id: 'rev-4',
+    author: 'Customer 4',
+    role: 'Verified Buyer • Sound Architect',
+    rating: 5,
+    date: '3 weeks ago',
+    verified: true,
+    title: 'Acoustic seal and titanium chassis build quality are second to none',
+    comment:
+      'The CNC chamfers and magnetic cushion mechanism feel like a $1,000 reference monitor. LDAC connectivity delivers true lossless fidelity without dropouts.',
+    avatarBg: 'bg-indigo-500',
+  },
+  {
+    id: 'rev-5',
+    author: 'Customer 5',
+    role: 'Verified Buyer • Recording Producer',
+    rating: 4,
+    date: '1 month ago',
+    verified: true,
+    title: 'Superb tuning curve, near-flat target response',
+    comment:
+      'The bass is fast and articulate without bloating into the mids. Would love a companion EQ app in the future, but the default studio profile is stellar.',
+    avatarBg: 'bg-violet-500',
+  },
+  {
+    id: 'rev-6',
+    author: 'Customer 6',
+    role: 'Verified Buyer • Spatial Mix Specialist',
+    rating: 5,
+    date: '1 month ago',
+    verified: true,
+    title: 'The HRTF binaural soundstage tracking is remarkably transparent',
+    comment:
+      'Mixing Dolby Atmos stems with dynamic head tracking gives a remarkably convincing phantom center. Easily the best wireless monitoring headphone on the market.',
+    avatarBg: 'bg-rose-500',
+  },
 ];
 
 export const handlers = [

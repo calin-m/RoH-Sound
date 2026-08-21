@@ -6,7 +6,13 @@ import { Accordion, AccordionItem } from '../ui/Accordion';
 import { MotionReveal } from '@/components/motion/MotionReveal';
 import { StaggerGroup } from '@/components/motion/StaggerGroup';
 
-const faqs = [
+export interface FAQItem {
+  id: string;
+  question: string;
+  answer: string;
+}
+
+export const DEFAULT_FAQS: FAQItem[] = [
   {
     id: 'faq-1',
     question: 'What is included in the 30-day in-home audition?',
@@ -39,15 +45,23 @@ const faqs = [
   },
 ];
 
-export const FAQSection: React.FC = () => {
-  const [openId, setOpenId] = useState<string | null>('faq-1');
+export interface FAQSectionProps {
+  faqs?: FAQItem[];
+  className?: string;
+}
+
+export const FAQSection: React.FC<FAQSectionProps> = ({
+  faqs = DEFAULT_FAQS,
+  className = '',
+}) => {
+  const [openId, setOpenId] = useState<string | null>(faqs[0]?.id || null);
 
   const toggleFaq = (id: string) => {
     setOpenId(openId === id ? null : id);
   };
 
   return (
-    <section id="faq" className="py-24 px-4 sm:px-8 bg-canvas">
+    <section id="faq" className={`py-24 px-4 sm:px-8 bg-canvas ${className}`}>
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <MotionReveal direction="up">

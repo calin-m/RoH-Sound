@@ -48,4 +48,13 @@ describe('FAQSection', () => {
     fireEvent.click(warrantyBtn);
     expect(warrantyBtn).toHaveAttribute('aria-expanded', 'false');
   });
+
+  it('renders custom faqs data when passed as prop', () => {
+    const customFaqs = [
+      { id: 'custom-1', question: 'How is the custom DAC calibrated?', answer: 'Laser tuned at atelier.' },
+    ];
+    render(<FAQSection faqs={customFaqs} />);
+    expect(screen.getByText('How is the custom DAC calibrated?')).toBeInTheDocument();
+    expect(screen.getByText('Laser tuned at atelier.')).toBeInTheDocument();
+  });
 });

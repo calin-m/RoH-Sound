@@ -5,9 +5,15 @@ import { SectionHeader } from './SectionHeader';
 import { SpecComparisonTable } from './SpecComparisonTable';
 import { MotionReveal } from '@/components/motion/MotionReveal';
 
-type SpecCategory = 'acoustic' | 'connectivity' | 'battery' | 'physical';
+export type SpecCategory = 'acoustic' | 'connectivity' | 'battery' | 'physical';
 
-const specsData: Record<SpecCategory, { label: string; value: string; detail: string }[]> = {
+export interface SpecItem {
+  label: string;
+  value: string;
+  detail: string;
+}
+
+export const DEFAULT_SPECS_DATA: Record<SpecCategory, SpecItem[]> = {
   acoustic: [
     { label: 'Transducer Driver', value: '45mm Custom Titanium-Graphene', detail: 'Dynamic hybrid diaphragm' },
     { label: 'Frequency Response', value: '4Hz – 45,000Hz (Hi-Res Audio)', detail: 'Extends beyond human hearing range' },
@@ -35,7 +41,15 @@ const specsData: Record<SpecCategory, { label: string; value: string; detail: st
   ],
 };
 
-export const TechnicalSpecs: React.FC = () => {
+export interface TechnicalSpecsProps {
+  specs?: Record<SpecCategory, SpecItem[]>;
+  className?: string;
+}
+
+export const TechnicalSpecs: React.FC<TechnicalSpecsProps> = ({
+  specs = DEFAULT_SPECS_DATA,
+  className = '',
+}) => {
   const [activeCategory, setActiveCategory] = useState<SpecCategory>('acoustic');
 
   const categories: { id: SpecCategory; label: string }[] = [
@@ -81,7 +95,7 @@ export const TechnicalSpecs: React.FC = () => {
         {/* Spec Matrix List */}
         <MotionReveal direction="up" delay={200}>
           <div className="bg-white rounded-3xl border border-hairline divide-y divide-hairline-subtle shadow-sm mb-16 overflow-hidden">
-            {specsData[activeCategory].map((spec, index) => (
+            {(specs[activeCategory] || []).map((spec, index) => (
               <div
                 key={index}
                 className="p-6 sm:px-8 flex flex-col sm:flex-row sm:items-center justify-between gap-2 hover:bg-zinc-50/75 transition-all border-l-2 border-transparent hover:border-brass hover:pl-7 sm:hover:pl-9"

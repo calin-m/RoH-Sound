@@ -41,4 +41,16 @@ describe('TechnicalSpecs', () => {
     expect(screen.getAllByText(/LDAC \+ USB-C Digital \(24-bit\)/i).length).toBeGreaterThan(0);
     expect(screen.getAllByText(/-48dB Neural Hybrid/i).length).toBeGreaterThan(0);
   });
+
+  it('renders custom specifications data when passed as prop', () => {
+    const customSpecs = {
+      acoustic: [{ label: 'Custom Driver', value: '50mm Planar Magnetic', detail: 'Ultra-thin film' }],
+      connectivity: [],
+      battery: [],
+      physical: [],
+    };
+    render(<TechnicalSpecs specs={customSpecs} />);
+    expect(screen.getByText('50mm Planar Magnetic')).toBeInTheDocument();
+    expect(screen.getByText('Custom Driver')).toBeInTheDocument();
+  });
 });
