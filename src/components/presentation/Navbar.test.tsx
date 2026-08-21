@@ -77,9 +77,14 @@ describe('Navbar', () => {
     expect(screen.getByTestId('mobile-menu-drawer')).toHaveClass('opacity-0');
   });
 
-  it('handles scroll event without throwing', () => {
-    render(<Navbar />);
+  it('handles scroll event and applies high-density frosted glass elevation classes', () => {
+    const { container } = render(<Navbar />);
+    const navPill = container.querySelector('header > div');
+    expect(navPill).toHaveClass('bg-white/60');
+
     window.scrollY = 100;
     fireEvent.scroll(window);
+    expect(navPill).toHaveClass('bg-white/92');
+    expect(navPill).toHaveClass('backdrop-blur-2xl');
   });
 });

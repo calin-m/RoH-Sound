@@ -47,8 +47,8 @@ export const Navbar: React.FC = () => {
         <div
           className={`w-full max-w-6xl rounded-full transition-all duration-300 flex items-center justify-between px-5 sm:px-7 py-2.5 ${
             isScrolled
-              ? 'glass-crystal shadow-[0_12px_30px_rgba(0,0,0,0.04)] border border-hairline'
-              : 'bg-white/60 backdrop-blur-md border border-hairline-subtle'
+              ? 'bg-white/92 backdrop-blur-2xl shadow-[inset_0_1px_1px_rgba(255,255,255,0.85),0_8px_30px_-4px_rgba(0,0,0,0.08),0_2px_6px_rgba(0,0,0,0.04)] border border-black/[0.08]'
+              : 'bg-white/60 backdrop-blur-md border border-hairline-subtle shadow-xs'
           }`}
         >
           {/* Brand Monogram */}

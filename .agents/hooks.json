@@ -7,7 +7,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node ./scripts/approval-gate.js",
+            "command": "node ../scripts/approval-gate.js",
             "timeout": 15
           }
         ]

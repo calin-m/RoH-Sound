@@ -26,6 +26,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ---
 
 ### Recent Git Commit History
+- `3a65c97` - **feat(ui): add full-width metallurgical gradient spec docks to color studio** (2026-08-21)
 - `043d10a` - **feat(data): add progressive review disclosure, rating filters, and parameterized spec props** (2026-08-21)
 - `2c873fc` - **test(coverage): expand vitest suites to 131 tests and synchronize documentation** (2026-08-21)
 - `f0e5080` - **feat(mobile): implement optical center scroll-spy auto-activation in ColorStudio** (2026-08-21)
