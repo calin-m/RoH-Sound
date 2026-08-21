@@ -25,7 +25,7 @@ export const HeroSection: React.FC = () => {
   return (
     <section id="hero" className="relative min-h-[92vh] flex flex-col justify-center pt-28 pb-16 px-4 sm:px-8 overflow-hidden radial-glow-subtle">
       {/* Background Decorative Hairline Grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#00000006_1px,transparent_1px),linear-gradient(to_bottom,#00000006_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,var(--color-hairline-subtle)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-hairline-subtle)_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto w-full relative z-10">
         {/* Section Header & Rating Badge */}
@@ -81,7 +81,7 @@ export const HeroSection: React.FC = () => {
                 <MagneticButton strength={0.15}>
                   <button
                     onClick={() => setDrawerOpen(true)}
-                    className="flex items-center gap-2.5 bg-zinc-950 hover:bg-zinc-900 text-white rounded-full px-7 sm:px-8 py-4 text-xs font-semibold tracking-widest uppercase transition-all duration-300 shadow-md hover:shadow-[0_10px_28px_rgba(184,147,74,0.2)] border border-white/10 hover:border-brass/40 active:scale-98 cursor-pointer"
+                    className="flex items-center gap-2.5 bg-zinc-950 hover:bg-zinc-900 text-white rounded-full px-7 sm:px-8 py-4 text-xs font-semibold tracking-widest uppercase transition-all duration-300 shadow-md hover:shadow-[0_10px_28px_var(--color-brass)/20] border border-white/10 hover:border-brass/40 active:scale-98 cursor-pointer"
                   >
                     <Sparkles className="w-4 h-4 text-brass-light" />
                     <AcousticTextWave text="Pre-Order RoH Sound • $399" />

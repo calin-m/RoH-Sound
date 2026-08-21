@@ -45,10 +45,10 @@ export const Footer: React.FC = () => {
                   Exploration
                 </div>
                 <ul className="space-y-2 text-xs text-zinc-600 font-light">
-                  <li><a href="#experience" className="hover:text-zinc-950 transition-colors">Acoustic Sound Lab</a></li>
-                  <li><a href="#acoustic" className="hover:text-zinc-950 transition-colors">Titanium Transducers</a></li>
-                  <li><a href="#studio" className="hover:text-zinc-950 transition-colors">Metallurgical Finishes</a></li>
-                  <li><a href="#specs" className="hover:text-zinc-950 transition-colors">Laboratory Metrics</a></li>
+                  <li><a href="#experience" className="hover:text-link-hover transition-colors">Acoustic Sound Lab</a></li>
+                  <li><a href="#acoustic" className="hover:text-link-hover transition-colors">Titanium Transducers</a></li>
+                  <li><a href="#studio" className="hover:text-link-hover transition-colors">Metallurgical Finishes</a></li>
+                  <li><a href="#specs" className="hover:text-link-hover transition-colors">Laboratory Metrics</a></li>
                 </ul>
               </div>
 
@@ -57,10 +57,10 @@ export const Footer: React.FC = () => {
                   Documentation
                 </div>
                 <ul className="space-y-2 text-xs text-zinc-600 font-light">
-                  <li><a href="#faq" className="hover:text-zinc-950 transition-colors">30-Day Audition Policy</a></li>
-                  <li><a href="#faq" className="hover:text-zinc-950 transition-colors">3-Year Precision Warranty</a></li>
-                  <li><a href="#specs" className="hover:text-zinc-950 transition-colors">Technical Architecture</a></li>
-                  <li><a href="#faq" className="hover:text-zinc-950 transition-colors">Acoustic Calibration FAQ</a></li>
+                  <li><a href="#faq" className="hover:text-link-hover transition-colors">30-Day Audition Policy</a></li>
+                  <li><a href="#faq" className="hover:text-link-hover transition-colors">3-Year Precision Warranty</a></li>
+                  <li><a href="#specs" className="hover:text-link-hover transition-colors">Technical Architecture</a></li>
+                  <li><a href="#faq" className="hover:text-link-hover transition-colors">Acoustic Calibration FAQ</a></li>
                 </ul>
               </div>
             </div>
@@ -73,7 +73,7 @@ export const Footer: React.FC = () => {
                 href="https://github.com/calin-m"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-zinc-950 transition-colors underline decoration-black/20 underline-offset-4"
+                className="hover:text-link-hover transition-colors underline decoration-black/20 hover:decoration-link-hover/40 underline-offset-4"
               >
                 Calin M
               </a>

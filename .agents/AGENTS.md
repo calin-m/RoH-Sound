@@ -7,8 +7,9 @@ This document establishes immutable engineering rules, governance procedures, an
 ## 1. Core Governance Rules
 
 ### Rule 0: Mandatory User Approval & Mutation Protocol
-- **Approval-First Execution:** The AI agent must never perform destructive actions, apply major architectural mutations, or install unexpected dependencies without explicit prior user approval and review.
-- **Proposal & Review:** The AI agent must propose technical plans, explain trade-offs clearly, and obtain explicit user consent before proceeding with major code modifications.
+- **Approval-First Execution:** The AI agent must never modify existing files, create new files, perform destructive actions, apply architectural mutations, or install unexpected dependencies without explicit prior user approval and review.
+- **Proposal & Review:** The AI agent must propose technical plans, explain trade-offs and diffs clearly, and obtain explicit user consent before proceeding with any code edits.
+- **Deterministic Hook Enforcement:** All file mutations (`write_to_file`, `replace_file_content`, `multi_replace_file_content`) are gated by `.agents/hooks.json` via a `PreToolUse` approval barrier (`scripts/approval-gate.js`).
 - **Human Developer Authority:** The human developer retains final authority over all codebase changes, architectural decisions, and terminal command executions.
 
 ### Rule 1: Automated Documentation Synchronization

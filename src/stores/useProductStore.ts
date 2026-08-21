@@ -83,8 +83,10 @@ export interface ProductState {
   resetProductStore: () => void;
 }
 
+export const DEFAULT_PRODUCT_COLORWAY: ProductColorway = 'titanium';
+
 const initialState = {
-  selectedColor: 'midnight' as ProductColorway,
+  selectedColor: DEFAULT_PRODUCT_COLORWAY,
   selectedAngle: 'front' as ViewAngle,
   viewAngle: 'front' as ViewAngle,
   ancMode: 'ultra' as AncMode,

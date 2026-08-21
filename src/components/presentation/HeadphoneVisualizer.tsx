@@ -220,9 +220,8 @@ export const HeadphoneVisualizer: React.FC<HeadphoneVisualizerProps> = ({
               <ellipse cx="54" cy="44" rx="14" ry="28" fill="none" stroke={theme.metalHighlight} strokeWidth="1" strokeOpacity="0.4" />
             </g>
 
-            {/* Central Monogram Laser Accent */}
-            <circle cx="200" cy="85" r="7" fill={theme.accentGold} opacity="0.9" />
-            <text x="200" y="88" textAnchor="middle" fill="#ffffff" fontSize="6" fontFamily="monospace" fontWeight="bold">R</text>
+            {/* Central Precision Pivot Fastener Accent */}
+            <circle cx="200" cy="85" r="3.5" fill={theme.accentGold} opacity="0.7" />
           </svg>
         )}
 
@@ -252,9 +251,8 @@ export const HeadphoneVisualizer: React.FC<HeadphoneVisualizerProps> = ({
             <circle cx="160" cy="148" r="58" fill="none" stroke={theme.metalHighlight} strokeWidth="1" strokeOpacity="0.4" />
             <circle cx="160" cy="148" r="44" fill="none" stroke={theme.metalHighlight} strokeWidth="1" strokeOpacity="0.3" />
 
-            {/* Central Monogram Core Medallion */}
+            {/* Central Precision Machined Core Medallion */}
             <circle cx="160" cy="148" r="22" fill={theme.coreDisc} stroke={theme.accentGold} strokeWidth="1.5" />
-            <text x="160" y="154" textAnchor="middle" fill="#ffffff" fontSize="14" fontFamily="monospace" fontWeight="bold">R</text>
 
             {/* 1. Precision Knurled Digital Crown (Rotated -32° on Top-Right Rim) */}
             <g transform="translate(226, 107) rotate(-32)">
@@ -410,9 +408,8 @@ export const HeadphoneVisualizer: React.FC<HeadphoneVisualizerProps> = ({
               return <circle key={i} cx={vx} cy={vy} r="1.8" fill={theme.coreDisc} />;
             })}
 
-            {/* Center Monogram Core Medallion */}
+            {/* Center Precision Machined Core Medallion */}
             <circle cx="200" cy="215" r="20" fill={theme.coreDisc} stroke={theme.accentGold} strokeWidth="1.5" />
-            <text x="200" y="221" textAnchor="middle" fill="#ffffff" fontSize="15" fontFamily="monospace" fontWeight="bold">R</text>
 
             {/* Left & Right Yoke Pivot Pin Fasteners */}
             <circle cx="136" cy="215" r="4.5" fill={theme.accentGold} stroke={theme.metalBase} strokeWidth="1" />
@@ -439,9 +436,8 @@ export const HeadphoneVisualizer: React.FC<HeadphoneVisualizerProps> = ({
               <ellipse cx="0" cy="0" rx="15" ry="46" fill="none" stroke={theme.accentGold} strokeWidth="1.5" />
               {/* Inner Lathe Milling Reflection */}
               <ellipse cx="-2" cy="0" rx="11" ry="36" fill="none" stroke={theme.metalHighlight} strokeWidth="1" strokeOpacity="0.4" />
-              {/* Central Monogram Core */}
+              {/* Central Machined Core */}
               <ellipse cx="0" cy="0" rx="5" ry="12" fill={theme.coreDisc} stroke={theme.accentGold} strokeWidth="1" />
-              <text x="0" y="3" textAnchor="middle" fill="#ffffff" fontSize="8" fontFamily="monospace" fontWeight="bold">R</text>
 
               {/* Callout Leader (ABOVE) */}
               <line x1="0" y1="-56" x2="0" y2="-82" stroke={theme.accentGold} strokeWidth="1" strokeDasharray="2 2" />

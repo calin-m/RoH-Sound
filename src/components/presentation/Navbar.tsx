@@ -151,7 +151,7 @@ export const Navbar: React.FC = () => {
               key={link.name}
               href={link.href}
               onClick={() => setMobileMenuOpen(false)}
-              className="text-sm font-medium uppercase tracking-wider text-zinc-600 hover:text-zinc-950 py-1.5 px-2 rounded-xl hover:bg-zinc-100/60 transition-colors"
+              className="text-sm font-medium uppercase tracking-wider text-zinc-600 hover:text-link-hover py-1.5 px-2 rounded-xl hover:bg-link-hover/[0.05] transition-colors"
             >
               {link.name}
             </a>

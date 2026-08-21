@@ -19,7 +19,7 @@ export const AcousticNavLink: React.FC<AcousticNavLinkProps> = ({
     <a
       href={href}
       onClick={onClick}
-      className={`group/navlink relative inline-flex items-center text-xs font-medium uppercase tracking-[0.12em] text-zinc-500 hover:text-zinc-950 transition-colors duration-200 py-1 ${className}`}
+      className={`group/navlink relative inline-flex items-center text-xs font-medium uppercase tracking-[0.12em] text-zinc-500 hover:text-link-hover transition-colors duration-200 py-1 ${className}`}
       data-testid="acoustic-nav-link"
     >
       {/* Letter Visualizer Wave */}
@@ -30,7 +30,7 @@ export const AcousticNavLink: React.FC<AcousticNavLinkProps> = ({
             <span
               key={index}
               aria-hidden="true"
-              className="inline-block transition-transform duration-300 ease-spring group-hover/navlink:-translate-y-[3.5px] group-hover/navlink:text-zinc-950 will-change-transform"
+              className="inline-block transition-transform duration-300 ease-spring group-hover/navlink:-translate-y-[3.5px] group-hover/navlink:text-link-hover will-change-transform"
               style={{
                 transitionDelay: `${index * 24}ms`,
               }}
@@ -44,7 +44,7 @@ export const AcousticNavLink: React.FC<AcousticNavLinkProps> = ({
       {/* Acoustic Hairline Sweep Underline */}
       <span
         aria-hidden="true"
-        className="absolute bottom-0 left-0 h-[1.5px] w-0 group-hover/navlink:w-full bg-brass transition-all duration-300 ease-smooth rounded-full pointer-events-none opacity-80"
+        className="absolute bottom-0 left-0 h-[1.5px] w-0 group-hover/navlink:w-full bg-link-hover transition-all duration-300 ease-smooth rounded-full pointer-events-none opacity-80"
       />
     </a>
   );

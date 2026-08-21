@@ -2,7 +2,7 @@
 
 > [!NOTE]
 > This document is **100% auto-generated** via AST code introspection (`scripts/generate-architecture-matrix.js`). Any manual edits will be overwritten during verification (`npm run verify`) or synchronization (`npm run docs:sync`).
-> **Last Synchronized:** `2026-08-20T06:37:53.910Z`
+> **Last Synchronized:** `2026-08-21T07:59:33.167Z`
 
 ---
 
@@ -99,7 +99,7 @@ flowchart LR
 
     subgraph Stores ["Zustand Stores"]
         Store_0["useProductStore
-(COLORWAYS, useProductStore)"]
+(COLORWAYS, DEFAULT_PRODUCT_COLORWAY, useProductStore)"]
     end
 
     subgraph UIComponents ["Atomic UI Primitives"]
@@ -150,7 +150,7 @@ Summary of auto-discovered source modules:
 | :--- | :--- | :--- | :--- |
 | **Route** | `src/app/layout.tsx` | `metadata, RootLayout` | `none` |
 | **Route** | `src/app/page.tsx` | `HomePage` | `@/components/presentation/Navbar, @/components/presentation/HeroSection, @/components/presentation/SoundExperience, @/components/presentation/AcousticBento, @/components/presentation/ColorStudio, @/components/presentation/TechnicalSpecs, @/components/presentation/ReviewsSection, @/components/presentation/FAQSection, @/components/presentation/Footer, @/components/presentation/CheckoutDrawer` |
-| **Store** | `src/stores/useProductStore.ts` | `COLORWAYS, useProductStore` | `zustand` |
+| **Store** | `src/stores/useProductStore.ts` | `COLORWAYS, DEFAULT_PRODUCT_COLORWAY, useProductStore` | `zustand` |
 | **Query** | `src/hooks/queries/useProductData.ts` | `useProductData, useReviewsData, usePreorderMutation` | `@tanstack/react-query, @/mocks/handlers` |
 | **UI Primitive** | `src/components/ui/Accordion.tsx` | `AccordionItem, Accordion` | `react, lucide-react` |
 | **UI Primitive** | `src/components/ui/Badge.tsx` | `badgeVariants, Badge` | `react, class-variance-authority, @/lib/utils` |

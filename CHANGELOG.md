@@ -15,7 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - 7-Gateway Quality Engine (scripts/verify-build.js) enforcing strict verification passes.
 - AST-driven Living Documentation Engine auto-generating C4 diagrams and quality reports.
 
-## [1.0.0] - 2026-08-20
+## [1.0.0] - 2026-08-21
 
 ### Added
 - Initial enterprise foundation bootstrap with Closed-Loop Quality & Living Documentation Engine.
@@ -26,6 +26,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ---
 
 ### Recent Git Commit History
+- `39d5cee` - **feat(ui): refine floating hero showcase, mobile menu animations, and continuous motion replay** (2026-08-20)
 - `b87bd3a` - **refactor(theme): standardize design tokens, fix mobile GPU rendering, and align FAQ/footer** (2026-08-17)
 - `d3d9b82` - **refactor(faq): top-align accordion chevrons and standardize footer documentation** (2026-08-17)
 - `8a4a1df` - **perf(motion): optimize ripple gpu transforms and stabilize mobile scroll rendering** (2026-08-17)

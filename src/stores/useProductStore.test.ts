@@ -8,7 +8,7 @@ describe('useProductStore', () => {
 
   it('initializes with default RoH Sound product state', () => {
     const state = useProductStore.getState();
-    expect(state.selectedColor).toBe('midnight');
+    expect(state.selectedColor).toBe('titanium');
     expect(state.selectedAngle).toBe('front');
     expect(state.ancMode).toBe('ultra');
     expect(state.isSpatialActive).toBe(true);
@@ -80,7 +80,7 @@ describe('useProductStore', () => {
     useProductStore.getState().setColor('silver');
     useProductStore.getState().setQuantity(4);
     useProductStore.getState().resetProductStore();
-    expect(useProductStore.getState().selectedColor).toBe('midnight');
+    expect(useProductStore.getState().selectedColor).toBe('titanium');
     expect(useProductStore.getState().quantity).toBe(1);
   });
 });

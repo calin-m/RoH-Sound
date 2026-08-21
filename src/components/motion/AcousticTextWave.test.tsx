@@ -63,7 +63,7 @@ describe('AcousticTextWave', () => {
       vi.advanceTimersByTime(1200);
     });
 
-    expect(root).toHaveClass('text-[#eeddb2]');
+    expect(root).toHaveClass('text-brass-light');
 
     // Interval should NOT fire while hovering
     act(() => {
@@ -72,6 +72,6 @@ describe('AcousticTextWave', () => {
 
     // Leave hover
     fireEvent.mouseLeave(root);
-    expect(root).not.toHaveClass('text-[#eeddb2]');
+    expect(root).not.toHaveClass('text-brass-light');
   });
 });

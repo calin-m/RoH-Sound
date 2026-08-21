@@ -73,7 +73,7 @@ export const AcousticTextWave: React.FC<AcousticTextWaveProps> = ({
   return (
     <span
       className={`inline-flex items-center select-none transition-colors duration-300 ${
-        isHovered && !isWaving ? 'text-[#eeddb2]' : ''
+        isHovered && !isWaving ? 'text-brass-light' : ''
       } ${className}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
