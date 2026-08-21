@@ -13,6 +13,10 @@ const studioFinishes: {
   palette: string;
   details: string;
   material: string;
+  selectedGradient: string;
+  selectedTextColor: string;
+  selectedBorder: string;
+  dotColor: string;
 }[] = [
   {
     id: 'midnight',
@@ -21,6 +25,10 @@ const studioFinishes: {
     palette: '#18181b',
     details: 'Precision-machined from aluminum alloy, bead-blasted and anodized in deep obsidian with anti-fingerprint oleophobic coating.',
     material: 'Anodized 6000-Series Aluminum',
+    selectedGradient: 'bg-gradient-to-r from-[#141416] via-[#242429] to-[#141416]',
+    selectedTextColor: 'text-zinc-200',
+    selectedBorder: 'border-zinc-800/80',
+    dotColor: '#c29a4b',
   },
   {
     id: 'silver',
@@ -29,6 +37,10 @@ const studioFinishes: {
     palette: '#e4e4e7',
     details: 'Pure metallic sheen reflecting light subtly across the sculpted gimbal arc and CNC-etched outer chamfers.',
     material: 'Bead-Blasted Ceramic Matte Silver',
+    selectedGradient: 'bg-gradient-to-r from-[#e4e4e7] via-[#f4f4f5] to-[#e4e4e7]',
+    selectedTextColor: 'text-zinc-900',
+    selectedBorder: 'border-zinc-300',
+    dotColor: '#71717a',
   },
   {
     id: 'titanium',
@@ -37,6 +49,10 @@ const studioFinishes: {
     palette: '#d8c7a6',
     details: 'Inspired by bespoke Swiss mechanical timepieces, combining brushed warm titanium with muted champagne accents.',
     material: 'Grade-5 Titanium & PVD Brass',
+    selectedGradient: 'bg-gradient-to-r from-[#ebdcc7] via-[#f6efe4] to-[#ebdcc7]',
+    selectedTextColor: 'text-[#3d301f]',
+    selectedBorder: 'border-[#d8c7a6]',
+    dotColor: '#c29a4b',
   },
   {
     id: 'emerald',
@@ -45,6 +61,10 @@ const studioFinishes: {
     palette: '#14382e',
     details: 'A limited atelier edition featuring rich pine emerald earcups paired with deep forest memory foam cushions.',
     material: 'Ceramic Composite & Fine Leather',
+    selectedGradient: 'bg-gradient-to-r from-[#0d2820] via-[#164236] to-[#0d2820]',
+    selectedTextColor: 'text-emerald-100',
+    selectedBorder: 'border-emerald-800/70',
+    dotColor: '#34d399',
   },
 ];
 
@@ -168,8 +188,26 @@ export const ColorStudio: React.FC = () => {
                     </p>
                   </div>
 
-                  <div className="mt-6 pt-4 border-t border-hairline text-[11px] font-mono text-zinc-400">
-                    {finish.material}
+                  <div
+                    className={`-mx-6 -mb-6 mt-6 px-6 py-3.5 border-t text-[11px] font-mono transition-all duration-300 flex items-center justify-between gap-2 ${
+                      isSelected
+                        ? `${finish.selectedGradient} ${finish.selectedTextColor} ${finish.selectedBorder} font-medium shadow-inner`
+                        : 'bg-zinc-50/70 text-zinc-500 border-hairline group-hover:bg-zinc-100/70'
+                    }`}
+                    data-testid="finish-material-dock"
+                  >
+                    <div className="flex items-center gap-2 truncate">
+                      <span
+                        className={`w-1.5 h-1.5 rounded-full shrink-0 transition-transform duration-300 ${isSelected ? 'scale-125 shadow-xs' : 'opacity-60'}`}
+                        style={{ backgroundColor: isSelected ? finish.dotColor : finish.palette }}
+                      />
+                      <span className="truncate">{finish.material}</span>
+                    </div>
+                    {isSelected && (
+                      <span className="text-[9px] uppercase tracking-widest font-mono opacity-70 shrink-0">
+                        Spec
+                      </span>
+                    )}
                   </div>
                 </div>
               </MotionReveal>

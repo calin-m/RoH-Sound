@@ -73,4 +73,17 @@ describe('ColorStudio', () => {
     unmount();
     expect(disconnectMock).toHaveBeenCalled();
   });
+
+  it('renders all 4 metallurgical material spec docks and highlights the selected gradient', () => {
+    render(<ColorStudio />);
+    expect(screen.getByText('Anodized 6000-Series Aluminum')).toBeInTheDocument();
+    expect(screen.getByText('Bead-Blasted Ceramic Matte Silver')).toBeInTheDocument();
+    expect(screen.getByText('Grade-5 Titanium & PVD Brass')).toBeInTheDocument();
+    expect(screen.getByText('Ceramic Composite & Fine Leather')).toBeInTheDocument();
+
+    const docks = screen.getAllByTestId('finish-material-dock');
+    expect(docks.length).toBe(4);
+    // Obsidian Midnight is selected by default and should have the Spec badge
+    expect(screen.getByText('Spec')).toBeInTheDocument();
+  });
 });

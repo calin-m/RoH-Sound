@@ -9,7 +9,7 @@
 [![TypeScript 5](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 [![Vector SVG](https://img.shields.io/badge/Vector_SVG-Multi--Perspective-000000?style=for-the-badge&logo=svg)](https://www.w3.org/Graphics/SVG/)
 [![Tailwind CSS v4](https://img.shields.io/badge/Tailwind_CSS-v4.0-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
-[![Vitest Coverage](https://img.shields.io/badge/Vitest-135%2F135_Passed_(96.61%25)-green?style=for-the-badge&logo=vitest)](https://vitest.dev/)
+[![Vitest Coverage](https://img.shields.io/badge/Vitest-136%2F136_Passed_(96.61%25)-green?style=for-the-badge&logo=vitest)](https://vitest.dev/)
 [![MSW v2](https://img.shields.io/badge/MSW-v2.0-E35555?style=for-the-badge&logo=mockserviceworker)](https://mswjs.io/)
 [![Quality Gateways](https://img.shields.io/badge/7--Gateway-Verified-emerald?style=for-the-badge&logo=shield)](./DEVELOPMENT.md)
 
@@ -214,7 +214,7 @@ graph TD
 | **02** | **Acoustic Hero & Studio Showcase** | High-Precision Multi-Perspective Vector SVG visualizer with 4 architectural viewpoints (**Front 0°**, **Controls with Tangent-Docked Buttons & Ports**, **Profile 90° View**, and **Anatomy Exploded Transducer Assembly**), responsive 4-column perspective grid switcher, 100% passive frictionless mobile scrolling, automated tour mode, calm 3-second ambient breathing glow, and Grounded Pre-Order CTA with interactive magnetic cursor tracking and soundwave typography. |
 | **03** | **Interactive Sound Lab** | Triple-mode Active Noise Cancellation simulator (Transparency, Balanced, Ultra 48dB) with **autonomous 60fps pure traveling sinusoidal waves** (solid obsidian acoustic signal + synchronized 180° gold dashed anti-phase cancellation wave) and decibel attenuation ripples, plus a 360° HRTF Binaural Soundstage with **direct-drag pointer capture orbit**, listener anatomy, left/right driver energy glow, and real-time acoustic vector ray-tracing. |
 | **04** | **Acoustic Bento Matrix** | Asymmetric bento grid with corner light refraction sweeps and acoustic transducer diaphragm hover auras, showcasing the 45mm Custom Graphene Driver, Aerospace Titanium chassis, 65-Hour Extended Battery, and Lossless 24-bit/192kHz LDAC Bluetooth 5.4. |
-| **05** | **Color Studio** | Interactive finish atelier featuring Obsidian Midnight, Alabaster Silver, Champagne Titanium, and Forest Emerald with live metallurgical shader sync, **specular metallic sheen light sweeps**, and **mobile-native optical center scroll-spy auto-activation** with tap lockout priority. |
+| **05** | **Color Studio** | Interactive finish atelier featuring Obsidian Midnight, Alabaster Silver, Champagne Titanium, and Forest Emerald with live metallurgical shader sync, **specular metallic sheen light sweeps**, **full-width metallurgical gradient spec docks**, and **mobile-native optical center scroll-spy auto-activation** with tap lockout priority. |
 | **06** | **Technical Architecture** | Complete laboratory metrics with animated category tabs and spec row hover illumination, frequency response curves ($4\text{Hz} - 48\text{kHz}$), desktop 4-column side-by-side benchmark table, and mobile-native **Interactive Versus Switcher** (`[ vs Brand S ]` | `[ vs Brand B ]`) with stacked advantage cards. |
 | **07** | **Customer Reviews** | Acclaimed customer feedback from verified sound engineers and mastering specialists with dynamic star rating filters (`All`, `5 Stars`, `4 Stars`), verified buyer credentials, and progressive disclosure expansion (`Show All Reviews` / `Show Less`). |
 | **08** | **Inquiries & FAQ** | Accordion-based inquiry hub with smooth height expansion, top-anchored rotating chevrons, and illuminated champagne gold margin draws. |
@@ -251,7 +251,7 @@ npm run dev:all
 | `npm run dev:open` | **Dev Server + Browser** | Launches dev server and auto-opens browser |
 | `npm run dev:all` | **Full Dev Environment** | Runs Next.js dev server alongside CLI terminal test watcher |
 | `npm run verify` | **Master 7-Gateway Gatekeeper** | Runs full closed-loop audit: Secrets, Types, Tests, Living Docs, ADRs, Lint, Knip, Build |
-| `npm test` | **Vitest Test Suite** | Runs all 89 test suites (135 tests) with v8 code coverage reporting |
+| `npm test` | **Vitest Test Suite** | Runs all 89 test suites (136 tests) with v8 code coverage reporting |
 | `npm run test:ui` | **Vitest Graphical UI** | Interactive browser-based test suite visualizer & debugger |
 | `npm run test:watch` | **Test Watcher** | Fast continuous test execution during active coding |
 | `npm run typecheck` | **TypeScript Typecheck** | Strict typecheck across all `.ts` and `.tsx` source files (`0 compile errors`) |
