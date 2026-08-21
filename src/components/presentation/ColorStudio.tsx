@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useProductStore, Colorway } from '@/stores/useProductStore';
 import { SectionHeader } from './SectionHeader';
 import { MotionReveal } from '../motion/MotionReveal';
@@ -50,6 +50,58 @@ const studioFinishes: {
 
 export const ColorStudio: React.FC = () => {
   const { selectedColor, setSelectedColor } = useProductStore();
+  const cardRefs = useRef<Map<Colorway, HTMLDivElement>>(new Map());
+  const userTappedRef = useRef<boolean>(false);
+  const tapTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleCardClick = (finishId: Colorway) => {
+    userTappedRef.current = true;
+    setSelectedColor(finishId);
+    if (tapTimeoutRef.current) {
+      clearTimeout(tapTimeoutRef.current);
+    }
+    tapTimeoutRef.current = setTimeout(() => {
+      userTappedRef.current = false;
+    }, 1200);
+  };
+
+  useEffect(() => {
+    // Only engage scroll-spy auto-selection on mobile/touch screens
+    const isTouchOrMobile = typeof window !== 'undefined' && (window.innerWidth < 640 || window.matchMedia('(hover: none)').matches);
+    if (!isTouchOrMobile || typeof IntersectionObserver === 'undefined') {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (userTappedRef.current) return;
+
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const finishId = entry.target.getAttribute('data-finish-id') as Colorway | null;
+            if (finishId && finishId !== selectedColor) {
+              setSelectedColor(finishId);
+            }
+          }
+        });
+      },
+      {
+        rootMargin: '-30% 0px -30% 0px',
+        threshold: 0.5,
+      }
+    );
+
+    cardRefs.current.forEach((el) => {
+      if (el) observer.observe(el);
+    });
+
+    return () => {
+      observer.disconnect();
+      if (tapTimeoutRef.current) {
+        clearTimeout(tapTimeoutRef.current);
+      }
+    };
+  }, [selectedColor, setSelectedColor]);
 
   return (
     <section id="studio" className="py-24 px-4 sm:px-8 bg-white border-y border-hairline">
@@ -73,7 +125,12 @@ export const ColorStudio: React.FC = () => {
             return (
               <MotionReveal key={finish.id} direction="up" delay={idx * 75} className="flex">
                 <div
-                  onClick={() => setSelectedColor(finish.id)}
+                  ref={(el) => {
+                    if (el) cardRefs.current.set(finish.id, el);
+                    else cardRefs.current.delete(finish.id);
+                  }}
+                  data-finish-id={finish.id}
+                  onClick={() => handleCardClick(finish.id)}
                   className={`w-full cursor-pointer rounded-3xl p-6 border transition-all duration-300 flex flex-col justify-between relative overflow-hidden group ${
                     isSelected
                       ? 'bg-canvas border-brass/60 shadow-md ring-1 ring-brass/20 scale-[1.01]'
