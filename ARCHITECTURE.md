@@ -2,7 +2,7 @@
 
 > [!NOTE]
 > This document is **100% auto-generated** via AST code introspection (`scripts/generate-architecture-matrix.js`). Any manual edits will be overwritten during verification (`npm run verify`) or synchronization (`npm run docs:sync`).
-> **Last Synchronized:** `2026-08-21T15:01:59.160Z`
+> **Last Synchronized:** `2026-08-22T09:21:53.935Z`
 
 ---
 

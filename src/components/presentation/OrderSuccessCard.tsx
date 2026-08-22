@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Colorway } from '@/stores/useProductStore';
-import { Check } from 'lucide-react';
+import { Check, Copy } from 'lucide-react';
 
 export interface OrderSuccessCardProps {
   customerName: string;
@@ -21,6 +21,20 @@ export const OrderSuccessCard: React.FC<OrderSuccessCardProps> = ({
   estimatedShipDate,
   className = '',
 }) => {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyCode = async () => {
+    try {
+      if (typeof navigator !== 'undefined' && navigator.clipboard) {
+        await navigator.clipboard.writeText(reservationCode);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      }
+    } catch {
+      // Fallback
+    }
+  };
+
   return (
     <div className={`py-8 text-center space-y-4 ${className}`} data-testid="order-success-card">
       <div className="w-16 h-16 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto border border-emerald-200">
@@ -34,9 +48,23 @@ export const OrderSuccessCard: React.FC<OrderSuccessCardProps> = ({
       </p>
 
       <div className="p-4 bg-canvas rounded-2xl border border-hairline text-left space-y-2 font-mono text-xs">
-        <div className="flex justify-between">
+        <div className="flex justify-between items-center">
           <span className="text-zinc-500">Reservation Code:</span>
-          <span className="font-bold text-zinc-950">{reservationCode}</span>
+          <div className="flex items-center gap-1.5">
+            <span className="font-bold text-zinc-950">{reservationCode}</span>
+            <button
+              type="button"
+              onClick={handleCopyCode}
+              aria-label={copied ? 'Reservation code copied' : 'Copy reservation code'}
+              className="p-1 rounded hover:bg-zinc-200/70 text-zinc-400 hover:text-zinc-900 transition-all cursor-pointer active:scale-95"
+            >
+              {copied ? (
+                <Check className="w-3.5 h-3.5 text-emerald-600 animate-in zoom-in-75 duration-200" />
+              ) : (
+                <Copy className="w-3.5 h-3.5" />
+              )}
+            </button>
+          </div>
         </div>
         <div className="flex justify-between">
           <span className="text-zinc-500">Finish:</span>

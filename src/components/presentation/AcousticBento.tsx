@@ -8,7 +8,7 @@ import { Cpu, BatteryCharging, Zap, Feather, Waves, Bluetooth } from 'lucide-rea
 
 export const AcousticBento: React.FC = () => {
   return (
-    <section id="acoustic" className="py-24 px-4 sm:px-8 bg-canvas">
+    <section id="acoustic" className="section-anchor py-24 px-4 sm:px-8 bg-canvas">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <MotionReveal direction="up">

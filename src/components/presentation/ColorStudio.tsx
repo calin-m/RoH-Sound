@@ -124,7 +124,7 @@ export const ColorStudio: React.FC = () => {
   }, [selectedColor, setSelectedColor]);
 
   return (
-    <section id="studio" className="py-24 px-4 sm:px-8 bg-white border-y border-hairline">
+    <section id="studio" className="section-anchor py-24 px-4 sm:px-8 bg-white border-y border-hairline">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <MotionReveal direction="up">
@@ -203,11 +203,6 @@ export const ColorStudio: React.FC = () => {
                       />
                       <span className="truncate">{finish.material}</span>
                     </div>
-                    {isSelected && (
-                      <span className="text-[9px] uppercase tracking-widest font-mono opacity-70 shrink-0">
-                        Spec
-                      </span>
-                    )}
                   </div>
                 </div>
               </MotionReveal>

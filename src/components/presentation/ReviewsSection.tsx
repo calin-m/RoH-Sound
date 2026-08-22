@@ -28,7 +28,7 @@ export const ReviewsSection: React.FC = () => {
   const count4Star = allReviews.filter((r) => r.rating === 4).length;
 
   return (
-    <section id="reviews" className="py-24 px-4 sm:px-8 bg-white border-y border-hairline" data-testid="reviews-section">
+    <section id="reviews" className="section-anchor py-24 px-4 sm:px-8 bg-white border-y border-hairline" data-testid="reviews-section">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <MotionReveal direction="up">

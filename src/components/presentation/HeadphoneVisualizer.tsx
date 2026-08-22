@@ -219,9 +219,6 @@ export const HeadphoneVisualizer: React.FC<HeadphoneVisualizerProps> = ({
               {/* CNC Chamfer Rim */}
               <ellipse cx="54" cy="44" rx="14" ry="28" fill="none" stroke={theme.metalHighlight} strokeWidth="1" strokeOpacity="0.4" />
             </g>
-
-            {/* Central Precision Pivot Fastener Accent */}
-            <circle cx="200" cy="85" r="3.5" fill={theme.accentGold} opacity="0.7" />
           </svg>
         )}
 

@@ -23,7 +23,7 @@ export const SoundExperience: React.FC = () => {
   const activeAnc = ancModesList.find((m) => m.id === ancMode);
 
   return (
-    <section id="experience" className="py-24 px-4 sm:px-8 bg-white border-y border-hairline">
+    <section id="experience" className="section-anchor py-24 px-4 sm:px-8 bg-white border-y border-hairline">
       <div className="max-w-6xl mx-auto">
         {/* Section Header with Reveal */}
         <MotionReveal direction="up">

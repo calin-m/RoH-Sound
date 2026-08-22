@@ -61,7 +61,7 @@ export const FAQSection: React.FC<FAQSectionProps> = ({
   };
 
   return (
-    <section id="faq" className={`py-24 px-4 sm:px-8 bg-canvas ${className}`}>
+    <section id="faq" className={`section-anchor py-24 px-4 sm:px-8 bg-canvas ${className}`}>
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <MotionReveal direction="up">

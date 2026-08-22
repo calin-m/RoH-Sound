@@ -83,7 +83,5 @@ describe('ColorStudio', () => {
 
     const docks = screen.getAllByTestId('finish-material-dock');
     expect(docks.length).toBe(4);
-    // Obsidian Midnight is selected by default and should have the Spec badge
-    expect(screen.getByText('Spec')).toBeInTheDocument();
   });
 });

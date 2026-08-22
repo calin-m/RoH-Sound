@@ -2,7 +2,7 @@
 
 > [!NOTE]
 > This audit report is **100% auto-generated** by the Closed-Loop Quality Engine (`scripts/generate-quality-report.js`).
-> **Audit Timestamp:** `2026-08-21T15:01:59.167Z`
+> **Audit Timestamp:** `2026-08-22T09:21:53.944Z`
 > **Overall Quality Gate Status:** **`PASSED`**
 
 ---
@@ -12,11 +12,11 @@
 | Metric | Target / SLA | Current Result | Status |
 | :--- | :--- | :--- | :--- |
 | **Test Suite Pass Rate** | 100% | **100.0%** (91/91 suites) | 🟢 PASSED |
-| **Test Case Pass Rate** | 100% | **100.0%** (143/143 tests) | 🟢 PASSED |
+| **Test Case Pass Rate** | 100% | **100.0%** (144/144 tests) | 🟢 PASSED |
 | **Line Coverage** | ≥ 85.0% | **96.6%** | 🟢 PASSED |
-| **Statement Coverage** | ≥ 85.0% | **95.3%** | 🟢 PASSED |
-| **Function Coverage** | ≥ 85.0% | **96.5%** | 🟢 PASSED |
-| **Branch Coverage** | ≥ 85.0% | **89.6%** | 🟢 PASSED |
+| **Statement Coverage** | ≥ 85.0% | **95.2%** | 🟢 PASSED |
+| **Function Coverage** | ≥ 85.0% | **96.1%** | 🟢 PASSED |
+| **Branch Coverage** | ≥ 85.0% | **89.2%** | 🟢 PASSED |
 
 ---
 
@@ -24,50 +24,50 @@
 
 | Test Suite File | Execution Status | Tests Run | Duration |
 | :--- | :--- | :--- | :--- |
-| ✅ `src/app/page.test.tsx` | `PASSED` | 1 tests | 1325.314453125ms |
-| ✅ `src/hooks/usePerformanceTier.test.ts` | `PASSED` | 7 tests | 25.383056640625ms |
-| ✅ `src/lib/utils.test.ts` | `PASSED` | 3 tests | 9.411865234375ms |
-| ✅ `src/stores/useProductStore.test.ts` | `PASSED` | 10 tests | 4.239013671875ms |
-| ✅ `src/components/motion/AcousticNavLink.test.tsx` | `PASSED` | 2 tests | 250.927978515625ms |
-| ✅ `src/components/motion/AcousticRipple.test.tsx` | `PASSED` | 2 tests | 29.8681640625ms |
-| ✅ `src/components/motion/AcousticTextWave.test.tsx` | `PASSED` | 3 tests | 102.83349609375ms |
-| ✅ `src/components/motion/MagneticButton.test.tsx` | `PASSED` | 3 tests | 340.384033203125ms |
-| ✅ `src/components/motion/MotionReveal.test.tsx` | `PASSED` | 4 tests | 132.73046875ms |
-| ✅ `src/components/motion/StaggerGroup.test.tsx` | `PASSED` | 1 tests | 82.420166015625ms |
-| ✅ `src/app/api/api-routes.test.ts` | `PASSED` | 3 tests | 7.611572265625ms |
-| ✅ `src/components/presentation/AcousticBento.test.tsx` | `PASSED` | 1 tests | 160.427978515625ms |
-| ✅ `src/components/presentation/AcousticWaveform.test.tsx` | `PASSED` | 2 tests | 82.569580078125ms |
-| ✅ `src/components/presentation/AncModeSelector.test.tsx` | `PASSED` | 3 tests | 88.12060546875ms |
-| ✅ `src/components/presentation/BentoCard.test.tsx` | `PASSED` | 1 tests | 61.811279296875ms |
-| ✅ `src/components/presentation/CheckoutDrawer.test.tsx` | `PASSED` | 6 tests | 1070.823486328125ms |
-| ✅ `src/components/presentation/ColorStudio.test.tsx` | `PASSED` | 4 tests | 331.03125ms |
-| ✅ `src/components/presentation/ColorwaySelector.test.tsx` | `PASSED` | 2 tests | 279.5146484375ms |
-| ✅ `src/components/presentation/FAQSection.test.tsx` | `PASSED` | 4 tests | 929.1923828125ms |
-| ✅ `src/components/presentation/Footer.test.tsx` | `PASSED` | 2 tests | 480.70068359375ms |
-| ✅ `src/components/presentation/HeadphoneVisualizer.test.tsx` | `PASSED` | 5 tests | 893.76416015625ms |
-| ✅ `src/components/presentation/HeroSection.test.tsx` | `PASSED` | 3 tests | 827.365966796875ms |
-| ✅ `src/components/presentation/LaserEngravingPreview.test.tsx` | `PASSED` | 2 tests | 91.587890625ms |
-| ✅ `src/components/presentation/ModelOrbitIndicator.test.tsx` | `PASSED` | 3 tests | 426.86083984375ms |
-| ✅ `src/components/presentation/Navbar.test.tsx` | `PASSED` | 7 tests | 1308.200927734375ms |
-| ✅ `src/components/presentation/OrderSuccessCard.test.tsx` | `PASSED` | 1 tests | 51.15966796875ms |
-| ✅ `src/components/presentation/PreorderForm.test.tsx` | `PASSED` | 4 tests | 416.042724609375ms |
-| ✅ `src/components/presentation/ReviewCard.test.tsx` | `PASSED` | 1 tests | 59.4814453125ms |
-| ✅ `src/components/presentation/ReviewsSection.test.tsx` | `PASSED` | 3 tests | 1242.01171875ms |
-| ✅ `src/components/presentation/SectionHeader.test.tsx` | `PASSED` | 2 tests | 240.792724609375ms |
-| ✅ `src/components/presentation/SoundExperience.test.tsx` | `PASSED` | 3 tests | 807.111083984375ms |
-| ✅ `src/components/presentation/SpatialAudioController.test.tsx` | `PASSED` | 1 tests | 288.482421875ms |
-| ✅ `src/components/presentation/SpatialRadar.test.tsx` | `PASSED` | 13 tests | 553.2705078125ms |
-| ✅ `src/components/presentation/SpecComparisonTable.test.tsx` | `PASSED` | 2 tests | 583.551513671875ms |
-| ✅ `src/components/presentation/TechnicalSpecs.test.tsx` | `PASSED` | 4 tests | 1017.0751953125ms |
-| ✅ `src/components/ui/Accordion.test.tsx` | `PASSED` | 1 tests | 297.4736328125ms |
-| ✅ `src/components/ui/Badge.test.tsx` | `PASSED` | 2 tests | 89.52294921875ms |
-| ✅ `src/components/ui/Button.test.tsx` | `PASSED` | 5 tests | 377.621337890625ms |
-| ✅ `src/components/ui/Card.test.tsx` | `PASSED` | 1 tests | 262.305908203125ms |
-| ✅ `src/components/ui/Input.test.tsx` | `PASSED` | 3 tests | 247.55029296875ms |
-| ✅ `src/components/ui/Modal.test.tsx` | `PASSED` | 5 tests | 413.6728515625ms |
-| ✅ `src/components/ui/StarRating.test.tsx` | `PASSED` | 2 tests | 48.263427734375ms |
-| ✅ `src/components/ui/TrustBadgeBar.test.tsx` | `PASSED` | 2 tests | 63.865478515625ms |
-| ✅ `src/hooks/queries/useProductData.test.tsx` | `PASSED` | 4 tests | 345.164306640625ms |
+| ✅ `src/app/page.test.tsx` | `PASSED` | 1 tests | 1491.087158203125ms |
+| ✅ `src/lib/utils.test.ts` | `PASSED` | 3 tests | 14.864013671875ms |
+| ✅ `src/hooks/usePerformanceTier.test.ts` | `PASSED` | 7 tests | 40.089111328125ms |
+| ✅ `src/stores/useProductStore.test.ts` | `PASSED` | 10 tests | 7.4306640625ms |
+| ✅ `src/components/motion/AcousticNavLink.test.tsx` | `PASSED` | 2 tests | 435.697998046875ms |
+| ✅ `src/components/motion/AcousticRipple.test.tsx` | `PASSED` | 2 tests | 36.008544921875ms |
+| ✅ `src/components/motion/AcousticTextWave.test.tsx` | `PASSED` | 3 tests | 117.65478515625ms |
+| ✅ `src/components/motion/MagneticButton.test.tsx` | `PASSED` | 3 tests | 398.729248046875ms |
+| ✅ `src/components/motion/MotionReveal.test.tsx` | `PASSED` | 4 tests | 98.2099609375ms |
+| ✅ `src/components/motion/StaggerGroup.test.tsx` | `PASSED` | 1 tests | 88.44775390625ms |
+| ✅ `src/components/ui/Accordion.test.tsx` | `PASSED` | 1 tests | 313.06103515625ms |
+| ✅ `src/components/ui/Badge.test.tsx` | `PASSED` | 2 tests | 68.828369140625ms |
+| ✅ `src/components/ui/Button.test.tsx` | `PASSED` | 5 tests | 375.042236328125ms |
+| ✅ `src/components/ui/Card.test.tsx` | `PASSED` | 1 tests | 291.087890625ms |
+| ✅ `src/components/ui/Input.test.tsx` | `PASSED` | 3 tests | 356.587890625ms |
+| ✅ `src/components/ui/Modal.test.tsx` | `PASSED` | 5 tests | 366.452880859375ms |
+| ✅ `src/components/ui/StarRating.test.tsx` | `PASSED` | 2 tests | 75.10888671875ms |
+| ✅ `src/components/ui/TrustBadgeBar.test.tsx` | `PASSED` | 2 tests | 46.174072265625ms |
+| ✅ `src/components/presentation/AcousticBento.test.tsx` | `PASSED` | 1 tests | 167.660400390625ms |
+| ✅ `src/components/presentation/AcousticWaveform.test.tsx` | `PASSED` | 2 tests | 76.493408203125ms |
+| ✅ `src/components/presentation/AncModeSelector.test.tsx` | `PASSED` | 3 tests | 94.430419921875ms |
+| ✅ `src/components/presentation/BentoCard.test.tsx` | `PASSED` | 1 tests | 67.6171875ms |
+| ✅ `src/components/presentation/CheckoutDrawer.test.tsx` | `PASSED` | 6 tests | 1250.42919921875ms |
+| ✅ `src/components/presentation/ColorStudio.test.tsx` | `PASSED` | 4 tests | 398.949951171875ms |
+| ✅ `src/components/presentation/ColorwaySelector.test.tsx` | `PASSED` | 2 tests | 321.8662109375ms |
+| ✅ `src/components/presentation/FAQSection.test.tsx` | `PASSED` | 4 tests | 825.91015625ms |
+| ✅ `src/components/presentation/Footer.test.tsx` | `PASSED` | 2 tests | 512.28271484375ms |
+| ✅ `src/components/presentation/HeadphoneVisualizer.test.tsx` | `PASSED` | 5 tests | 729.464111328125ms |
+| ✅ `src/components/presentation/HeroSection.test.tsx` | `PASSED` | 3 tests | 930.58837890625ms |
+| ✅ `src/components/presentation/LaserEngravingPreview.test.tsx` | `PASSED` | 2 tests | 82.78173828125ms |
+| ✅ `src/components/presentation/ModelOrbitIndicator.test.tsx` | `PASSED` | 3 tests | 291.159912109375ms |
+| ✅ `src/components/presentation/Navbar.test.tsx` | `PASSED` | 7 tests | 1121.742919921875ms |
+| ✅ `src/components/presentation/OrderSuccessCard.test.tsx` | `PASSED` | 2 tests | 317.212890625ms |
+| ✅ `src/components/presentation/PreorderForm.test.tsx` | `PASSED` | 4 tests | 461.568603515625ms |
+| ✅ `src/components/presentation/ReviewCard.test.tsx` | `PASSED` | 1 tests | 55.277587890625ms |
+| ✅ `src/components/presentation/ReviewsSection.test.tsx` | `PASSED` | 3 tests | 1250.03955078125ms |
+| ✅ `src/components/presentation/SectionHeader.test.tsx` | `PASSED` | 2 tests | 229.33251953125ms |
+| ✅ `src/components/presentation/SoundExperience.test.tsx` | `PASSED` | 3 tests | 854.5244140625ms |
+| ✅ `src/components/presentation/SpatialAudioController.test.tsx` | `PASSED` | 1 tests | 411.614501953125ms |
+| ✅ `src/components/presentation/SpatialRadar.test.tsx` | `PASSED` | 13 tests | 601.26611328125ms |
+| ✅ `src/components/presentation/SpecComparisonTable.test.tsx` | `PASSED` | 2 tests | 660.025390625ms |
+| ✅ `src/components/presentation/TechnicalSpecs.test.tsx` | `PASSED` | 4 tests | 976.833740234375ms |
+| ✅ `src/app/api/api-routes.test.ts` | `PASSED` | 3 tests | 6.603515625ms |
+| ✅ `src/hooks/queries/useProductData.test.tsx` | `PASSED` | 4 tests | 368.19580078125ms |
 
 ---
 
@@ -75,10 +75,10 @@
 
 ```
 Coverage Threshold:  85.00%
-Statements:          95.28% [OK]
-Branches:            89.58% [OK]
-Functions:           96.55% [OK]
-Lines:               96.59% [OK]
+Statements:          95.18% [OK]
+Branches:            89.16% [OK]
+Functions:           96.09% [OK]
+Lines:               96.63% [OK]
 ```
 
 ---

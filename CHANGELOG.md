@@ -15,7 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - 7-Gateway Quality Engine (scripts/verify-build.js) enforcing strict verification passes.
 - AST-driven Living Documentation Engine auto-generating C4 diagrams and quality reports.
 
-## [1.0.0] - 2026-08-21
+## [1.0.0] - 2026-08-22
 
 ### Added
 - Initial enterprise foundation bootstrap with Closed-Loop Quality & Living Documentation Engine.
@@ -26,7 +26,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ---
 
 ### Recent Git Commit History
-- `575c698` - **perf(core): add adaptive hardware tier detection and reduced-motion guardrails** (2026-08-21)
+- `05b8c5b` - **perf(core): add adaptive hardware tier detection and reduced-motion guardrails** (2026-08-21)
 - `2a75c97` - **feat(presentation): enhance navbar elevation, frosted glass density, and hairline border on scroll** (2026-08-21)
 - `3a65c97` - **feat(ui): add full-width metallurgical gradient spec docks to color studio** (2026-08-21)
 - `043d10a` - **feat(data): add progressive review disclosure, rating filters, and parameterized spec props** (2026-08-21)

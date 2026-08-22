@@ -23,7 +23,7 @@ export const HeroSection: React.FC = () => {
   const activeColorDesc = COLORWAYS_LIST.find((c) => c.id === selectedColor)?.desc;
 
   return (
-    <section id="hero" className="relative min-h-[92vh] flex flex-col justify-center pt-28 pb-16 px-4 sm:px-8 overflow-hidden radial-glow-subtle">
+    <section id="hero" className="section-anchor relative min-h-[92vh] flex flex-col justify-center pt-28 pb-16 px-4 sm:px-8 overflow-hidden radial-glow-subtle">
       {/* Background Decorative Hairline Grid */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,var(--color-hairline-subtle)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-hairline-subtle)_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none" />
 
