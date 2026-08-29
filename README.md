@@ -4,7 +4,7 @@
 [![CI: 7-Gateway](https://img.shields.io/github/actions/workflow/status/calin-m/RoH-Sound/ci.yml?branch=master&style=for-the-badge&logo=githubactions&label=CI%207-GATEWAY)](https://github.com/calin-m/RoH-Sound/actions)
 [![Live Demo](https://img.shields.io/badge/Live_Demo-Vercel_Deployment-000000?style=for-the-badge&logo=vercel)](https://roh-sound.vercel.app/)
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github)](https://github.com/calin-m/RoH-Sound)
-[![Next.js 15](https://img.shields.io/badge/Next.js-15.0-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+[![Next.js 16](https://img.shields.io/badge/Next.js-16.3-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![React 19](https://img.shields.io/badge/React-19.0-blue?style=for-the-badge&logo=react)](https://react.dev/)
 [![TypeScript 5](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 [![Vector SVG](https://img.shields.io/badge/Vector_SVG-Multi--Perspective-000000?style=for-the-badge&logo=svg)](https://www.w3.org/Graphics/SVG/)
@@ -13,7 +13,7 @@
 [![MSW v2](https://img.shields.io/badge/MSW-v2.0-E35555?style=for-the-badge&logo=mockserviceworker)](https://mswjs.io/)
 [![Quality Gateways](https://img.shields.io/badge/7--Gateway-Verified-emerald?style=for-the-badge&logo=shield)](./DEVELOPMENT.md)
 
-An ultra-refined, high-performance **Product Presentation Single Page Application** for **RoH Sound** (*"Pure Acoustic Architecture. Zero Distortion."*). Engineered with a **Light Modern Minimalistic Sleek Atelier** design aesthetic, Next.js 15 App Router, High-Precision Multi-Perspective Vector SVG Showcase, precision HRTF vector spatial audio ray-tracing, lightweight Zustand reactive state, and the deterministic 7-Gateway Quality Engine.
+An ultra-refined, high-performance **Product Presentation Single Page Application** for **RoH Sound** (*"Pure Acoustic Architecture. Zero Distortion."*). Engineered with a **Light Modern Minimalistic Sleek Atelier** design aesthetic, Next.js 16 App Router, High-Precision Multi-Perspective Vector SVG Showcase, precision HRTF vector spatial audio ray-tracing, lightweight Zustand reactive state, and the deterministic 7-Gateway Quality Engine.
 
 > 🌐 **Live Demo:** [https://roh-sound.vercel.app/](https://roh-sound.vercel.app/)  
 > 📦 **GitHub Repository:** [https://github.com/calin-m/RoH-Sound](https://github.com/calin-m/RoH-Sound)
